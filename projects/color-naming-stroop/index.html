@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+  <head>
+    <title>My experiment</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="jspsych-5.0.3/jspsych.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-text.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-single-stim.js"></script>
+    <link href="jspsych-5.0.3/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+  </head>
+  <body>
+    <div id="jspsych_target"></div>
+  </body>
+  <script>
+
+  /* define instructions block */
+  var instructions_block = {
+    type: "text",
+    text: "<p>You will shortly see a series of words on the screen. During each experimental trial, a word will appear printed in either red or blue. If the word is in red, press the 'c' on the keyboard. If the word is in blue, press the 'm' key. A &quot;+&quot; will appear on the screen before each word appears to show you where to look. Your task is to indicate the color of each word as quickly and as accurately as you can. Try not to make mistakes, but try to be fast. Your reactions will be timed.</p>" +
+    
+      "<p>Press ANY KEY to start...</p>",
+    timing_post_trial: 4000
+  };
+  
+  var fixation_block = {
+    type: "single-stim",
+    stimulus:"<h1>&#10010;<h1>",
+    is_html: true,
+    timing_response: 1000,
+    timing_post_trial: 200,
+    response_ends_trial: false,
+    data:{
+      block: 'fixation'
+    }
+  };
+
+  /* define test blocks */
+  var colors = ["blue", "red"];
+  var practice_wordlist = ["cat","ball","desk","radio","basket","table","tape","bag"];
+  var suicide_wordlist = ["suicide","dead","funeral"];
+  var negative_wordlist = ["alone","rejected","stupid"];
+  var positive_wordlist = ["happy","success","pleasure"];
+  var neutral_wordlist = ["museum","paper","engine"];
+  var test_wordlist =  suicide_wordlist.concat(negative_wordlist, positive_wordlist, neutral_wordlist)
+  var practice_stimuli = [];
+  var test_stimuli1 = []; // block 1
+  var test_stimuli2 = []; // block 2
+  var trial_index = 0;
+  
+  for(var i=0;i<practice_wordlist.length;i++) {
+    var color = colors[Math.floor(Math.random()*colors.length)];
+    var stim = {
+      is_html: true,
+      stimulus: "<h1 style='color:" + color + ";'>" + practice_wordlist[i] + "</h1>",
+      data:{word: practice_wordlist[i],
+            color: color,
+            block: 'practice'}
+    }
+    practice_stimuli.push(stim);
+  }
+  var practice_trials = jsPsych.randomization.repeat(practice_stimuli, 1);
+  for(var i=0;i<practice_trials.length; i+=2) {
+    practice_trials.splice(i,0,fixation_block); // insert fixation block between each trial
+  }
+  
+  for(var i=0;i<test_wordlist.length;i++) {
+    var stimr = {
+      is_html: true,
+      stimulus: "<h1 style='color:blue;'>" + test_wordlist[i] + "</h1>",
+      data:{word: test_wordlist[i],
+            color: 'blue',
+            block: 'test'
+      }
+    }
+    var stimb = {
+      is_html: true,
+      stimulus: "<h1 style='color:red;'>" + test_wordlist[i] + "</h1>",
+      data:{word: test_wordlist[i],
+            color: 'blue',
+            block: 'test'}
+    }
+    test_stimuli1.push(stimr);
+    test_stimuli2.push(stimr);
+    test_stimuli1.push(stimb);
+    test_stimuli2.push(stimb);
+  }
+  var test_trials1 = jsPsych.randomization.repeat(test_stimuli1, 1);
+  var test_trials2 = jsPsych.randomization.repeat(test_stimuli2, 1);
+  for(var i=0;i<test_trials1.length; i+=2) {
+    test_trials1.splice(i,0,fixation_block); // insert fixation block between each trial
+    test_trials2.splice(i,0,fixation_block); // insert fixation block between each trial
+  }
+
+  var practice_block = {
+    type: "single-stim",
+    choices: ['c','m'],
+    timing_response: 2000,
+    timing_post_trial: 4000,
+    on_finish: function(data){
+      trial_index++;
+      if(data.key_press == 67) {
+        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'red' });
+      } else if (data.key_press == 77) {
+        jsPsych.data.addDataToLastTrial({key_pressed: 'm' });
+      } else { jsPsych.data.addDataToLastTrial({key_pressed: '', participant_response:'blue' }); }
+    },
+    timeline: practice_trials
+  };
+
+  var practice_debrief_block = {
+    type: "text",
+    text: function() {
+      return "<p>You have completed the PRACTICE phase. If you would like to repeat the PRACTICE phase, press 1. If you would like to continue onto the TEST phase, press the spacebar.</p>";
+    }
+  };
+
+  /* create experiment timeline array */
+  var practice_timeline = [];
+  practice_timeline.push(instructions_block);
+  practice_timeline.push(practice_block);
+  practice_timeline.push(practice_debrief_block);
+  
+  var practice_node = {
+    timeline: practice_timeline,
+    loop_function: function(data){
+      if(49 == data[data.length-1].key_press) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  };
+  
+  var test_block1 = {
+    type: "single-stim",
+    choices: ['c','m'],
+    timing_response: 2000,
+    timing_post_trial: 4000,
+    on_finish: function(data){
+      trial_index++;
+      if(data.key_press == 67) {
+        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'red' });
+      } else if (data.key_press == 77) {
+        jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'blue' });
+      } else { jsPsych.data.addDataToLastTrial({key_pressed}); }
+    },
+    timeline: test_trials1
+  };
+  
+  var test_block2 = {
+    type: "single-stim",
+    choices: ['c','m'],
+    timing_response: 2000,
+    timing_post_trial: 4000,
+    on_finish: function(data){
+      trial_index++;
+      if(data.key_press == 67) {
+        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'red' });
+      } else if (data.key_press == 77) {
+        jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'blue' });
+      } else { jsPsych.data.addDataToLastTrial({key_pressed: '' }); }
+    },
+    timeline: test_trials2
+  };
+  
+  var test_debrief_block = {
+    type: "text",
+    text: function() {
+      return "<p>End of task. Thank you for completing the task!</p>";
+    }
+  };
+  
+  var test_timeline = [];
+  test_timeline.push(test_block1);
+  test_timeline.push(test_block2);
+  test_timeline.push(test_debrief_block);
+  
+  var test_node = {
+    type: "single-stim",
+    timeline: test_timeline
+  }
+
+  /* start the experiment */
+  jsPsych.init({
+    timeline: [practice_node,test_node],
+    show_progress_bar: true,
+    on_finish: function() {
+      jsPsych.data.displayData();
+      jsPsych.data.localSave('data.csv', 'csv');
+    }
+  });
+</script>
+</html>
