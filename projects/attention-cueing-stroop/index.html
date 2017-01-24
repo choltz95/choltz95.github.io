@@ -1,13 +1,14 @@
 <!doctype html>
 <html>
   <head>
-    <title>My experiment</title>
+    <title>Attention-Cueing-Stroop</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="jspsych-5.0.3/jspsych.js"></script>
     <script src="jspsych-5.0.3/plugins/jspsych-text.js"></script>
     <script src="jspsych-5.0.3/plugins/jspsych-single-stim.js"></script>
     <link href="jspsych-5.0.3/css/jspsych.css" rel="stylesheet" type="text/css"></link>
     <style>
+      body { font-size: 125%; } /* global font size */
       .box1 {
         display: inline-block;
         vertical-align: middle;
@@ -32,7 +33,7 @@
         Text-align:center;
         width: 200px;
         height: 200px;
-        line-height: 100px;
+        /*line-height: 100px;*/
         margin: 2em;
       }
       .dot {
@@ -116,10 +117,10 @@
     on_finish: function(data){
       trial_index++;
       if(data.key_press == 67) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'red' });
+        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'right', correct_response: 'incorrect' });
       } else if (data.key_press == 77) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'm' });
-      } else { jsPsych.data.addDataToLastTrial({key_pressed: '', participant_response:'blue' }); }
+        jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'left', correct_response: 'correct' });
+      } else { jsPsych.data.addDataToLastTrial({key_pressed: '' }); }
     },
     data:{
       dot_position: 'left'
@@ -138,10 +139,10 @@
     on_finish: function(data){
       trial_index++;
       if(data.key_press == 67) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'red' });
+        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'right', correct_response: 'correct' });
       } else if (data.key_press == 77) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'm' });
-      } else { jsPsych.data.addDataToLastTrial({key_pressed: '', participant_response:'blue' }); }
+        jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'left', correct_response: 'incorrect' });
+      } else { jsPsych.data.addDataToLastTrial({key_pressed: '' }); }
     },
     data:{
       dot_position: 'right'

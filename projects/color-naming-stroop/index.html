@@ -1,12 +1,15 @@
 <!doctype html>
 <html>
   <head>
-    <title>My experiment</title>
+    <title>Color-Naming-Stroop</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="jspsych-5.0.3/jspsych.js"></script>
     <script src="jspsych-5.0.3/plugins/jspsych-text.js"></script>
     <script src="jspsych-5.0.3/plugins/jspsych-single-stim.js"></script>
     <link href="jspsych-5.0.3/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+    <style>
+      body { font-size: 125%; } /* global font size */
+    </style>
   </head>
   <body>
     <div id="jspsych_target"></div>
@@ -14,6 +17,7 @@
   <script>
 
   /* define instructions block */
+
   var instructions_block = {
     type: "text",
     text: "<p>You will shortly see a series of words on the screen. During each experimental trial, a word will appear printed in either red or blue. If the word is in red, press the 'c' on the keyboard. If the word is in blue, press the 'm' key. A &quot;+&quot; will appear on the screen before each word appears to show you where to look. Your task is to indicate the color of each word as quickly and as accurately as you can. Try not to make mistakes, but try to be fast. Your reactions will be timed.</p>" +
@@ -64,7 +68,7 @@
   }
   
   for(var i=0;i<test_wordlist.length;i++) {
-    var stimr = {
+    var stimb = {
       is_html: true,
       stimulus: "<h1 style='color:blue;'>" + test_wordlist[i] + "</h1>",
       data:{word: test_wordlist[i],
@@ -72,17 +76,17 @@
             block: 'test'
       }
     }
-    var stimb = {
+    var stimr = {
       is_html: true,
       stimulus: "<h1 style='color:red;'>" + test_wordlist[i] + "</h1>",
       data:{word: test_wordlist[i],
-            color: 'blue',
+            color: 'red',
             block: 'test'}
     }
-    test_stimuli1.push(stimr);
-    test_stimuli2.push(stimr);
     test_stimuli1.push(stimb);
     test_stimuli2.push(stimb);
+    test_stimuli1.push(stimr);
+    test_stimuli2.push(stimr);
   }
   var test_trials1 = jsPsych.randomization.repeat(test_stimuli1, 1);
   var test_trials2 = jsPsych.randomization.repeat(test_stimuli2, 1);
@@ -101,8 +105,8 @@
       if(data.key_press == 67) {
         jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'red' });
       } else if (data.key_press == 77) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'm' });
-      } else { jsPsych.data.addDataToLastTrial({key_pressed: '', participant_response:'blue' }); }
+        jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'blue' });
+      } else { jsPsych.data.addDataToLastTrial({key_pressed: '' }); }
     },
     timeline: practice_trials
   };
@@ -142,7 +146,7 @@
         jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'red' });
       } else if (data.key_press == 77) {
         jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'blue' });
-      } else { jsPsych.data.addDataToLastTrial({key_pressed}); }
+      } else { jsPsych.data.addDataToLastTrial({key_pressed: ''}); }
     },
     timeline: test_trials1
   };
@@ -158,7 +162,7 @@
         jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'red' });
       } else if (data.key_press == 77) {
         jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'blue' });
-      } else { jsPsych.data.addDataToLastTrial({key_pressed: '' }); }
+      } else { jsPsych.data.addDataToLastTrial({key_pressed: ''}); }
     },
     timeline: test_trials2
   };
