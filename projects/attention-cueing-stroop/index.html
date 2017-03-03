@@ -69,7 +69,7 @@
   var instructions_block = {
     type: "text",
     display_element: $('.instructions'),
-    text: "<p>You will shortly see a series of words on the screen. During each experimental trial, a vertically-aligned pair of words will appear printed in either the right box, or the left box. A &quot;&#9679;&quot; will appear on the screen after each set of words appears. Your task is to indicate whether or not the pair of words appeared on the right side or the left side using the 'c' and 'm' keys - 'c' if the words appear on the right side, and 'm' if the words appear on the left side. Try not to make mistakes, but try to be fast. Your reactions will be timed.</p>" +
+    text: "<p>You will shortly see a series of words on the screen. During each experimental trial, a vertically-aligned pair of words will appear printed in either the right box, or the left box. A &quot;&#9679;&quot; will appear on the screen after each set of words appears. Your task is to indicate whether or not the pair of words appeared on the right side or the left side using the 'm' and 'c' keys - 'c' if the words appear on the left side, and 'm' if the words appear on the right side. Try not to make mistakes, but try to be fast. Your reactions will be timed.</p>" +
     
       "<p>Press ANY KEY to start...</p>",
     on_trial_start: function() { $(".fixation_gap").css('visibility','hidden'); $(".box1").css('visibility','hidden'); $(".box2").css('visibility','hidden'); },
@@ -117,9 +117,9 @@
     on_finish: function(data){
       trial_index++;
       if(data.key_press == 67) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'right', correct_response: 'incorrect' });
+        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'left', correct_response: 'correct' });
       } else if (data.key_press == 77) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'left', correct_response: 'correct' });
+        jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'right', correct_response: 'incorrect' });
       } else { jsPsych.data.addDataToLastTrial({key_pressed: '' }); }
     },
     data:{
@@ -139,9 +139,9 @@
     on_finish: function(data){
       trial_index++;
       if(data.key_press == 67) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'right', correct_response: 'correct' });
+        jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'right', correct_response: 'correct' });
       } else if (data.key_press == 77) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'left', correct_response: 'incorrect' });
+        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'left', correct_response: 'incorrect' });
       } else { jsPsych.data.addDataToLastTrial({key_pressed: '' }); }
     },
     data:{
@@ -175,7 +175,7 @@
     } else { wp = "right";}
     var stim = {
       is_html: true,
-      timing_response: 100,
+      timing_response: 1000,
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box' + rand1),
@@ -236,7 +236,7 @@
   for(var i=0; i<4; i++) {
     var suicide_stim = {
       is_html: true,
-      timing_response: 100,
+      timing_response: 1000,
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
@@ -255,7 +255,7 @@
   for(var i=0; i<4; i++) {
     var neutral_stim = {
       is_html: true,
-      timing_response: 100,
+      timing_response: 1000,
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
@@ -274,7 +274,7 @@
   for(var i=0; i<4; i++) {
     var positive_stim = {
       is_html: true,
-      timing_response: 100,
+      timing_response: 1000,
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
@@ -293,7 +293,7 @@
   for(var i=0; i<4; i++) {
     var negative_stim = {
       is_html: true,
-      timing_response: 100,
+      timing_response: 1000,
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
@@ -408,7 +408,7 @@
   for(var i=4; i<8; i++) {
     var neutral_stim = {
       is_html: true,
-      timing_response: 100,
+      timing_response: 1000,
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
@@ -427,7 +427,7 @@
   for(var i=4; i<8; i++) {
     var positive_stim = {
       is_html: true,
-      timing_response: 100,
+      timing_response: 1000,
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
@@ -446,7 +446,7 @@
   for(var i=4; i<8; i++) {
     var negative_stim = {
       is_html: true,
-      timing_response: 100,
+      timing_response: 1000,
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
@@ -542,7 +542,7 @@
   for(var i=8; i<12; i++) {
     var suicide_stim = {
       is_html: true,
-      timing_response: 100,
+      timing_response: 1000,
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
@@ -561,7 +561,7 @@
   for(var i=8; i<12; i++) {
     var neutral_stim = {
       is_html: true,
-      timing_response: 100,
+      timing_response: 1000,
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
@@ -580,7 +580,7 @@
   for(var i=8; i<12; i++) {
     var positive_stim = {
       is_html: true,
-      timing_response: 100,
+      timing_response: 1000,
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
@@ -599,7 +599,7 @@
   for(var i=8; i<12; i++) {
     var negative_stim = {
       is_html: true,
-      timing_response: 100,
+      timing_response: 1000,
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
@@ -695,7 +695,7 @@
   for(var i=12; i<16; i++) {
     var suicide_stim = {
       is_html: true,
-      timing_response: 100,
+      timing_response: 1000,
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
@@ -714,7 +714,7 @@
   for(var i=12; i<16; i++) {
     var neutral_stim = {
       is_html: true,
-      timing_response: 100,
+      timing_response: 1000,
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
@@ -733,7 +733,7 @@
   for(var i=12; i<16; i++) {
     var positive_stim = {
       is_html: true,
-      timing_response: 100,
+      timing_response: 1000,
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
@@ -752,7 +752,7 @@
   for(var i=8; i<12; i++) {
     var negative_stim = {
       is_html: true,
-      timing_response: 100,
+      timing_response: 1000,
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
