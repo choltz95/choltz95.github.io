@@ -7,17 +7,12 @@
     <script src="jspsych-5.0.3/plugins/jspsych-text.js"></script>
     <script src="jspsych-5.0.3/plugins/jspsych-single-stim.js"></script>
     <link href="jspsych-5.0.3/css/jspsych.css" rel="stylesheet" type="text/css"></link>
-    <style> /* Ben King helped with this. */
+    <style>
       body { font-size: 125%; } /* global font size */
       .box1 {
         display: inline-block;
         vertical-align: middle;
-        /*text-align:center;
-        line-height:200px;*/
-
-        justify-content: center;
-        align-items: center;
-
+        Text-align:center;
         width: 300px;
         height: 400px;
         margin: 2em;
@@ -26,11 +21,7 @@
       .box2 {
         display: inline-block;
         vertical-align: middle;
-        /*text-align:center;
-        line-height:200px;*/
-
-        justify-content: center;
-        align-items: center;
+        Text-align:center;
         width: 300px;
         height: 400px;
         margin: 2em;
@@ -39,13 +30,10 @@
       .fixation_gap {
         display: inline-block;
         vertical-align: middle;
+        Text-align:center;
         width: 200px;
         height: 200px;
         /*line-height: 100px;*/
-        text-align:center;
-        line-height:200px;
-        font-size: 40px;
-        /*width:200px;height:200px*/
         margin: 2em;
       }
       .dot {
@@ -55,23 +43,15 @@
         line-height: 400px;
       }
       .text {
-        /*display: inline-block;*/
+        display: inline-block;
         vertical-align: middle;
-        /*Text-align:center;*/
-        /*position: relative;*/
+        Text-align:center;
+        position: relative;
         top: 100%;
-        /*transform: translateY(100%);*/
+        transform: translateY(100%);
       }
       .jspsych-display-element {
         width: 100%;
-      }
-
-      .box1 #jspsych-single-stim-stimulus, .box2 #jspsych-single-stim-stimulus {
-        width: 100%;
-        height: 100%;
-        display:flex;
-        justify-content:center;
-        align-items:center;
       }
     </style>
   </head>
@@ -79,13 +59,7 @@
       <div style="Text-align:center;" id="jspsych_target">
       <div class="instructions"></div>
       <div class="box1"></div>
-      <div class="fixation_gap">
-        <!-- <div class="cross">
-          <h1> -->
-            &#10010;
-            <!-- <h1>
-        </div> -->
-      </div>
+      <div class="fixation_gap"><h1>&#10010;<h1></div>
       <div class="box2"></div>
     </div>
   </body>
@@ -96,13 +70,13 @@
     type: "text",
     display_element: $('.instructions'),
     text: "<p>You will shortly see a series of words on the screen. During each experimental trial, a vertically-aligned pair of words will appear printed in either the right box, or the left box. A &quot;&#9679;&quot; will appear on the screen after each set of words appears. Your task is to indicate whether or not the pair of words appeared on the right side or the left side using the 'm' and 'c' keys - 'c' if the words appear on the left side, and 'm' if the words appear on the right side. Try not to make mistakes, but try to be fast. Your reactions will be timed.</p>" +
-
+    
       "<p>Press ANY KEY to start...</p>",
     on_trial_start: function() { $(".fixation_gap").css('visibility','hidden'); $(".box1").css('visibility','hidden'); $(".box2").css('visibility','hidden'); },
     on_finish: function() { $(".fixation_gap").css('visibility','visible'); $(".box1").css('visibility','visible'); $(".box2").css('visibility','visible');  },
     timing_post_trial: 4000
   };
-
+  
   var fixation_block = {
     type: "single-stim",
     display_element: $('.box1'),
@@ -130,7 +104,7 @@
       block: 'trial_end'
     }
   };
-
+  
   var responsel_block = {
     type: "single-stim",
     choices: ['c','m'],
@@ -152,7 +126,7 @@
       dot_position: 'left'
     }
   };
-
+  
   var responser_block = {
     type: "single-stim",
     choices: ['c','m'],
@@ -191,7 +165,7 @@
   var test_stimuli3 = []; // block 3
   var test_stimuli4 = []; // block 4
   var trial_index = 0;
-
+  
   for(var i=0;i<practice_wordlist.length;i++) {
     var rand1 = Math.floor(Math.random() * 2) + 1;
     var rand2 = Math.floor(Math.random() * 2) + 1;
@@ -244,7 +218,7 @@
   practice_timeline.push(instructions_block);
   practice_timeline.push(practice_block);
   practice_timeline.push(practice_debrief_block);
-
+  
   var practice_node = {
     timeline: practice_timeline,
     loop_function: function(data){
@@ -339,7 +313,7 @@
   // test_stimuli1[][1] stim
   // test_stimuli1[][2] response block
   // test_stimuli1[][3] trial end block
-
+  
   // suicide
   test_stimuli1[0][1]['display_element'] = $('.box1');
   test_stimuli1[0][1]['data']['word_position'] = 'left';
@@ -348,15 +322,15 @@
   test_stimuli1[1][1]['display_element'] = $('.box2');
   test_stimuli1[1][1]['data']['word_position'] = 'right';
   test_stimuli1[1][2] = responser_block;
-
+  
   test_stimuli1[2][1]['display_element'] = $('.box2');
   test_stimuli1[2][1]['data']['word_position'] = 'right';
   test_stimuli1[2][2] = responser_block;
-
+  
   test_stimuli1[3][1]['display_element'] = $('.box1');
   test_stimuli1[3][1]['data']['word_position'] = 'left';
   test_stimuli1[3][2] = responsel_block;
-
+  
   // neutral
   test_stimuli1[4][1]['display_element'] = $('.box2');
   test_stimuli1[4][1]['data']['word_position'] = 'right';
@@ -365,15 +339,15 @@
   test_stimuli1[5][1]['display_element'] = $('.box1');
   test_stimuli1[5][1]['data']['word_position'] = 'left';
   test_stimuli1[5][2] = responsel_block;
-
+  
   test_stimuli1[6][1]['display_element'] = $('.box1');
   test_stimuli1[6][1]['data']['word_position'] = 'left';
   test_stimuli1[6][2] = responsel_block;
-
+  
   test_stimuli1[7][1]['display_element'] = $('.box2');
   test_stimuli1[7][1]['data']['word_position'] = 'right';
   test_stimuli1[7][2] = responser_block;
-
+  
   // positive
   test_stimuli1[8][1]['display_element'] = $('.box1');
   test_stimuli1[8][1]['data']['word_position'] = 'left';
@@ -382,15 +356,15 @@
   test_stimuli1[9][1]['display_element'] = $('.box2');
   test_stimuli1[9][1]['data']['word_position'] = 'right';
   test_stimuli1[9][2] = responser_block;
-
+  
   test_stimuli1[10][1]['display_element'] = $('.box2');
   test_stimuli1[10][1]['data']['word_position'] = 'right';
   test_stimuli1[10][2] = responser_block;
-
+  
   test_stimuli1[11][1]['display_element'] = $('.box1');
   test_stimuli1[11][1]['data']['word_position'] = 'left';
   test_stimuli1[11][2] = responsel_block;
-
+  
   // negative
   test_stimuli1[4][1]['display_element'] = $('.box2');
   test_stimuli1[4][1]['data']['word_position'] = 'right';
@@ -399,18 +373,18 @@
   test_stimuli1[5][1]['display_element'] = $('.box1');
   test_stimuli1[5][1]['data']['word_position'] = 'left';
   test_stimuli1[5][2] = responsel_block;
-
+  
   test_stimuli1[6][1]['display_element'] = $('.box1');
   test_stimuli1[6][1]['data']['word_position'] = 'left';
   test_stimuli1[6][2] = responsel_block;
-
+  
   test_stimuli1[7][1]['display_element'] = $('.box2');
   test_stimuli1[7][1]['data']['word_position'] = 'right';
   test_stimuli1[7][2] = responser_block;
 
   var test_trials1 = jsPsych.randomization.repeat(test_stimuli1, 1);
   test_trials1 = [].concat.apply([], test_trials1); // flatten
-
+  
   // Block 2
   for(var i=4; i<8; i++) {
     var suicide_stim = {
@@ -492,7 +466,7 @@
   // test_stimuli1[][1] stim
   // test_stimuli1[][2] response block
   // test_stimuli1[][3] trial end block
-
+  
   // suicide
   test_stimuli2[0][1]['display_element'] = $('.box2');
   test_stimuli2[0][1]['data']['word_position'] = 'right';
@@ -501,15 +475,15 @@
   test_stimuli2[1][1]['display_element'] = $('.box1');
   test_stimuli2[1][1]['data']['word_position'] = 'left';
   test_stimuli2[1][2] = responsel_block;
-
+  
   test_stimuli2[2][1]['display_element'] = $('.box1');
   test_stimuli2[2][1]['data']['word_position'] = 'left';
   test_stimuli2[2][2] = responsel_block;
-
+  
   test_stimuli2[3][1]['display_element'] = $('.box2');
   test_stimuli2[3][1]['data']['word_position'] = 'right';
   test_stimuli2[3][2] = responser_block;
-
+  
   // neutral
   test_stimuli2[4][1]['display_element'] = $('.box1');
   test_stimuli2[4][1]['data']['word_position'] = 'left';
@@ -518,15 +492,15 @@
   test_stimuli2[5][1]['display_element'] = $('.box2');
   test_stimuli2[5][1]['data']['word_position'] = 'right';
   test_stimuli2[5][2] = responser_block;
-
+  
   test_stimuli2[6][1]['display_element'] = $('.box2');
   test_stimuli2[6][1]['data']['word_position'] = 'right';
   test_stimuli2[6][2] = responser_block;
-
+  
   test_stimuli2[7][1]['display_element'] = $('.box1');
   test_stimuli2[7][1]['data']['word_position'] = 'left';
   test_stimuli2[7][2] = responsel_block;
-
+  
   // positive
   test_stimuli2[8][1]['display_element'] = $('.box2');
   test_stimuli2[8][1]['data']['word_position'] = 'right';
@@ -535,15 +509,15 @@
   test_stimuli2[9][1]['display_element'] = $('.box1');
   test_stimuli2[9][1]['data']['word_position'] = 'left';
   test_stimuli2[9][2] = responsel_block;
-
+  
   test_stimuli2[10][1]['display_element'] = $('.box1');
   test_stimuli2[10][1]['data']['word_position'] = 'left';
   test_stimuli2[10][2] = responsel_block;
-
+  
   test_stimuli2[11][1]['display_element'] = $('.box2');
   test_stimuli2[11][1]['data']['word_position'] = 'right';
   test_stimuli2[11][2] = responser_block;
-
+  
   // negative
   test_stimuli2[4][1]['display_element'] = $('.box1');
   test_stimuli2[4][1]['data']['word_position'] = 'left';
@@ -552,18 +526,18 @@
   test_stimuli2[5][1]['display_element'] = $('.box2');
   test_stimuli2[5][1]['data']['word_position'] = 'right';
   test_stimuli2[5][2] = responser_block;
-
+  
   test_stimuli2[6][1]['display_element'] = $('.box2');
   test_stimuli2[6][1]['data']['word_position'] = 'right';
   test_stimuli2[6][2] = responser_block;
-
+  
   test_stimuli2[7][1]['display_element'] = $('.box1');
   test_stimuli2[7][1]['data']['word_position'] = 'left';
   test_stimuli2[7][2] = responsel_block;
 
   var test_trials2 = jsPsych.randomization.repeat(test_stimuli2, 1);
   test_trials2 = [].concat.apply([], test_trials2); // flatten
-
+  
   // Block 3
   for(var i=8; i<12; i++) {
     var suicide_stim = {
@@ -645,7 +619,7 @@
   // test_stimuli1[][1] stim
   // test_stimuli1[][2] response block
   // test_stimuli1[][3] trial end block
-
+  
   // suicide
   test_stimuli3[0][1]['display_element'] = $('.box1');
   test_stimuli3[0][1]['data']['word_position'] = 'left';
@@ -654,15 +628,15 @@
   test_stimuli3[1][1]['display_element'] = $('.box2');
   test_stimuli3[1][1]['data']['word_position'] = 'right';
   test_stimuli3[1][2] = responser_block;
-
+  
   test_stimuli3[2][1]['display_element'] = $('.box2');
   test_stimuli3[2][1]['data']['word_position'] = 'right';
   test_stimuli3[2][2] = responser_block;
-
+  
   test_stimuli3[3][1]['display_element'] = $('.box1');
   test_stimuli3[3][1]['data']['word_position'] = 'left';
   test_stimuli3[3][2] = responsel_block;
-
+  
   // neutral
   test_stimuli3[4][1]['display_element'] = $('.box2');
   test_stimuli3[4][1]['data']['word_position'] = 'right';
@@ -671,15 +645,15 @@
   test_stimuli3[5][1]['display_element'] = $('.box1');
   test_stimuli3[5][1]['data']['word_position'] = 'left';
   test_stimuli3[5][2] = responsel_block;
-
+  
   test_stimuli3[6][1]['display_element'] = $('.box1');
   test_stimuli3[6][1]['data']['word_position'] = 'left';
   test_stimuli3[6][2] = responsel_block;
-
+  
   test_stimuli3[7][1]['display_element'] = $('.box2');
   test_stimuli3[7][1]['data']['word_position'] = 'right';
   test_stimuli3[7][2] = responser_block;
-
+  
   // positive
   test_stimuli3[8][1]['display_element'] = $('.box2');
   test_stimuli3[8][1]['data']['word_position'] = 'right';
@@ -688,15 +662,15 @@
   test_stimuli3[9][1]['display_element'] = $('.box1');
   test_stimuli3[9][1]['data']['word_position'] = 'left';
   test_stimuli3[9][2] = responsel_block;
-
+  
   test_stimuli3[10][1]['display_element'] = $('.box1');
   test_stimuli3[10][1]['data']['word_position'] = 'left';
   test_stimuli3[10][2] = responsel_block;
-
+  
   test_stimuli3[11][1]['display_element'] = $('.box2');
   test_stimuli3[11][1]['data']['word_position'] = 'right';
   test_stimuli3[11][2] = responser_block;
-
+  
   // negative
   test_stimuli3[4][1]['display_element'] = $('.box1');
   test_stimuli3[4][1]['data']['word_position'] = 'left';
@@ -705,18 +679,18 @@
   test_stimuli3[5][1]['display_element'] = $('.box2');
   test_stimuli3[5][1]['data']['word_position'] = 'right';
   test_stimuli3[5][2] = responser_block;
-
+  
   test_stimuli3[6][1]['display_element'] = $('.box2');
   test_stimuli3[6][1]['data']['word_position'] = 'right';
   test_stimuli3[6][2] = responser_block;
-
+  
   test_stimuli3[7][1]['display_element'] = $('.box1');
   test_stimuli3[7][1]['data']['word_position'] = 'left';
   test_stimuli3[7][2] = responsel_block;
 
   var test_trials3 = jsPsych.randomization.repeat(test_stimuli3, 1);
   test_trials3 = [].concat.apply([], test_trials3); // flatten
-
+  
   // Block 4
   for(var i=12; i<16; i++) {
     var suicide_stim = {
@@ -798,7 +772,7 @@
   // test_stimuli1[][1] stim
   // test_stimuli1[][2] response block
   // test_stimuli1[][3] trial end block
-
+  
   // suicide
   test_stimuli4[0][1]['display_element'] = $('.box2');
   test_stimuli4[0][1]['data']['word_position'] = 'right';
@@ -807,15 +781,15 @@
   test_stimuli4[1][1]['display_element'] = $('.box1');
   test_stimuli4[1][1]['data']['word_position'] = 'left';
   test_stimuli4[1][2] = responsel_block;
-
+  
   test_stimuli4[2][1]['display_element'] = $('.box1');
   test_stimuli4[2][1]['data']['word_position'] = 'left';
   test_stimuli4[2][2] = responsel_block;
-
+  
   test_stimuli4[3][1]['display_element'] = $('.box2');
   test_stimuli4[3][1]['data']['word_position'] = 'right';
   test_stimuli4[3][2] = responser_block;
-
+  
   // neutral
   test_stimuli4[4][1]['display_element'] = $('.box1');
   test_stimuli4[4][1]['data']['word_position'] = 'left';
@@ -824,15 +798,15 @@
   test_stimuli4[5][1]['display_element'] = $('.box2');
   test_stimuli4[5][1]['data']['word_position'] = 'right';
   test_stimuli4[5][2] = responser_block;
-
+  
   test_stimuli4[6][1]['display_element'] = $('.box2');
   test_stimuli4[6][1]['data']['word_position'] = 'right';
   test_stimuli4[6][2] = responser_block;
-
+  
   test_stimuli4[7][1]['display_element'] = $('.box1');
   test_stimuli4[7][1]['data']['word_position'] = 'left';
   test_stimuli4[7][2] = responsel_block;
-
+  
   // positive
   test_stimuli4[8][1]['display_element'] = $('.box1');
   test_stimuli4[8][1]['data']['word_position'] = 'left';
@@ -841,15 +815,15 @@
   test_stimuli4[9][1]['display_element'] = $('.box2');
   test_stimuli4[9][1]['data']['word_position'] = 'right';
   test_stimuli4[9][2] = responser_block;
-
+  
   test_stimuli4[10][1]['display_element'] = $('.box2');
   test_stimuli4[10][1]['data']['word_position'] = 'right';
   test_stimuli4[10][2] = responser_block;
-
+  
   test_stimuli4[11][1]['display_element'] = $('.box1');
   test_stimuli4[11][1]['data']['word_position'] = 'left';
   test_stimuli4[11][2] = responsel_block;
-
+  
   // negative
   test_stimuli4[4][1]['display_element'] = $('.box2');
   test_stimuli4[4][1]['data']['word_position'] = 'right';
@@ -858,18 +832,18 @@
   test_stimuli4[5][1]['display_element'] = $('.box1');
   test_stimuli4[5][1]['data']['word_position'] = 'left';
   test_stimuli4[5][2] = responsel_block;
-
+  
   test_stimuli4[6][1]['display_element'] = $('.box1');
   test_stimuli4[6][1]['data']['word_position'] = 'left';
   test_stimuli4[6][2] = responsel_block;
-
+  
   test_stimuli4[7][1]['display_element'] = $('.box2');
   test_stimuli4[7][1]['data']['word_position'] = 'right';
   test_stimuli4[7][2] = responser_block;
 
   var test_trials4 = jsPsych.randomization.repeat(test_stimuli4, 1);
   test_trials4 = [].concat.apply([], test_trials4); // flatten
-
+  
   var test_block1 = {
     type: "single-stim",
     timeline: test_trials1
@@ -886,7 +860,7 @@
     type: "single-stim",
     timeline: test_trials4
   };
-
+  
   var test_debrief_block = {
     type: "text",
     display_element: $('.instructions'),
@@ -894,14 +868,14 @@
       return "<p>End of task. Thank you for completing the task!</p>";
     }
   };
-
+  
   var test_timeline = [];
   test_timeline.push(test_block1);
   test_timeline.push(test_block2);
   test_timeline.push(test_block3);
   test_timeline.push(test_block4);
   test_timeline.push(test_debrief_block);
-
+  
   var test_node = {
     type: "single-stim",
     timeline: test_timeline
