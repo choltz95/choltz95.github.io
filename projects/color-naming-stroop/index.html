@@ -102,10 +102,21 @@
     timing_post_trial: 4000,
     on_finish: function(data){
       trial_index++;
+      d = jsPsych.data.getLastTrialData()
       if(data.key_press == 67) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'red' });
+        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'red'});
+        if(d['color'] == 'red') {
+          jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
+        } else {
+          jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
+        }
       } else if (data.key_press == 77) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'blue' });
+        jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'blue'});
+        if(d['color'] == 'blue') {
+          jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
+        } else {
+          jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
+        }
       } else { jsPsych.data.addDataToLastTrial({key_pressed: '' }); }
     },
     timeline: practice_trials
@@ -142,10 +153,21 @@
     timing_post_trial: 4000,
     on_finish: function(data){
       trial_index++;
+      d = jsPsych.data.getLastTrialData()
       if(data.key_press == 67) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'red' });
+        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'red'});
+        if(d['color'] == 'red') {
+          jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
+        } else {
+          jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
+        }
       } else if (data.key_press == 77) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'blue' });
+        jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'blue'});
+        if(d['color'] == 'blue') {
+          jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
+        } else {
+          jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
+        }
       } else { jsPsych.data.addDataToLastTrial({key_pressed: ''}); }
     },
     timeline: test_trials1
@@ -158,10 +180,21 @@
     timing_post_trial: 4000,
     on_finish: function(data){
       trial_index++;
+      d = jsPsych.data.getLastTrialData()
       if(data.key_press == 67) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'red' });
+        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'red'});
+        if(d['color'] == 'red') {
+          jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
+        } else {
+          jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
+        }
       } else if (data.key_press == 77) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'blue' });
+        jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'blue'});
+        if(d['color'] == 'blue') {
+          jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
+        } else {
+          jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
+        }
       } else { jsPsych.data.addDataToLastTrial({key_pressed: ''}); }
     },
     timeline: test_trials2
