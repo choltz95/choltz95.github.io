@@ -205,7 +205,7 @@
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box' + rand1),
-      stimulus: "<div class='text'><span><h4>" + practice_wordlist[i] + "</h4></span>" + "<span><h4>" + practice_wordlist[i] + "</h4></span></div>",
+      stimulus: "<div class='text'><span><h3>" + practice_wordlist[i] + "</h3></span>" + "<span><h3>" + practice_wordlist[i] + "</h3></span></div>",
       data:{word: practice_wordlist[i],
             word_position: wp,
             block: 'practice'}
@@ -266,10 +266,12 @@
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
-      stimulus: "<div class='text'><span><h4>" + suicide_wordlist[i] + "</h4></span>" + "<span><h4>" + suicide_wordlist[i] + "</h4></span></div>",
+      stimulus: "<div class='text'><span><h3>" + suicide_wordlist[i] + "</h3></span>" + "<span><h3>" + suicide_wordlist[i] + "</h3></span></div>",
       data:{word: suicide_wordlist[i],
             word_position: 'left',
-            block: 'test'}
+            block: 'test',
+            word_type:'suicide'
+      }
     }
     stim_test_set = [];
     stim_test_set.push(fixation_block);
@@ -285,10 +287,12 @@
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
-      stimulus: "<div class='text'><span><h4>" + neutral_wordlist[i] + "</h4></span>" + "<span><h4>" + neutral_wordlist[i] + "</h4></span></div>",
+      stimulus: "<div class='text'><span><h3>" + neutral_wordlist[i] + "</h3></span>" + "<span><h3>" + neutral_wordlist[i] + "</h3></span></div>",
       data:{word: neutral_wordlist[i],
             word_position: 'left',
-            block: 'test'}
+            block: 'test',
+            word_type:'neutral'
+      }
     }
     stim_test_set = [];
     stim_test_set.push(fixation_block);
@@ -304,10 +308,12 @@
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
-      stimulus: "<div class='text'><span><h4>" + positive_wordlist[i] + "</h4></span>" + "<span><h4>" + positive_wordlist[i] + "</h4></span></div>",
+      stimulus: "<div class='text'><span><h3>" + positive_wordlist[i] + "</h3></span>" + "<span><h3>" + positive_wordlist[i] + "</h3></span></div>",
       data:{word: positive_wordlist[i],
             word_position: 'left',
-            block: 'test'}
+            block: 'test',
+            word_type:'positive'
+      }
     }
     stim_test_set = [];
     stim_test_set.push(fixation_block);
@@ -323,10 +329,12 @@
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
-      stimulus: "<div class='text'><span><h4>" + negative_wordlist[i] + "</h4></span>" + "<span><h4>" + negative_wordlist[i] + "</h4></span></div>",
+      stimulus: "<div class='text'><span><h3>" + negative_wordlist[i] + "</h3></span>" + "<span><h3>" + negative_wordlist[i] + "</h3></span></div>",
       data:{word: negative_wordlist[i],
             word_position: 'left',
-            block: 'test'}
+            block: 'test',
+            word_type:'negative'
+      }
     }
     stim_test_set = [];
     stim_test_set.push(fixation_block);
@@ -415,14 +423,16 @@
   for(var i=4; i<8; i++) {
     var suicide_stim = {
       is_html: true,
-      timing_response: 100,
+      timing_response: 1000,
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
-      stimulus: "<div class='text'><span><h4>" + suicide_wordlist[i] + "</h4></span>" + "<span><h4>" + suicide_wordlist[i] + "</h4></span></div>",
+      stimulus: "<div class='text'><span><h3>" + suicide_wordlist[i] + "</h3></span>" + "<span><h3>" + suicide_wordlist[i] + "</h3></span></div>",
       data:{word: suicide_wordlist[i],
             word_position: 'left',
-            block: 'test'}
+            block: 'test',
+            word_type:'suicide'
+      }
     }
     stim_test_set = [];
     stim_test_set.push(fixation_block);
@@ -438,10 +448,12 @@
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
-      stimulus: "<div class='text'><span><h4>" + neutral_wordlist[i] + "</h4></span>" + "<span><h4>" + neutral_wordlist[i] + "</h4></span></div>",
+      stimulus: "<div class='text'><span><h3>" + neutral_wordlist[i] + "</h3></span>" + "<span><h3>" + neutral_wordlist[i] + "</h3></span></div>",
       data:{word: neutral_wordlist[i],
             word_position: 'left',
-            block: 'test'}
+            block: 'test',
+            word_type:'neutral'
+      }
     }
     stim_test_set = [];
     stim_test_set.push(fixation_block);
@@ -457,10 +469,12 @@
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
-      stimulus: "<div class='text'><span><h4>" + positive_wordlist[i] + "</h4></span>" + "<span><h4>" + positive_wordlist[i] + "</h4></span></div>",
+      stimulus: "<div class='text'><span><h3>" + positive_wordlist[i] + "</h3></span>" + "<span><h3>" + positive_wordlist[i] + "</h3></span></div>",
       data:{word: positive_wordlist[i],
             word_position: 'left',
-            block: 'test'}
+            block: 'test',
+            word_type:'positive'
+      }
     }
     stim_test_set = [];
     stim_test_set.push(fixation_block);
@@ -476,10 +490,12 @@
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
-      stimulus: "<div class='text'><span><h4>" + negative_wordlist[i] + "</h4></span>" + "<span><h4>" + negative_wordlist[i] + "</h4></span></div>",
+      stimulus: "<div class='text'><span><h3>" + negative_wordlist[i] + "</h3></span>" + "<span><h3>" + negative_wordlist[i] + "</h3></span></div>",
       data:{word: negative_wordlist[i],
             word_position: 'left',
-            block: 'test'}
+            block: 'test',
+            word_type:'negative'
+      }
     }
     stim_test_set = [];
     stim_test_set.push(fixation_block);
@@ -572,10 +588,12 @@
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
-      stimulus: "<div class='text'><span><h4>" + suicide_wordlist[i] + "</h4></span>" + "<span><h4>" + suicide_wordlist[i] + "</h4></span></div>",
+      stimulus: "<div class='text'><span><h3>" + suicide_wordlist[i] + "</h3></span>" + "<span><h3>" + suicide_wordlist[i] + "</h3></span></div>",
       data:{word: suicide_wordlist[i],
             word_position: 'left',
-            block: 'test'}
+            block: 'test',
+            word_type:'suicide'
+      }
     }
     stim_test_set = [];
     stim_test_set.push(fixation_block);
@@ -591,10 +609,12 @@
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
-      stimulus: "<div class='text'><span><h4>" + neutral_wordlist[i] + "</h4></span>" + "<span><h4>" + neutral_wordlist[i] + "</h4></span></div>",
+      stimulus: "<div class='text'><span><h3>" + neutral_wordlist[i] + "</h3></span>" + "<span><h3>" + neutral_wordlist[i] + "</h3></span></div>",
       data:{word: neutral_wordlist[i],
             word_position: 'left',
-            block: 'test'}
+            block: 'test',
+            word_type:'neutral'
+      }
     }
     stim_test_set = [];
     stim_test_set.push(fixation_block);
@@ -610,10 +630,12 @@
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
-      stimulus: "<div class='text'><span><h4>" + positive_wordlist[i] + "</h4></span>" + "<span><h4>" + positive_wordlist[i] + "</h4></span></div>",
+      stimulus: "<div class='text'><span><h3>" + positive_wordlist[i] + "</h3></span>" + "<span><h3>" + positive_wordlist[i] + "</h3></span></div>",
       data:{word: positive_wordlist[i],
             word_position: 'left',
-            block: 'test'}
+            block: 'test',
+            word_type:'positive'
+      }
     }
     stim_test_set = [];
     stim_test_set.push(fixation_block);
@@ -629,7 +651,7 @@
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
-      stimulus: "<div class='text'><span><h4>" + negative_wordlist[i] + "</h4></span>" + "<span><h4>" + negative_wordlist[i] + "</h4></span></div>",
+      stimulus: "<div class='text'><span><h3>" + negative_wordlist[i] + "</h3></span>" + "<span><h3>" + negative_wordlist[i] + "</h3></span></div>",
       data:{word: negative_wordlist[i],
             word_position: 'left',
             block: 'test'}
@@ -725,10 +747,12 @@
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
-      stimulus: "<div class='text'><span><h4>" + suicide_wordlist[i] + "</h4></span>" + "<span><h4>" + suicide_wordlist[i] + "</h4></span></div>",
+      stimulus: "<div class='text'><span><h3>" + suicide_wordlist[i] + "</h3></span>" + "<span><h3>" + suicide_wordlist[i] + "</h3></span></div>",
       data:{word: suicide_wordlist[i],
             word_position: 'left',
-            block: 'test'}
+            block: 'test',
+            word_type:'suicide'
+      }
     }
     stim_test_set = [];
     stim_test_set.push(fixation_block);
@@ -744,10 +768,12 @@
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
-      stimulus: "<div class='text'><span><h4>" + neutral_wordlist[i] + "</h4></span>" + "<span><h4>" + neutral_wordlist[i] + "</h4></span></div>",
+      stimulus: "<div class='text'><span><h3>" + neutral_wordlist[i] + "</h3></span>" + "<span><h3>" + neutral_wordlist[i] + "</h3></span></div>",
       data:{word: neutral_wordlist[i],
             word_position: 'left',
-            block: 'test'}
+            block: 'test',
+            word_type:'neutral  '
+      }
     }
     stim_test_set = [];
     stim_test_set.push(fixation_block);
@@ -763,10 +789,12 @@
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
-      stimulus: "<div class='text'><span><h4>" + positive_wordlist[i] + "</h4></span>" + "<span><h4>" + positive_wordlist[i] + "</h4></span></div>",
+      stimulus: "<div class='text'><span><h3>" + positive_wordlist[i] + "</h3></span>" + "<span><h3>" + positive_wordlist[i] + "</h3></span></div>",
       data:{word: positive_wordlist[i],
             word_position: 'left',
-            block: 'test'}
+            block: 'test',
+            word_type:'positive'
+      }
     }
     stim_test_set = [];
     stim_test_set.push(fixation_block);
@@ -782,10 +810,12 @@
       timing_post_trial: 50,
       response_ends_trial: false,
       display_element: $('.box1'),
-      stimulus: "<div class='text'><span><h4>" + negative_wordlist[i] + "</h4></span>" + "<span><h4>" + negative_wordlist[i] + "</h4></span></div>",
+      stimulus: "<div class='text'><span><h3>" + negative_wordlist[i] + "</h3></span>" + "<span><h3>" + negative_wordlist[i] + "</h3></span></div>",
       data:{word: negative_wordlist[i],
             word_position: 'left',
-            block: 'test'}
+            block: 'test',
+            word_type:'negative'
+      }
     }
     stim_test_set = [];
     stim_test_set.push(fixation_block);

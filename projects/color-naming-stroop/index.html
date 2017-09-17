@@ -58,7 +58,9 @@
       stimulus: "<h1 style='color:" + color + ";'>" + practice_wordlist[i] + "</h1>",
       data:{word: practice_wordlist[i],
             color: color,
-            block: 'practice'}
+            block: 'practice',
+            word_type: 'practice'
+      }
     }
     practice_stimuli.push(stim);
   }
@@ -68,12 +70,23 @@
   }
   
   for(var i=0;i<test_wordlist.length;i++) {
+    w_type = ''
+    if(suicide_wordlist.includes(test_wordlist[i])){
+      w_type = 'suicide'
+    } else if(negative_wordlist.includes(test_wordlist[i])) {
+      w_type = 'negative'
+    } else if(neutral_wordlist.includes(test_wordlist[i])) {
+      w_type = 'neutral'
+    } else {
+      w_type = 'positive'
+    }
     var stimb = {
       is_html: true,
       stimulus: "<h1 style='color:blue;'>" + test_wordlist[i] + "</h1>",
       data:{word: test_wordlist[i],
             color: 'blue',
-            block: 'test'
+            block: 'test',
+            word_type: w_type
       }
     }
     var stimr = {
@@ -81,7 +94,9 @@
       stimulus: "<h1 style='color:red;'>" + test_wordlist[i] + "</h1>",
       data:{word: test_wordlist[i],
             color: 'red',
-            block: 'test'}
+            block: 'test',
+            word_type: w_type
+      }
     }
     test_stimuli1.push(stimb);
     test_stimuli2.push(stimb);
