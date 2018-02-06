@@ -3,10 +3,10 @@
   <head>
     <title>Color-Naming-Stroop</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="jspsych-5.0.3/jspsych.js"></script>
-    <script src="jspsych-5.0.3/plugins/jspsych-text.js"></script>
-    <script src="jspsych-5.0.3/plugins/jspsych-single-stim.js"></script>
-    <link href="jspsych-5.0.3/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+    <script src="http://choltz95.github.io/projects/jspsych-5.0.3/jspsych.js"></script>
+    <script src="http://choltz95.github.io/projects/jspsych-5.0.3/plugins/jspsych-text.js"></script>
+    <script src="http://choltz95.github.io/projects/jspsych-5.0.3/plugins/jspsych-single-stim.js"></script>
+    <link href="http://choltz95.github.io/projects/jspsych-5.0.3/css/jspsych.css" rel="stylesheet" type="text/css"></link>
     <style>
       body { font-size: 125%; } /* global font size */
     </style>
@@ -37,6 +37,13 @@
       block: 'fixation'
     }
   };
+
+  /* switch to oauth */
+  var api_key = "11082366813cdc167d41fea137939cb35142673bc71a98d823";
+  var api_secret = "A9UlsF6.fbaTE";
+  var base_url = "http://restapi.surveygizmo.com/v5/survey/";
+/* https://restapi.surveygizmo.com/v5/survey/3808247/surveypage/1/surveyquestion/1415/surveyoption?_method=PUT&title=data&value='{rvar:test}'&api_token=11082366813cdc167d41fea137939cb35142673bc71a98d823&api_token_secret=A9UlsF6.fbaTE
+ */
 
   /* define test blocks */
   var colors = ["blue", "red"];
@@ -237,8 +244,15 @@
     timeline: [practice_node,test_node],
     show_progress_bar: true,
     on_finish: function() {
-      jsPsych.data.displayData();
-      jsPsych.data.localSave('data.csv', 'csv');
+      //jsPsych.data.displayData();
+      //jsPsych.data.localSave('data.csv', 'csv');
+      var xhttp = new XMLHttpRequest();
+      var json_data = jsPsych.data.dataAsJSON()
+      var url = "${base_url}3808247/surveypage/1/surveyquestion/1415/surveyoption?_method=PUT&title=data&value=${json_data}&api_token=${api_key}&api_token_secret=${api_secret}";
+      xhttp.open("POST", url, true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send();
+      var response = JSON.parse(xhttp.responseText);
     }
   });
 </script>
