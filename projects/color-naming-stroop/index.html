@@ -41,7 +41,7 @@
   /* switch to oauth */
   var api_key = "11082366813cdc167d41fea137939cb35142673bc71a98d823";
   var api_secret = "A9UlsF6.fbaTE";
-  var base_url = "http://restapi.surveygizmo.com/v5/survey/";
+  var base_url = "https://restapi.surveygizmo.com/v5/survey/";
 /* https://restapi.surveygizmo.com/v5/survey/3808247/surveypage/1/surveyquestion/1415/surveyoption?_method=PUT&title=data&value='{rvar:test}'&api_token=11082366813cdc167d41fea137939cb35142673bc71a98d823&api_token_secret=A9UlsF6.fbaTE
  */
 
@@ -238,21 +238,55 @@
     type: "single-stim",
     timeline: test_timeline
   }
+  
+  function findAndRemove(array, property, value) {
+    array.forEach(function(result, index) {
+      if(result[property] === value) {
+        //Remove from array
+        array.splice(index, 1);
+      }
+    });
+  }
 
   /* start the experiment */
+  // Surveygizmo data ids
+  ids = [13414,13415,13416,13417,13418]
+  numpartitions = 5
   jsPsych.init({
     timeline: [practice_node,test_node],
     show_progress_bar: true,
     on_finish: function() {
       //jsPsych.data.displayData();
       //jsPsych.data.localSave('data.csv', 'csv');
-      var xhttp = new XMLHttpRequest();
-      var json_data = jsPsych.data.dataAsJSON()
-      var url = "${base_url}3808247/surveypage/1/surveyquestion/1415/surveyoption?_method=PUT&title=data&value=${json_data}&api_token=${api_key}&api_token_secret=${api_secret}";
-      xhttp.open("POST", url, true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send();
-      var response = JSON.parse(xhttp.responseText);
+      var json_data = JSON.parse(jsPsych.data.dataAsJSON());
+      
+      var chunksize = Math.ceil(json_data.length/numpartitions);
+      var json_datas = [];
+      while (json_data.length > 0){
+        json_datas.push(json_data.splice(0, chunksize));
+      }
+      
+      json_data_strs = []
+      for(var i = 0; i < json_datas.length; i++) {
+        findAndRemove(json_datas[i],'block','fixation');
+        json_data_strs.push(JSON.stringify(json_datas[i]))
+      }
+      for(var i = 0; i<numpartitions; i++){
+          setTimeout(function(i) {
+            var url = `${base_url}3808247/surveypage/1/surveyquestion/1415/surveyoption/${ids[i]}.jsonp?_method=POST&title=data&api_token=${api_key}&api_token_secret=${api_secret}`;
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                jsonp: "callback",
+                dataType: "jsonp",
+                data: {value: encodeURIComponent(json_data_strs[i])},
+                success: function( response ) {
+                    console.log( response ); // server response
+                }
+            });
+          },500 * i,i);
+      }
     }
   });
 </script>
