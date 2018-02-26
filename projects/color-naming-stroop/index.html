@@ -39,6 +39,7 @@
   };
 
   /* switch to oauth */
+  /* survey id: 3808247 */
   var api_key = "11082366813cdc167d41fea137939cb35142673bc71a98d823";
   var api_secret = "A9UlsF6.fbaTE";
   var base_url = "https://restapi.surveygizmo.com/v5/survey/";
@@ -250,10 +251,12 @@
 
   /* start the experiment */
   // Surveygizmo data ids
-  ids = [13414,13415,13416,13417,13418]
+  //ids = [13414,13415,13416,13417,13418]
+  idds = [1540, 1543, 1544, 1545, 1546]
   numpartitions = 5
   jsPsych.init({
-    timeline: [practice_node,test_node],
+    //timeline: [practice_node,test_node],
+    timeline: [practice_node],
     show_progress_bar: true,
     on_finish: function() {
       //jsPsych.data.displayData();
@@ -271,9 +274,13 @@
         findAndRemove(json_datas[i],'block','fixation');
         json_data_strs.push(JSON.stringify(json_datas[i]))
       }
+      //findAndRemove(json_data,'block','fixation');
+      //json_data = JSON.stringify(json_data);
       for(var i = 0; i<numpartitions; i++){
           setTimeout(function(i) {
-            var url = `${base_url}3808247/surveypage/1/surveyquestion/1415/surveyoption/${ids[i]}.jsonp?_method=POST&title=data&api_token=${api_key}&api_token_secret=${api_secret}`;
+            //var url = `${base_url}3808247/surveypage/1/surveyquestion/1415/surveyoption/${ids[i]}.jsonp?_method=POST&title=data&api_token=${api_key}&api_token_secret=${api_secret}`;
+            d = encodeURIComponent(json_data_strs[i]);
+            var url = `${base_url}3808247/surveypage/1/surveyquestion/${idds[i]}.jsonp?_method=POST&api_token=${api_key}&api_token_secret=${api_secret}&properties[defaulttext]=${d}`;
 
             $.ajax({
                 url: url,
@@ -281,6 +288,7 @@
                 jsonp: "callback",
                 dataType: "jsonp",
                 data: {value: encodeURIComponent(json_data_strs[i])},
+                //data:{value:encodeURIComponent(json_data)},
                 success: function( response ) {
                     console.log( response ); // server response
                 }
