@@ -101,7 +101,7 @@
   var instructions_block = {
     type: "text",
     display_element: $('.instructions'),
-    text: "<p>You will shortly see a series of words on the screen. During each experimental trial, a vertically-aligned pair of words will appear printed in either the right box, or the left box. A &quot;&#9679;&quot; will appear on the screen after each set of words appears. Your task is to indicate whether or not the pair of words appeared on the right side or the left side using the 'm' and 'c' keys - 'c' if the words appear on the left side, and 'm' if the words appear on the right side. Try not to make mistakes, but try to be fast. Your reactions will be timed.</p>" +
+    text: "<p>You will shortly see a series of words on the screen. During each experimental trial, a vertically-aligned pair of words will appear printed in either the right box, or the left box. A &quot&#9679;&quot; will appear on the screen after each set of words appears. Your task is to indicate whether or not the pair of words appeared on the right side or the left side using the 'm' and 'c' keys - 'c' if the words appear on the left side, and 'm' if the words appear on the right side. Try not to make mistakes, but try to be fast. Your reactions will be timed.</p>" +
 
       "<p>Press ANY KEY to start...</p>",
     on_trial_start: function() { $(".fixation_gap").css('visibility','hidden'); $(".box1").css('visibility','hidden'); $(".box2").css('visibility','hidden'); },
@@ -141,7 +141,7 @@
     type: "single-stim",
     choices: ['c','m'],
     display_element: $('.box1'),
-    stimulus:"<div class='dot'>&#9679;</div>",
+    stimulus:"<div class='dot'><font size='+20'>&#9679;</font></div>",
     is_html: true,
     timing_response: 2000,
     timing_post_trial: 10,
@@ -960,13 +960,13 @@
 
   /* start the experiment */
   jsPsych.init({
-    //timeline: [practice_node,test_node],
-    timeline: [practice_node],
+    timeline: [practice_node,test_node],
+    //timeline: [practice_node],
     
     on_finish: function() {
       //jsPsych.data.displayData();
       //jsPsych.data.localSave('data.csv', 'csv');
-            var json_data = JSON.parse(jsPsych.data.dataAsJSON());
+      var json_data = JSON.parse(jsPsych.data.dataAsJSON());
       
       var chunksize = Math.ceil(json_data.length/numpartitions);
       var json_datas = [];
