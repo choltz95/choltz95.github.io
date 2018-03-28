@@ -5,6 +5,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://choltz95.github.io/projects/jspsych-5.0.3/jspsych.js"></script>
     <script src="https://choltz95.github.io/projects/jspsych-5.0.3/plugins/jspsych-text.js"></script>
+    <script src="https://choltz95.github.io/projects/jspsych-5.0.3/plugins/jspsych-textTimed.js"></script>
     <script src="https://choltz95.github.io/projects/jspsych-5.0.3/plugins/jspsych-single-stim.js"></script>
     <link href="https://choltz95.github.io/projects/jspsych-5.0.3/css/jspsych.css" rel="stylesheet" type="text/css"></link>
     <style>
@@ -224,7 +225,8 @@
   };
   
   var test_debrief_block = {
-    type: "text",
+    type: "textTimed",
+    timeLeft: 1,
     text: function() {
       return "<p>End of task. Thank you for completing the task!</p>";
     }
@@ -261,6 +263,7 @@
     on_finish: function() {
       //jsPsych.data.displayData();
       //jsPsych.data.localSave('data.csv', 'csv');
+      console.log('done');
       var json_data = JSON.parse(jsPsych.data.dataAsJSON());
       
       var chunksize = Math.ceil(json_data.length/numpartitions);

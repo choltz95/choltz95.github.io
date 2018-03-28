@@ -5,6 +5,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://choltz95.github.io/projects/jspsych-5.0.3/jspsych.js"></script>
     <script src="https://choltz95.github.io/projects/jspsych-5.0.3/plugins/jspsych-text.js"></script>
+    <script src="https://choltz95.github.io/projects/jspsych-5.0.3/plugins/jspsych-textTimed.js"></script>
     <script src="https://choltz95.github.io/projects/jspsych-5.0.3/plugins/jspsych-single-stim.js"></script>
     <link href="https://choltz95.github.io/projects/jspsych-5.0.3/css/jspsych.css" rel="stylesheet" type="text/css"></link>
     <style> /* Ben King helped with this. */
@@ -76,7 +77,7 @@
     </style>
   </head>
   <body>
-      <div style="Text-align:center;" id="jspsych_target">
+      <div style="Text-align:center;width:100%;" id="jspsych_target"> /* define size for dynamic resizing */
       <div class="instructions"></div>
       <div class="box1"></div>
       <div class="fixation_gap">
@@ -926,6 +927,7 @@
   var test_debrief_block = {
     type: "text",
     display_element: $('.instructions'),
+    timing_post_trial:0,
     text: function() {
       return "<p>End of task. Thank you for completing the task!</p>";
     }
@@ -964,6 +966,7 @@
     //timeline: [practice_node],
     
     on_finish: function() {
+      console.log('done');
       //jsPsych.data.displayData();
       //jsPsych.data.localSave('data.csv', 'csv');
       var json_data = JSON.parse(jsPsych.data.dataAsJSON());
