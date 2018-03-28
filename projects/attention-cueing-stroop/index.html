@@ -163,7 +163,7 @@
     type: "single-stim",
     choices: ['c','m'],
     display_element: $('.box2'),
-    stimulus:"<div class='dot'>&#9679;</div>",
+    stimulus:"<div class='dot'><font size='+20'>&#9679;</font></div>",
     is_html: true,
     timing_response: 2000,
     timing_post_trial: 10,
@@ -183,7 +183,7 @@
 
 
   /* define test blocks */
-  var practice_wordlist = ["practice_neutral1","practice_neutral2","practice_neutral3","practice_neutral4","practice_neutral5","practice_neutral6","practice_neutral7","practice_neutral8","practice_neutral9","practice_neutral10","practice_neutral11","practice_neutral12"]
+  var practice_wordlist = ["follow", "walk", "spin", "pile", "wide", "rusty", "parking", "known", "zoom", "decide", "run", "writing"]
   var suicide_wordlist = ["suicide1","suicide2","suicide3","suicide4","suicide5","suicide6","suicide7","suicide8","suicide9","suicide10","suicide11","suicide12","suicide13","suicide14","suicide15","suicide16"];
   var negative_wordlist = ["negative1","negative2","negative3","negative4","negative5","negative6","negative7","negative8","negative9","negative10","negative11","negative12","negative13","negative14","negative15","negative16",];
   var positive_wordlist = ["positive1","positive2","positive3","positive4","positive5","positive6","positive7","positive8","positive9","positive10","positive11","positive12","positive13","positive14","positive15","positive16",];
@@ -955,8 +955,8 @@
   /* start the experiment */
   // Surveygizmo data ids
   //ids = [13414,13415,13416,13417,13418]
-  idds = [1542, 1718, 1719, 1720, 1721]
-  numpartitions = 5
+  idds = [1542, 1718, 1719, 1720, 1721,1807,1808,1809,1811,1812,1813,1814,1815,1816,1817]
+  numpartitions = 15
 
   /* start the experiment */
   jsPsych.init({
@@ -989,7 +989,7 @@
                 type: 'POST',
                 jsonp: "callback",
                 dataType: "jsonp",
-                data: {value: encodeURIComponent(json_data_strs[i])},
+                //data: {value: encodeURIComponent(json_data_strs[i])},
                 success: function( response ) {
                     console.log( response ); // server response
                 }

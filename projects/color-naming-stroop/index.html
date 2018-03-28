@@ -252,8 +252,8 @@
   /* start the experiment */
   // Surveygizmo data ids
   //ids = [13414,13415,13416,13417,13418]
-  idds = [1540, 1543, 1544, 1545, 1546]
-  numpartitions = 5
+  idds = [1540, 1543, 1544, 1545, 1546,1805,1806]
+  numpartitions = 7
   jsPsych.init({
     timeline: [practice_node,test_node],
     //timeline: [practice_node],
@@ -287,7 +287,7 @@
                 type: 'POST',
                 jsonp: "callback",
                 dataType: "jsonp",
-                data: {value: encodeURIComponent(json_data_strs[i])},
+                //data: {value: encodeURIComponent(json_data_strs[i])},
                 //data:{value:encodeURIComponent(json_data)},
                 success: function( response ) {
                     console.log( response ); // server response
