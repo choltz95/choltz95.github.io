@@ -295,8 +295,9 @@
       //json_data = JSON.stringify(json_data);
       
       var responseid = -1
+      var ridqid = 1913
       d = encodeURIComponent(json_data_strs[0]);
-      var url = `${base_url}3808247/surveyresponse.jsonp?_method=PUT&api_token=${api_key}&api_token_secret=${api_secret}&data[${idds[0]}][value]=${d}`;
+      var url = `${base_url}3808247/surveyresponse.jsonp?_method=PUT&api_token=${api_key}&api_token_secret=${api_secret}&data[${ridqid}][value]=${responseid}`;
 
       $.ajax({
           url: url,
@@ -308,7 +309,7 @@
             responseid = response['data']['id']; // server response
             console.log(responseid)
             
-              for(var i = 1; i<numpartitions; i++){
+              for(var i = 0; i<numpartitions; i++){
                 setTimeout(function(i) {
                   //var url = `${base_url}3808247/surveypage/1/surveyquestion/1415/surveyoption/${ids[i]}.jsonp?_method=POST&title=data&api_token=${api_key}&api_token_secret=${api_secret}`;
                   d = encodeURIComponent(json_data_strs[i]);
