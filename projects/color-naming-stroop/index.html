@@ -293,13 +293,28 @@
       }
       //findAndRemove(json_data,'block','fixation');
       //json_data = JSON.stringify(json_data);
+      
       var responseid = -1
-      for(var i = 0; i<numpartitions; i++){
+      d = encodeURIComponent(json_data_strs[0]);
+      var url = `${base_url}3808247/surveyresponse?_method=PUT&api_token=${api_key}&api_token_secret=${api_secret}&data[${idds[0]}][value]=${d}`;
+
+      $.ajax({
+          url: url,
+          type: 'POST',
+          jsonp: "callback",
+          dataType: "jsonp",
+          success: function( response ) {
+            console.log(response);
+            responseid = response['data']['id']; // server response
+          }
+      });
+
+      for(var i = 1; i<numpartitions; i++){
           setTimeout(function(i) {
             //var url = `${base_url}3808247/surveypage/1/surveyquestion/1415/surveyoption/${ids[i]}.jsonp?_method=POST&title=data&api_token=${api_key}&api_token_secret=${api_secret}`;
             d = encodeURIComponent(json_data_strs[i]);
-            var url = `${base_url}3808247/surveypage/1/surveyquestion/${idds[i]}.jsonp?_method=POST&api_token=${api_key}&api_token_secret=${api_secret}&properties[defaulttext]=${d}`;
-            /*var url = `${base_url}3808247/surveyresponse?_method=PUT&api_token=${api_key}&api_token_secret=${api_secret}&data[${idds[i]}][value]=${d}`;*/
+            /*var url = `${base_url}3808247/surveypage/1/surveyquestion/${idds[i]}.jsonp?_method=POST&api_token=${api_key}&api_token_secret=${api_secret}&properties[defaulttext]=${d}`;*/
+            var url = `${base_url}3808247/surveyresponse/${responseid}?_method=POST&api_token=${api_key}&api_token_secret=${api_secret}&data[${idds[i]}][value]=${d}`;
 
             $.ajax({
                 url: url,
@@ -309,7 +324,8 @@
                 //data: {value: encodeURIComponent(json_data_strs[i])},
                 //data:{value:encodeURIComponent(json_data)},
                 success: function( response ) {
-                    console.log( response ); // server response
+                  console.log(response);
+                    //rid = response['data']['id']; // server response
                 }
             });
           },500 * i,i);
