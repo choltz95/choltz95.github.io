@@ -1038,7 +1038,7 @@
                   var url = `${base_url}3808247/surveyresponse/${responseid}.jsonp?_method=POST&api_token=${api_key}&api_token_secret=${api_secret}&data[${idds[i]}][value]=${d}`;
       
                   $.ajax({
-                      async: false,
+                      async: true,
                       url: url,
                       type: 'POST',
                       jsonp: "callback",

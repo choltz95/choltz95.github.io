@@ -291,8 +291,8 @@
   idds = [1540, 1543, 1544, 1545, 1546,1805,1806]
   numpartitions = 7
   jsPsych.init({
-    timeline: [practice_node,test_node],
-    //timeline: [practice_node],
+    //timeline: [practice_node,test_node],
+    timeline: [practice_node],
     
     on_finish: function() {
       //jsPsych.data.localSave('data.csv', 'csv');
@@ -323,16 +323,17 @@
           success: function( response ) {
             console.log(response);
             responseid = response['data']['id']; // server response
-            console.log(responseid)
+            console.log(responseid);
             
-              for(var i = 0; i<numpartitions; i++){
-                setTimeout(function(i) {
+              //for(var i = 0; i<numpartitions; i++){
+              var i = 0;
+              (testt = function() {
                   d = encodeURIComponent(json_data_strs[i]);
                   /*var url = `${base_url}3808247/surveypage/1/surveyquestion/${idds[i]}.jsonp?_method=POST&api_token=${api_key}&api_token_secret=${api_secret}&properties[defaulttext]=${d}`;*/
                   var url = `${base_url}3808247/surveyresponse/${responseid}.jsonp?_method=POST&api_token=${api_key}&api_token_secret=${api_secret}&data[${idds[i]}][value]=${d}`;
       
                   $.ajax({
-                      async: false,
+                      async: true,
                       url: url,
                       type: 'POST',
                       jsonp: "callback",
@@ -340,11 +341,13 @@
                       //data: {value: encodeURIComponent(json_data_strs[i])},
                       success: function( response ) {
                         console.log(response);
+                        i++;
+                        if(i < numpartitions) { setTimeout(testt(),1000);}
                           //rid = response['data']['id']; // server response
                       }
                   });
-                },1500 * i,i);
-            }
+                })();
+            //}
           }
       });
       
