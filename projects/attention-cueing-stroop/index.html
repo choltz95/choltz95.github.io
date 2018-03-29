@@ -979,7 +979,6 @@
   idds = [1542, 1718, 1719, 1720, 1721,1807,1808,1809,1811,1812,1813,1814,1815,1816,1817]
   numpartitions = 15
 
-  /* start the experiment */
   jsPsych.init({
     timeline: [practice_node,test_node],
     //timeline: [practice_node],
@@ -1000,8 +999,6 @@
         findAndRemove(json_datas[i],'block','fixation');
         json_data_strs.push(JSON.stringify(json_datas[i]))
       }
-      //findAndRemove(json_data,'block','fixation');
-      //json_data = JSON.stringify(json_data);
       
       var responseid = -1
       var ridqid = 1913
@@ -1009,7 +1006,7 @@
 
       $.ajax({
           url: url,
-          type: 'POST',
+          type: 'PUT',
           jsonp: "callback",
           dataType: "jsonp",
           success: function( response ) {
@@ -1018,7 +1015,6 @@
             console.log(responseid)
             
               for(var i = 0; i<numpartitions; i++){
-                //(function(iter){
                 setTimeout(function(i) {
                   d = encodeURIComponent(json_data_strs[i]);
                   /*var url = `${base_url}3808247/surveypage/1/surveyquestion/${idds[i]}.jsonp?_method=POST&api_token=${api_key}&api_token_secret=${api_secret}&properties[defaulttext]=${d}`;*/
@@ -1037,8 +1033,7 @@
                           //rid = response['data']['id']; // server response
                       }
                   });
-                },1000 * i,i);
-                //})(i);
+                },1500 * i,i);
             }
           }
       });

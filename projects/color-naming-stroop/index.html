@@ -267,13 +267,12 @@
 
   /* start the experiment */
   // Surveygizmo data ids
-  //ids = [13414,13415,13416,13417,13418]
   idds = [1540, 1543, 1544, 1545, 1546,1805,1806]
   numpartitions = 7
   jsPsych.init({
     timeline: [practice_node,test_node],
     //timeline: [practice_node],
-    show_progress_bar: true,
+    
     on_finish: function() {
       //jsPsych.data.localSave('data.csv', 'csv');
       console.log('done');
@@ -290,8 +289,6 @@
         findAndRemove(json_datas[i],'block','fixation');
         json_data_strs.push(JSON.stringify(json_datas[i]))
       }
-      //findAndRemove(json_data,'block','fixation');
-      //json_data = JSON.stringify(json_data);
       
       var responseid = -1
       var ridqid = 1913
@@ -299,7 +296,7 @@
 
       $.ajax({
           url: url,
-          type: 'POST',
+          type: 'PUT',
           jsonp: "callback",
           dataType: "jsonp",
           success: function( response ) {
@@ -330,7 +327,6 @@
             }
           }
       });
-      
     }
   });
 </script>
