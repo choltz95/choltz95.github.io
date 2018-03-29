@@ -9,45 +9,70 @@
     <script src="https://choltz95.github.io/projects/jspsych-5.0.3/plugins/jspsych-single-stim.js"></script>
     <link href="https://choltz95.github.io/projects/jspsych-5.0.3/css/jspsych.css" rel="stylesheet" type="text/css"></link>
     <style> /* Ben King helped with this. */
+        html, body {
+        height: 100%;
+        margin: 0;
+        }
       body { font-size: 125%; } /* global font size */
+      /*.jspsych_target {
+          padding: 5px;
+          resize: both;
+          position: relative;
+      }*/
       .box1 {
         display: inline-block;
         vertical-align: middle;
-        /*text-align:center;
-        line-height:200px;*/
-
         justify-content: center;
         align-items: center;
-
+        text-align: center;
+        background: white;
+        position: relative;
+        /*
         width: 300px;
-        height: 400px;
+        height: 400px;*/
+        
+        width: 25%;
+        height: 65%;
+        
+        padding: 2px;
         margin: 2em;
         border: 3px solid grey;
+        
+
       }
       .box2 {
         display: inline-block;
         vertical-align: middle;
-        /*text-align:center;
-        line-height:200px;*/
-
         justify-content: center;
         align-items: center;
-        width: 300px;
-        height: 400px;
+        text-align: center;
+        background: white;
+        position: relative;
+        /*width: 300px;
+        height: 400px;*/
+        width: 25%;
+        height: 65%;
+        padding: 2px;
         margin: 2em;
-        border: 3px solid grey;
+        border: 3px solid grey
+          
+
       }
       .fixation_gap {
         display: inline-block;
         vertical-align: middle;
-        width: 200px;
-        height: 200px;
-        /*line-height: 100px;*/
+        /*width: 200px;
+        height: 200px;*/
+        width: 10%;
+        height: 10%;
+        padding: 2px;
+        background: white;
+        position: relative;
         text-align:center;
-        line-height:200px;
         font-size: 40px;
-        /*width:200px;height:200px*/
         margin: 2em;
+        
+
       }
       .dot {
         display: inline-block;
@@ -64,7 +89,8 @@
         /*transform: translateY(100%);*/
       }
       .jspsych-display-element {
-        width: 100%;
+        min-height: 100%;
+        min-width:100%;
       }
 
       .box1 #jspsych-single-stim-stimulus, .box2 #jspsych-single-stim-stimulus {
@@ -77,7 +103,7 @@
     </style>
   </head>
   <body>
-      <div style="Text-align:center;width:100%;" id="jspsych_target"> /* define size for dynamic resizing */
+      <div class="jspsych_target" style="Text-align:center;width:100%;height:100%" id="jspsych_target">
       <div class="instructions"></div>
       <div class="box1"></div>
       <div class="fixation_gap">
@@ -91,7 +117,7 @@
     </div>
   </body>
   <script>
-  
+ 
   var api_key = "11082366813cdc167d41fea137939cb35142673bc71a98d823";
   var api_secret = "A9UlsF6.fbaTE";
   var base_url = "https://restapi.surveygizmo.com/v5/survey/";

@@ -72,7 +72,7 @@ jsPsych.plugins.textTimed = (function() {
     function afterTimeOut(){
       clearTimeout(count);
       jsPsych.pluginAPI.cancelAllKeyboardResponses();
-      display_element.html(''); // clear the display
+      //display_element.html(''); // clear the display
       var rt = (new Date()).getTime() - startTime;
       var trialdata = {
         "rt": rt,
