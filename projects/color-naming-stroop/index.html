@@ -60,8 +60,18 @@
   var test_stimuli2 = []; // block 2
   var trial_index = 0;
   
+  
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+  }
+  var shuffled_colors = ["blue","blue","blue","blue","red","red","red","red"];
+  shuffleArray(shuffled_colors);
   for(var i=0;i<practice_wordlist.length;i++) {
-    var color = colors[Math.floor(Math.random()*colors.length)];
+    //var color = colors[Math.floor(Math.random()*colors.length)];
+    var color = shuffled_colors[i];
     var stim = {
       is_html: true,
       stimulus: "<h1 style='color:" + color + ";'>" + practice_wordlist[i] + "</h1>",
@@ -73,6 +83,8 @@
     }
     practice_stimuli.push(stim);
   }
+  
+  
   var practice_trials = jsPsych.randomization.repeat(practice_stimuli, 1);
   for(var i=0;i<practice_trials.length; i+=2) {
     practice_trials.splice(i,0,fixation_block); // insert fixation block between each trial
