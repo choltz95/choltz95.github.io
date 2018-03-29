@@ -317,13 +317,12 @@
                       jsonp: "callback",
                       dataType: "jsonp",
                       //data: {value: encodeURIComponent(json_data_strs[i])},
-                      //data:{value:encodeURIComponent(json_data)},
                       success: function( response ) {
                         console.log(response);
                           //rid = response['data']['id']; // server response
                       }
                   });
-                },1000 * i,i);
+                },1500 * i,i);
             }
           }
       });
