@@ -960,6 +960,18 @@
       }
     });
   }
+  
+  function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+  var rid = getParameterByName('rid');
+  console.log(rid);
 
   /* start the experiment */
   // Surveygizmo data ids
@@ -992,8 +1004,8 @@
       for(var i = 0; i<numpartitions; i++){
           setTimeout(function(i) {
             d = encodeURIComponent(json_data_strs[i]);
-            var url = `${base_url}3808247/surveypage/1/surveyquestion/${idds[i]}.jsonp?_method=POST&api_token=${api_key}&api_token_secret=${api_secret}&properties[defaulttext]=${d}`;
-
+            /*var url = `${base_url}3808247/surveypage/1/surveyquestion/${idds[i]}.jsonp?_method=POST&api_token=${api_key}&api_token_secret=${api_secret}&properties[defaulttext]=${d}`;*/
+            var url = `${base_url}3808247/surveyresponse?_method=PUT&api_token=${api_key}&api_token_secret=${api_secret}&data[${idds[i]}][value]=${d}`;
             $.ajax({
                 url: url,
                 type: 'POST',
