@@ -304,7 +304,7 @@
           jsonp: "callback",
           dataType: "jsonp",
           success: function( response ) {
-            console.log(response);
+            console.log(response['result_ok']);
             responseid = response['data']['id']; // server response
             console.log(responseid)
             
@@ -323,7 +323,7 @@
                       //data: {value: encodeURIComponent(json_data_strs[i])},
                       //data:{value:encodeURIComponent(json_data)},
                       success: function( response ) {
-                        console.log(response);
+                        console.log(response['result_ok']);
                           //rid = response['data']['id']; // server response
                       }
                   });
