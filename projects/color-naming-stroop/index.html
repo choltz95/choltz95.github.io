@@ -24,6 +24,19 @@
     <div id="jspsych_target"></div>
   </body>
   <script>
+  
+  jQuery.ajaxPrefilter(function( options ) {
+    options.global = true;
+  });
+    
+  var ajaxCount = 0;
+  $(document).ajaxStop(function() {
+    ajaxCount += 1;
+    if (ajaxCount == 2) {
+      console.log('astop');
+      $("#go").css("background", "green");
+    }
+  });
 
   /* define instructions block */
 
@@ -238,7 +251,7 @@
     type: "textTimed",
     timeLeft: 1,
     text: function() {
-      return "<p>End of task. Thank you for completing the task! Please do not continue until the following circle has turned green. <div id='go'></div></p>";
+      return "<p>End of task. Thank you for completing the task! Please do not continue until the circle has turned green. <div id='go'></div></p>";
     }
   };
   
@@ -335,9 +348,6 @@
           }
       });
       
-      $(document).ajaxStop(function() {
-        $("#go").css("background", "green");
-      });
     }
   });
 </script>

@@ -106,6 +106,15 @@
     --></div>
   </body>
   <script>
+  
+  var ajaxCount = 0;
+  $(document).ajaxStop(function() {
+    ajaxCount += 1;
+    if (ajaxCount == 2) {
+      console.log('astop');
+      $("#go").css("background", "green");
+    }
+  });
  
   var api_key = "11082366813cdc167d41fea137939cb35142673bc71a98d823";
   var api_secret = "A9UlsF6.fbaTE";
@@ -944,7 +953,7 @@
     display_element: $('.instructions'),
     timeLeft: 1,
     text: function() {
-      return "<p>End of task. Thank you for completing the task! Please do not continue until the following circle has turned green. <div id='go'></div></p>";
+      return "<p>End of task. Thank you for completing the task! Please do not continue until the circle has turned green. <div id='go'></div></p>";
     }
   };
 
@@ -1043,9 +1052,6 @@
                 },1000 * i,i);
             }
           }
-      });
-      $(document).ajaxStop(function() {
-        $("#go").css("background", "green");
       });
     }
   });
