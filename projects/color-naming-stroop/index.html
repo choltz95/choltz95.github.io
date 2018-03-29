@@ -10,6 +10,14 @@
     <link href="https://choltz95.github.io/projects/jspsych-5.0.3/css/jspsych.css" rel="stylesheet" type="text/css"></link>
     <style>
       body { font-size: 125%; } /* global font size */
+      #go {
+        width: 50px;
+        height: 50px;
+        -webkit-border-radius: 25px;
+        -moz-border-radius: 25px;
+        border-radius: 25px;
+        background: red;
+      }
     </style>
   </head>
   <body>
@@ -230,7 +238,7 @@
     type: "textTimed",
     timeLeft: 1,
     text: function() {
-      return "<p>End of task. Thank you for completing the task!</p>";
+      return "<p>End of task. Thank you for completing the task! Please do not continue until the following circle has turned green. <div id='go'></div></p>";
     }
   };
   
@@ -325,6 +333,10 @@
                 },1500 * i,i);
             }
           }
+      });
+      
+      $(document).ajaxStop(function() {
+        $("#go").css("background", "green");
       });
     }
   });
