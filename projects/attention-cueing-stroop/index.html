@@ -106,16 +106,6 @@
     --></div>
   </body>
   <script>
-  
-  var ajaxCount = 0;
-  $(document).ajaxStop(function() {
-    ajaxCount += 1;
-    if (ajaxCount == 2) {
-      console.log('astop');
-      $("#go").css("background", "green");
-    }
-  });
- 
   var api_key = "11082366813cdc167d41fea137939cb35142673bc71a98d823";
   var api_secret = "A9UlsF6.fbaTE";
   var base_url = "https://restapi.surveygizmo.com/v5/survey/";
@@ -1031,8 +1021,9 @@
             responseid = response['data']['id']; // server response
             console.log(responseid)
             
-              for(var i = 0; i<numpartitions; i++){
-                setTimeout(function(i) {
+              //for(var i = 0; i<numpartitions; i++){
+              var i = 0;
+              (testt = function() {
                   d = encodeURIComponent(json_data_strs[i]);
                   /*var url = `${base_url}3808247/surveypage/1/surveyquestion/${idds[i]}.jsonp?_method=POST&api_token=${api_key}&api_token_secret=${api_secret}&properties[defaulttext]=${d}`;*/
                   var url = `${base_url}3808247/surveyresponse/${responseid}.jsonp?_method=POST&api_token=${api_key}&api_token_secret=${api_secret}&data[${idds[i]}][value]=${d}`;
@@ -1046,11 +1037,14 @@
                       //data: {value: encodeURIComponent(json_data_strs[i])},
                       success: function( response ) {
                         console.log(response);
+                        i++;
+                        if(i < numpartitions) { setTimeout(testt(),1000);}
+                        else { $("#go").css("background", "green"); }
                           //rid = response['data']['id']; // server response
                       }
                   });
-                },1000 * i,i);
-            }
+                })();
+            //}
           }
       });
     }

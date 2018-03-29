@@ -24,20 +24,6 @@
     <div id="jspsych_target"></div>
   </body>
   <script>
-  
-  jQuery.ajaxPrefilter(function( options ) {
-    options.global = true;
-  });
-    
-  var ajaxCount = 0;
-  $(document).ajaxStop(function() {
-    ajaxCount += 1;
-    if (ajaxCount == 2) {
-      console.log('astop');
-      $("#go").css("background", "green");
-    }
-  });
-
   /* define instructions block */
 
   var instructions_block = {
@@ -343,6 +329,7 @@
                         console.log(response);
                         i++;
                         if(i < numpartitions) { setTimeout(testt(),1000);}
+                        else { $("#go").css("background", "green"); }
                           //rid = response['data']['id']; // server response
                       }
                   });
