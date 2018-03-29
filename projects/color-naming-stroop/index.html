@@ -275,7 +275,6 @@
     //timeline: [practice_node],
     show_progress_bar: true,
     on_finish: function() {
-      //jsPsych.data.displayData();
       //jsPsych.data.localSave('data.csv', 'csv');
       console.log('done');
       var json_data = JSON.parse(jsPsych.data.dataAsJSON());
@@ -296,8 +295,7 @@
       
       var responseid = -1
       var ridqid = 1913
-      d = encodeURIComponent(json_data_strs[0]);
-      var url = `${base_url}3808247/surveyresponse.jsonp?_method=PUT&api_token=${api_key}&api_token_secret=${api_secret}&data[${ridqid}][value]=${responseid}`;
+      var url = `${base_url}3808247/surveyresponse.jsonp?_method=PUT&api_token=${api_key}&api_token_secret=${api_secret}&data[${ridqid}][value]=${rid}`;
 
       $.ajax({
           url: url,
@@ -305,18 +303,19 @@
           jsonp: "callback",
           dataType: "jsonp",
           success: function( response ) {
-            console.log(response['result_ok']);
+            console.log(response);
             responseid = response['data']['id']; // server response
             console.log(responseid)
             
               for(var i = 0; i<numpartitions; i++){
+                //(function(iter){
                 setTimeout(function(i) {
-                  //var url = `${base_url}3808247/surveypage/1/surveyquestion/1415/surveyoption/${ids[i]}.jsonp?_method=POST&title=data&api_token=${api_key}&api_token_secret=${api_secret}`;
                   d = encodeURIComponent(json_data_strs[i]);
                   /*var url = `${base_url}3808247/surveypage/1/surveyquestion/${idds[i]}.jsonp?_method=POST&api_token=${api_key}&api_token_secret=${api_secret}&properties[defaulttext]=${d}`;*/
                   var url = `${base_url}3808247/surveyresponse/${responseid}.jsonp?_method=POST&api_token=${api_key}&api_token_secret=${api_secret}&data[${idds[i]}][value]=${d}`;
       
                   $.ajax({
+                      async: false,
                       url: url,
                       type: 'POST',
                       jsonp: "callback",
@@ -324,11 +323,12 @@
                       //data: {value: encodeURIComponent(json_data_strs[i])},
                       //data:{value:encodeURIComponent(json_data)},
                       success: function( response ) {
-                        console.log(response['result_ok']);
+                        console.log(response);
                           //rid = response['data']['id']; // server response
                       }
                   });
-                },500 * i,i);
+                },1000 * i,i);
+                //})(i);
             }
           }
       });
