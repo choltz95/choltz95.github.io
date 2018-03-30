@@ -162,13 +162,16 @@
     timing_response: 2000,
     timing_post_trial: 10,
     response_ends_trial: true,
+    data:{key_pressed:''},
     on_finish: function(data){
       trial_index++;
-      if(data.key_press == 67) {
+      tldat = jsPsych.data.getLastTimelineData();
+      wpos = tldat[tldat.length - 2]['word_position'];
+      if(data.key_press == 67 && wpos == 'left') {
         jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'left', correct_response: 'correct' });
-      } else if (data.key_press == 77) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'right', correct_response: 'incorrect' });
-      } else { jsPsych.data.addDataToLastTrial({key_pressed: '' }); }
+      } else if (data.key_press == 77 && wpos == 'right') {
+        jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'right', correct_response: 'correct' });
+      } else { jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'}); }
     },
     data:{
       dot_position: 'left'
@@ -184,13 +187,16 @@
     timing_response: 2000,
     timing_post_trial: 10,
     response_ends_trial: true,
+    data:{key_pressed:''},
     on_finish: function(data){
       trial_index++;
-      if(data.key_press == 77) {
+      tldat = jsPsych.data.getLastTimelineData();
+      wpos = tldat[tldat.length - 2]['word_position'];
+      if(data.key_press == 77 && wpos == 'right') {
         jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'right', correct_response: 'correct' });
-      } else if (data.key_press == 67) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'left', correct_response: 'incorrect' });
-      } else { jsPsych.data.addDataToLastTrial({key_pressed: '' }); }
+      } else if (data.key_press == 67 && wpos == 'left') {
+        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'left', correct_response: 'correct' });
+      } else { jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'}); }
     },
     data:{
       dot_position: 'right'
@@ -557,7 +563,7 @@
   // suicide
   test_stimuli2[0][1]['display_element'] = $('.box2');
   test_stimuli2[0][1]['data']['word_position'] = 'right';
-  test_stimuli1[0][1]['data']['validity'] = 'invalid';
+  test_stimuli2[0][1]['data']['validity'] = 'invalid';
   test_stimuli2[0][2] = responsel_block;
 
   test_stimuli2[1][1]['display_element'] = $('.box1');
@@ -575,7 +581,7 @@
   // neutral
   test_stimuli2[4][1]['display_element'] = $('.box1');
   test_stimuli2[4][1]['data']['word_position'] = 'left';
-  test_stimuli1[4][1]['data']['validity'] = 'invalid';
+  test_stimuli2[4][1]['data']['validity'] = 'invalid';
   test_stimuli2[4][2] = responser_block;
 
   test_stimuli2[5][1]['display_element'] = $('.box2');
@@ -593,7 +599,7 @@
   // positive
   test_stimuli2[8][1]['display_element'] = $('.box2');
   test_stimuli2[8][1]['data']['word_position'] = 'right';
-  test_stimuli1[0][1]['data']['validity'] = 'invalid';
+  test_stimuli2[8][1]['data']['validity'] = 'invalid';
   test_stimuli2[8][2] = responsel_block;
 
   test_stimuli2[9][1]['display_element'] = $('.box1');
@@ -611,7 +617,7 @@
   // negative
   test_stimuli2[12][1]['display_element'] = $('.box1');
   test_stimuli2[12][1]['data']['word_position'] = 'left';
-  test_stimuli1[12][1]['data']['validity'] = 'invalid';
+  test_stimuli2[12][1]['data']['validity'] = 'invalid';
   test_stimuli2[12][2] = responser_block;
 
   test_stimuli2[13][1]['display_element'] = $('.box2');
@@ -730,7 +736,7 @@
   // suicide
   test_stimuli3[0][1]['display_element'] = $('.box1');
   test_stimuli3[0][1]['data']['word_position'] = 'left';
-  test_stimuli1[0][1]['data']['validity'] = 'invalid';
+  test_stimuli3[0][1]['data']['validity'] = 'invalid';
   test_stimuli3[0][2] = responser_block;
 
   test_stimuli3[1][1]['display_element'] = $('.box2');
@@ -748,7 +754,7 @@
   // neutral
   test_stimuli3[4][1]['display_element'] = $('.box2');
   test_stimuli3[4][1]['data']['word_position'] = 'right';
-  test_stimuli1[4][1]['data']['validity'] = 'invalid';
+  test_stimuli3[4][1]['data']['validity'] = 'invalid';
   test_stimuli3[4][2] = responsel_block;
 
   test_stimuli3[5][1]['display_element'] = $('.box1');
@@ -766,7 +772,7 @@
   // positive
   test_stimuli3[8][1]['display_element'] = $('.box2');
   test_stimuli3[8][1]['data']['word_position'] = 'right';
-  test_stimuli1[8][1]['data']['validity'] = 'invalid';
+  test_stimuli3[8][1]['data']['validity'] = 'invalid';
   test_stimuli3[8][2] = responsel_block;
 
   test_stimuli3[9][1]['display_element'] = $('.box1');
@@ -784,7 +790,7 @@
   // negative
   test_stimuli3[12][1]['display_element'] = $('.box1');
   test_stimuli3[12][1]['data']['word_position'] = 'left';
-  test_stimuli1[12][1]['data']['validity'] = 'invalid';
+  test_stimuli3[12][1]['data']['validity'] = 'invalid';
   test_stimuli3[12][2] = responser_block;
 
   test_stimuli3[13][1]['display_element'] = $('.box2');
@@ -903,7 +909,7 @@
   // suicide
   test_stimuli4[0][1]['display_element'] = $('.box2');
   test_stimuli4[0][1]['data']['word_position'] = 'right';
-  test_stimuli1[0][1]['data']['validity'] = 'invalid';
+  test_stimuli4[0][1]['data']['validity'] = 'invalid';
   test_stimuli4[0][2] = responsel_block;
 
   test_stimuli4[1][1]['display_element'] = $('.box1');
@@ -921,7 +927,7 @@
   // neutral
   test_stimuli4[4][1]['display_element'] = $('.box1');
   test_stimuli4[4][1]['data']['word_position'] = 'left';
-  test_stimuli1[4][1]['data']['validity'] = 'invalid';
+  test_stimuli4[4][1]['data']['validity'] = 'invalid';
   test_stimuli4[4][2] = responser_block;
 
   test_stimuli4[5][1]['display_element'] = $('.box2');
@@ -939,7 +945,7 @@
   // positive
   test_stimuli4[8][1]['display_element'] = $('.box1');
   test_stimuli4[8][1]['data']['word_position'] = 'left';
-  test_stimuli1[8][1]['data']['validity'] = 'invalid';
+  test_stimuli4[8][1]['data']['validity'] = 'invalid';
   test_stimuli4[8][2] = responser_block;
 
   test_stimuli4[9][1]['display_element'] = $('.box2');
@@ -957,7 +963,7 @@
   // negative
   test_stimuli4[12][1]['display_element'] = $('.box2');
   test_stimuli4[12][1]['data']['word_position'] = 'right';
-  test_stimuli1[12][1]['data']['validity'] = 'invalid';
+  test_stimuli4[12][1]['data']['validity'] = 'invalid';
   test_stimuli4[12][2] = responsel_block;
 
   test_stimuli4[13][1]['display_element'] = $('.box1');
