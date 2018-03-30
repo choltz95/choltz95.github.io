@@ -117,7 +117,7 @@
   var instructions_block = {
     type: "text",
     display_element: $('.instructions'),
-    text: "<p>You will shortly see a series of words on the screen. During each experimental trial, a vertically-aligned pair of words will appear printed in either the right box, or the left box. A &quot&#9679;&quot; will appear on the screen after each set of words appears. Your task is to indicate whether or not the pair of words appeared on the right side or the left side using the 'm' and 'c' keys - 'c' if the words appear on the left side, and 'm' if the words appear on the right side. Try not to make mistakes, but try to be fast. Your reactions will be timed.</p>" +
+    text: "<p>You will shortly see a series of words on the screen. During each experimental trial, a vertically-aligned pair of words will appear printed in either the right box, or the left box. A &quot&#9679;&quot; will appear on the screen in either the right box, or the left box after each set of words appears. Your task is to indicate whether or not the pair of words appeared on the right side or the left side using the 'm' and 'c' keys - 'c' if the words appear on the left side, and 'm' if the words appear on the right side. Try not to make mistakes, but try to be fast. Your reactions will be timed.</p>" +
 
       "<p>Press ANY KEY to start...</p>",
     on_trial_start: function() { $(".fixation_gap").css('visibility','hidden'); $(".box1").css('visibility','hidden'); $(".box2").css('visibility','hidden'); },
@@ -186,9 +186,9 @@
     response_ends_trial: true,
     on_finish: function(data){
       trial_index++;
-      if(data.key_press == 67) {
+      if(data.key_press == 77) {
         jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'right', correct_response: 'correct' });
-      } else if (data.key_press == 77) {
+      } else if (data.key_press == 67) {
         jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'left', correct_response: 'incorrect' });
       } else { jsPsych.data.addDataToLastTrial({key_pressed: '' }); }
     },
@@ -944,6 +944,10 @@
     display_element: $('.instructions'),
     timeLeft: 1,
     text: function() {
+      $(".box1").remove();
+      $(".box2").remove();
+      $(".fixation_gap").remove();
+      $(".dot").remove();
       return "<p>End of task. Thank you for completing the task! Please do not continue until the symbol has turned green.</p><div id='go'></div>";
     }
   };
