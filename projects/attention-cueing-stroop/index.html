@@ -230,7 +230,10 @@
       stimulus: "<div class='text'><span><h3>" + practice_wordlist[i] + "</h3></span>" + "<span><h3>" + practice_wordlist[i] + "</h3></span></div>",
       data:{word: practice_wordlist[i],
             word_position: wp,
-            block: 'practice'}
+            validity: 'random',
+            block: 'practice',
+            block_num: 0
+      }
     }
     stim_practice_set = [];
     stim_practice_set.push(fixation_block);
@@ -291,7 +294,9 @@
       stimulus: "<div class='text'><span><h3>" + suicide_wordlist[i] + "</h3></span>" + "<span><h3>" + suicide_wordlist[i] + "</h3></span></div>",
       data:{word: suicide_wordlist[i],
             word_position: 'left',
+            validity: 'valid',
             block: 'test',
+            block_num: 1,
             word_type:'suicide'
       }
     }
@@ -312,7 +317,9 @@
       stimulus: "<div class='text'><span><h3>" + neutral_wordlist[i] + "</h3></span>" + "<span><h3>" + neutral_wordlist[i] + "</h3></span></div>",
       data:{word: neutral_wordlist[i],
             word_position: 'left',
+            validity: 'valid',
             block: 'test',
+            block_num: 1,
             word_type:'neutral'
       }
     }
@@ -333,7 +340,9 @@
       stimulus: "<div class='text'><span><h3>" + positive_wordlist[i] + "</h3></span>" + "<span><h3>" + positive_wordlist[i] + "</h3></span></div>",
       data:{word: positive_wordlist[i],
             word_position: 'left',
+            validity: 'valid',
             block: 'test',
+            block_num: 1,
             word_type:'positive'
       }
     }
@@ -354,7 +363,9 @@
       stimulus: "<div class='text'><span><h3>" + negative_wordlist[i] + "</h3></span>" + "<span><h3>" + negative_wordlist[i] + "</h3></span></div>",
       data:{word: negative_wordlist[i],
             word_position: 'left',
+            validity: 'valid',
             block: 'test',
+            block_num: 1,
             word_type:'negative'
       }
     }
@@ -373,6 +384,7 @@
   // suicide
   test_stimuli1[0][1]['display_element'] = $('.box1');
   test_stimuli1[0][1]['data']['word_position'] = 'left';
+  test_stimuli1[0][1]['data']['validity'] = 'invalid';
   test_stimuli1[0][2] = responser_block;
 
   test_stimuli1[1][1]['display_element'] = $('.box2');
@@ -390,6 +402,7 @@
   // neutral
   test_stimuli1[4][1]['display_element'] = $('.box2');
   test_stimuli1[4][1]['data']['word_position'] = 'right';
+  test_stimuli1[4][1]['data']['validity'] = 'invalid';
   test_stimuli1[4][2] = responsel_block;
 
   test_stimuli1[5][1]['display_element'] = $('.box1');
@@ -407,6 +420,7 @@
   // positive
   test_stimuli1[8][1]['display_element'] = $('.box1');
   test_stimuli1[8][1]['data']['word_position'] = 'left';
+  test_stimuli1[8][1]['data']['validity'] = 'invalid';
   test_stimuli1[8][2] = responser_block;
 
   test_stimuli1[9][1]['display_element'] = $('.box2');
@@ -422,21 +436,22 @@
   test_stimuli1[11][2] = responsel_block;
 
   // negative
-  test_stimuli1[4][1]['display_element'] = $('.box2');
-  test_stimuli1[4][1]['data']['word_position'] = 'right';
-  test_stimuli1[4][2] = responsel_block;
+  test_stimuli1[12][1]['display_element'] = $('.box2');
+  test_stimuli1[12][1]['data']['word_position'] = 'right';
+  test_stimuli1[12][1]['data']['validity'] = 'invalid';
+  test_stimuli1[12][2] = responsel_block;
 
-  test_stimuli1[5][1]['display_element'] = $('.box1');
-  test_stimuli1[5][1]['data']['word_position'] = 'left';
-  test_stimuli1[5][2] = responsel_block;
+  test_stimuli1[13][1]['display_element'] = $('.box1');
+  test_stimuli1[13][1]['data']['word_position'] = 'left';
+  test_stimuli1[13][2] = responsel_block;
 
-  test_stimuli1[6][1]['display_element'] = $('.box1');
-  test_stimuli1[6][1]['data']['word_position'] = 'left';
-  test_stimuli1[6][2] = responsel_block;
+  test_stimuli1[14][1]['display_element'] = $('.box1');
+  test_stimuli1[14][1]['data']['word_position'] = 'left';
+  test_stimuli1[14][2] = responsel_block;
 
-  test_stimuli1[7][1]['display_element'] = $('.box2');
-  test_stimuli1[7][1]['data']['word_position'] = 'right';
-  test_stimuli1[7][2] = responser_block;
+  test_stimuli1[15][1]['display_element'] = $('.box2');
+  test_stimuli1[15][1]['data']['word_position'] = 'right';
+  test_stimuli1[15][2] = responser_block;
 
   var test_trials1 = jsPsych.randomization.repeat(test_stimuli1, 1);
   test_trials1 = [].concat.apply([], test_trials1); // flatten
@@ -452,7 +467,9 @@
       stimulus: "<div class='text'><span><h3>" + suicide_wordlist[i] + "</h3></span>" + "<span><h3>" + suicide_wordlist[i] + "</h3></span></div>",
       data:{word: suicide_wordlist[i],
             word_position: 'left',
+            validity: 'valid',
             block: 'test',
+            block_num: 2,
             word_type:'suicide'
       }
     }
@@ -473,7 +490,9 @@
       stimulus: "<div class='text'><span><h3>" + neutral_wordlist[i] + "</h3></span>" + "<span><h3>" + neutral_wordlist[i] + "</h3></span></div>",
       data:{word: neutral_wordlist[i],
             word_position: 'left',
+            validity: 'valid',
             block: 'test',
+            block_num: 2,
             word_type:'neutral'
       }
     }
@@ -494,7 +513,9 @@
       stimulus: "<div class='text'><span><h3>" + positive_wordlist[i] + "</h3></span>" + "<span><h3>" + positive_wordlist[i] + "</h3></span></div>",
       data:{word: positive_wordlist[i],
             word_position: 'left',
+            validity: 'valid',
             block: 'test',
+            block_num: 2,
             word_type:'positive'
       }
     }
@@ -515,7 +536,9 @@
       stimulus: "<div class='text'><span><h3>" + negative_wordlist[i] + "</h3></span>" + "<span><h3>" + negative_wordlist[i] + "</h3></span></div>",
       data:{word: negative_wordlist[i],
             word_position: 'left',
+            validity: 'valid',
             block: 'test',
+            block_num: 2,
             word_type:'negative'
       }
     }
@@ -534,6 +557,7 @@
   // suicide
   test_stimuli2[0][1]['display_element'] = $('.box2');
   test_stimuli2[0][1]['data']['word_position'] = 'right';
+  test_stimuli1[0][1]['data']['validity'] = 'invalid';
   test_stimuli2[0][2] = responsel_block;
 
   test_stimuli2[1][1]['display_element'] = $('.box1');
@@ -551,6 +575,7 @@
   // neutral
   test_stimuli2[4][1]['display_element'] = $('.box1');
   test_stimuli2[4][1]['data']['word_position'] = 'left';
+  test_stimuli1[4][1]['data']['validity'] = 'invalid';
   test_stimuli2[4][2] = responser_block;
 
   test_stimuli2[5][1]['display_element'] = $('.box2');
@@ -568,6 +593,7 @@
   // positive
   test_stimuli2[8][1]['display_element'] = $('.box2');
   test_stimuli2[8][1]['data']['word_position'] = 'right';
+  test_stimuli1[0][1]['data']['validity'] = 'invalid';
   test_stimuli2[8][2] = responsel_block;
 
   test_stimuli2[9][1]['display_element'] = $('.box1');
@@ -583,21 +609,22 @@
   test_stimuli2[11][2] = responser_block;
 
   // negative
-  test_stimuli2[4][1]['display_element'] = $('.box1');
-  test_stimuli2[4][1]['data']['word_position'] = 'left';
-  test_stimuli2[4][2] = responser_block;
+  test_stimuli2[12][1]['display_element'] = $('.box1');
+  test_stimuli2[12][1]['data']['word_position'] = 'left';
+  test_stimuli1[12][1]['data']['validity'] = 'invalid';
+  test_stimuli2[12][2] = responser_block;
 
-  test_stimuli2[5][1]['display_element'] = $('.box2');
-  test_stimuli2[5][1]['data']['word_position'] = 'right';
-  test_stimuli2[5][2] = responser_block;
+  test_stimuli2[13][1]['display_element'] = $('.box2');
+  test_stimuli2[13][1]['data']['word_position'] = 'right';
+  test_stimuli2[13][2] = responser_block;
 
-  test_stimuli2[6][1]['display_element'] = $('.box2');
-  test_stimuli2[6][1]['data']['word_position'] = 'right';
-  test_stimuli2[6][2] = responser_block;
+  test_stimuli2[14][1]['display_element'] = $('.box2');
+  test_stimuli2[14][1]['data']['word_position'] = 'right';
+  test_stimuli2[14][2] = responser_block;
 
-  test_stimuli2[7][1]['display_element'] = $('.box1');
-  test_stimuli2[7][1]['data']['word_position'] = 'left';
-  test_stimuli2[7][2] = responsel_block;
+  test_stimuli2[15][1]['display_element'] = $('.box1');
+  test_stimuli2[15][1]['data']['word_position'] = 'left';
+  test_stimuli2[15][2] = responsel_block;
 
   var test_trials2 = jsPsych.randomization.repeat(test_stimuli2, 1);
   test_trials2 = [].concat.apply([], test_trials2); // flatten
@@ -613,7 +640,9 @@
       stimulus: "<div class='text'><span><h3>" + suicide_wordlist[i] + "</h3></span>" + "<span><h3>" + suicide_wordlist[i] + "</h3></span></div>",
       data:{word: suicide_wordlist[i],
             word_position: 'left',
+            validity: 'valid',
             block: 'test',
+            block_num: 3,
             word_type:'suicide'
       }
     }
@@ -634,7 +663,9 @@
       stimulus: "<div class='text'><span><h3>" + neutral_wordlist[i] + "</h3></span>" + "<span><h3>" + neutral_wordlist[i] + "</h3></span></div>",
       data:{word: neutral_wordlist[i],
             word_position: 'left',
+            validity: 'valid',
             block: 'test',
+            block_num: 3,
             word_type:'neutral'
       }
     }
@@ -655,7 +686,9 @@
       stimulus: "<div class='text'><span><h3>" + positive_wordlist[i] + "</h3></span>" + "<span><h3>" + positive_wordlist[i] + "</h3></span></div>",
       data:{word: positive_wordlist[i],
             word_position: 'left',
+            validity: 'valid',
             block: 'test',
+            block_num: 3,
             word_type:'positive'
       }
     }
@@ -676,7 +709,11 @@
       stimulus: "<div class='text'><span><h3>" + negative_wordlist[i] + "</h3></span>" + "<span><h3>" + negative_wordlist[i] + "</h3></span></div>",
       data:{word: negative_wordlist[i],
             word_position: 'left',
-            block: 'test'}
+            validity: 'valid',
+            block: 'test',
+            block_num: 3,
+            word_type: 'negative'
+      }
     }
     stim_test_set = [];
     stim_test_set.push(fixation_block);
@@ -693,6 +730,7 @@
   // suicide
   test_stimuli3[0][1]['display_element'] = $('.box1');
   test_stimuli3[0][1]['data']['word_position'] = 'left';
+  test_stimuli1[0][1]['data']['validity'] = 'invalid';
   test_stimuli3[0][2] = responser_block;
 
   test_stimuli3[1][1]['display_element'] = $('.box2');
@@ -710,6 +748,7 @@
   // neutral
   test_stimuli3[4][1]['display_element'] = $('.box2');
   test_stimuli3[4][1]['data']['word_position'] = 'right';
+  test_stimuli1[4][1]['data']['validity'] = 'invalid';
   test_stimuli3[4][2] = responsel_block;
 
   test_stimuli3[5][1]['display_element'] = $('.box1');
@@ -727,6 +766,7 @@
   // positive
   test_stimuli3[8][1]['display_element'] = $('.box2');
   test_stimuli3[8][1]['data']['word_position'] = 'right';
+  test_stimuli1[8][1]['data']['validity'] = 'invalid';
   test_stimuli3[8][2] = responsel_block;
 
   test_stimuli3[9][1]['display_element'] = $('.box1');
@@ -742,21 +782,22 @@
   test_stimuli3[11][2] = responser_block;
 
   // negative
-  test_stimuli3[4][1]['display_element'] = $('.box1');
-  test_stimuli3[4][1]['data']['word_position'] = 'left';
-  test_stimuli3[4][2] = responser_block;
+  test_stimuli3[12][1]['display_element'] = $('.box1');
+  test_stimuli3[12][1]['data']['word_position'] = 'left';
+  test_stimuli1[12][1]['data']['validity'] = 'invalid';
+  test_stimuli3[12][2] = responser_block;
 
-  test_stimuli3[5][1]['display_element'] = $('.box2');
-  test_stimuli3[5][1]['data']['word_position'] = 'right';
-  test_stimuli3[5][2] = responser_block;
+  test_stimuli3[13][1]['display_element'] = $('.box2');
+  test_stimuli3[13][1]['data']['word_position'] = 'right';
+  test_stimuli3[13][2] = responser_block;
 
-  test_stimuli3[6][1]['display_element'] = $('.box2');
-  test_stimuli3[6][1]['data']['word_position'] = 'right';
-  test_stimuli3[6][2] = responser_block;
+  test_stimuli3[14][1]['display_element'] = $('.box2');
+  test_stimuli3[14][1]['data']['word_position'] = 'right';
+  test_stimuli3[14][2] = responser_block;
 
-  test_stimuli3[7][1]['display_element'] = $('.box1');
-  test_stimuli3[7][1]['data']['word_position'] = 'left';
-  test_stimuli3[7][2] = responsel_block;
+  test_stimuli3[15][1]['display_element'] = $('.box1');
+  test_stimuli3[15][1]['data']['word_position'] = 'left';
+  test_stimuli3[15][2] = responsel_block;
 
   var test_trials3 = jsPsych.randomization.repeat(test_stimuli3, 1);
   test_trials3 = [].concat.apply([], test_trials3); // flatten
@@ -772,7 +813,9 @@
       stimulus: "<div class='text'><span><h3>" + suicide_wordlist[i] + "</h3></span>" + "<span><h3>" + suicide_wordlist[i] + "</h3></span></div>",
       data:{word: suicide_wordlist[i],
             word_position: 'left',
+            validity: 'valid',
             block: 'test',
+            block_num: 4,
             word_type:'suicide'
       }
     }
@@ -793,8 +836,10 @@
       stimulus: "<div class='text'><span><h3>" + neutral_wordlist[i] + "</h3></span>" + "<span><h3>" + neutral_wordlist[i] + "</h3></span></div>",
       data:{word: neutral_wordlist[i],
             word_position: 'left',
+            validity: 'valid',
             block: 'test',
-            word_type:'neutral  '
+            block_num: 4,
+            word_type:'neutral'
       }
     }
     stim_test_set = [];
@@ -814,7 +859,9 @@
       stimulus: "<div class='text'><span><h3>" + positive_wordlist[i] + "</h3></span>" + "<span><h3>" + positive_wordlist[i] + "</h3></span></div>",
       data:{word: positive_wordlist[i],
             word_position: 'left',
+            validity: 'valid',
             block: 'test',
+            block_num: 4,
             word_type:'positive'
       }
     }
@@ -835,7 +882,9 @@
       stimulus: "<div class='text'><span><h3>" + negative_wordlist[i] + "</h3></span>" + "<span><h3>" + negative_wordlist[i] + "</h3></span></div>",
       data:{word: negative_wordlist[i],
             word_position: 'left',
+            validity: 'valid',
             block: 'test',
+            block_num: 4,
             word_type:'negative'
       }
     }
@@ -854,6 +903,7 @@
   // suicide
   test_stimuli4[0][1]['display_element'] = $('.box2');
   test_stimuli4[0][1]['data']['word_position'] = 'right';
+  test_stimuli1[0][1]['data']['validity'] = 'invalid';
   test_stimuli4[0][2] = responsel_block;
 
   test_stimuli4[1][1]['display_element'] = $('.box1');
@@ -871,6 +921,7 @@
   // neutral
   test_stimuli4[4][1]['display_element'] = $('.box1');
   test_stimuli4[4][1]['data']['word_position'] = 'left';
+  test_stimuli1[4][1]['data']['validity'] = 'invalid';
   test_stimuli4[4][2] = responser_block;
 
   test_stimuli4[5][1]['display_element'] = $('.box2');
@@ -888,6 +939,7 @@
   // positive
   test_stimuli4[8][1]['display_element'] = $('.box1');
   test_stimuli4[8][1]['data']['word_position'] = 'left';
+  test_stimuli1[8][1]['data']['validity'] = 'invalid';
   test_stimuli4[8][2] = responser_block;
 
   test_stimuli4[9][1]['display_element'] = $('.box2');
@@ -903,21 +955,22 @@
   test_stimuli4[11][2] = responsel_block;
 
   // negative
-  test_stimuli4[4][1]['display_element'] = $('.box2');
-  test_stimuli4[4][1]['data']['word_position'] = 'right';
-  test_stimuli4[4][2] = responsel_block;
+  test_stimuli4[12][1]['display_element'] = $('.box2');
+  test_stimuli4[12][1]['data']['word_position'] = 'right';
+  test_stimuli1[12][1]['data']['validity'] = 'invalid';
+  test_stimuli4[12][2] = responsel_block;
 
-  test_stimuli4[5][1]['display_element'] = $('.box1');
-  test_stimuli4[5][1]['data']['word_position'] = 'left';
-  test_stimuli4[5][2] = responsel_block;
+  test_stimuli4[13][1]['display_element'] = $('.box1');
+  test_stimuli4[13][1]['data']['word_position'] = 'left';
+  test_stimuli4[13][2] = responsel_block;
 
-  test_stimuli4[6][1]['display_element'] = $('.box1');
-  test_stimuli4[6][1]['data']['word_position'] = 'left';
-  test_stimuli4[6][2] = responsel_block;
+  test_stimuli4[14][1]['display_element'] = $('.box1');
+  test_stimuli4[14][1]['data']['word_position'] = 'left';
+  test_stimuli4[14][2] = responsel_block;
 
-  test_stimuli4[7][1]['display_element'] = $('.box2');
-  test_stimuli4[7][1]['data']['word_position'] = 'right';
-  test_stimuli4[7][2] = responser_block;
+  test_stimuli4[15][1]['display_element'] = $('.box2');
+  test_stimuli4[15][1]['data']['word_position'] = 'right';
+  test_stimuli4[15][2] = responser_block;
 
   var test_trials4 = jsPsych.randomization.repeat(test_stimuli4, 1);
   test_trials4 = [].concat.apply([], test_trials4); // flatten
