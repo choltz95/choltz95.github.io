@@ -11,8 +11,9 @@
     <style>
       body { font-size: 125%; } /* global font size */
       #go {
-        width: 80px;
+        width: 30%;
         height: 80px;
+        margin: 0 auto;
         -webkit-border-radius: 25px;
         -moz-border-radius: 25px;
         border-radius: 25px;
@@ -76,6 +77,7 @@
       data:{word: practice_wordlist[i],
             color: color,
             block: 'practice',
+            block_num: 0,
             word_type: 'practice'
       }
     }
@@ -104,6 +106,7 @@
       data:{word: test_wordlist[i],
             color: 'blue',
             block: 'test',
+            block_num: 0,
             word_type: w_type
       }
     }
@@ -113,20 +116,21 @@
       data:{word: test_wordlist[i],
             color: 'red',
             block: 'test',
+            block_num: 0,
             word_type: w_type
       }
     }
-    stimb['data']['block_num'] = 1;
-    stimr['data']['block_num'] = 1;
     test_stimuli1.push(stimb);
     test_stimuli1.push(stimr);
-    stimb['data']['block_num'] = 2;
-    stimr['data']['block_num'] = 2;
     test_stimuli2.push(stimb);
     test_stimuli2.push(stimr);
   }
   var test_trials1 = jsPsych.randomization.repeat(test_stimuli1, 1);
   var test_trials2 = jsPsych.randomization.repeat(test_stimuli2, 1);
+  for (var i = 0; i < test_trials1.length; i++) {
+    test_trials1[i]['data']['block_num'] = 1;
+    test_trials2[i]['data']['block_num'] = 2;
+  }
   for(var i=0;i<test_trials1.length; i+=2) {
     test_trials1.splice(i,0,fixation_block); // insert fixation block between each trial
     test_trials2.splice(i,0,fixation_block); // insert fixation block between each trial
