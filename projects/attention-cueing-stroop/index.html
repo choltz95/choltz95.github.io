@@ -58,8 +58,6 @@
         text-align:center;
         font-size: 40px;
         margin: 2em;
-        
-
       }
       .dot {
         display: inline-block;
@@ -117,7 +115,7 @@
   var instructions_block = {
     type: "text",
     display_element: $('.instructions'),
-    text: "<p>You will shortly see a series of words on the screen. During each experimental trial, a vertically-aligned pair of words will appear printed in either the right box, or the left box. A &quot&#9679;&quot; will appear on the screen in either the right box, or the left box after each set of words appears. Your task is to indicate whether or not the pair of words appeared on the right side or the left side using the 'm' and 'c' keys - 'c' if the words appear on the left side, and 'm' if the words appear on the right side. Try not to make mistakes, but try to be fast. Your reactions will be timed.</p>" +
+    text: "<p>You will shortly see a series of words on the screen. During each experimental trial, a vertically-aligned pair of words will appear printed in either the right box, or the left box. A &quot;&#9679;&quot; will appear on the screen in either the right box, or the left box after each set of words appears. Your task is to indicate what side of the screen the &quot;&#9679;&quot; appeared on, using the C and M keys. If the &quot;&#9679;&quot; appears on the left side of the screen, press C. If the &quot;&#9679;&quot; appears on the right side of the screen, press M. Try not to make mistakes, but try to be fast. Your reactions will be timed.</p>" +
 
       "<p>Press ANY KEY to start...</p>",
     on_trial_start: function() { $(".fixation_gap").css('visibility','hidden'); $(".box1").css('visibility','hidden'); $(".box2").css('visibility','hidden'); },
@@ -162,15 +160,15 @@
     timing_response: 2000,
     timing_post_trial: 10,
     response_ends_trial: true,
-    data:{key_pressed:''},
+    data:{key_pressed:-1},
     on_finish: function(data){
       trial_index++;
-      tldat = jsPsych.data.getLastTimelineData();
-      wpos = tldat[tldat.length - 2]['word_position'];
-      if(data.key_press == 67 && wpos == 'left') {
+      //tldat = jsPsych.data.getLastTimelineData();
+      //wpos = tldat[tldat.length - 2]['word_position'];
+      if(data.key_press == 67) {
         jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'left', correct_response: 'correct' });
-      } else if (data.key_press == 77 && wpos == 'right') {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'right', correct_response: 'correct' });
+      } else if (data.key_press == 77) {
+        jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'right', correct_response: 'incorrect' });
       } else { jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'}); }
     },
     data:{
@@ -187,22 +185,21 @@
     timing_response: 2000,
     timing_post_trial: 10,
     response_ends_trial: true,
-    data:{key_pressed:''},
+    data:{key_pressed:-1},
     on_finish: function(data){
       trial_index++;
-      tldat = jsPsych.data.getLastTimelineData();
-      wpos = tldat[tldat.length - 2]['word_position'];
-      if(data.key_press == 77 && wpos == 'right') {
+      //tldat = jsPsych.data.getLastTimelineData();
+      //wpos = tldat[tldat.length - 2]['word_position'];
+      if(data.key_press == 77) {
         jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'right', correct_response: 'correct' });
-      } else if (data.key_press == 67 && wpos == 'left') {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'left', correct_response: 'correct' });
+      } else if (data.key_press == 67) {
+        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'left', correct_response: 'incorrect' });
       } else { jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'}); }
     },
     data:{
       dot_position: 'right'
     }
   };
-
 
   /* define test blocks */
   var practice_wordlist = ["follow", "walk", "spin", "pile", "wide", "rusty", "parking", "known", "zoom", "decide", "run", "writing"];
@@ -236,7 +233,7 @@
       stimulus: "<div class='text'><span><h3>" + practice_wordlist[i] + "</h3></span>" + "<span><h3>" + practice_wordlist[i] + "</h3></span></div>",
       data:{word: practice_wordlist[i],
             word_position: wp,
-            validity: 'random',
+            validity: 'practice',
             block: 'practice',
             block_num: 0
       }
