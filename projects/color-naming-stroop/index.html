@@ -192,7 +192,7 @@
     choices: ['c','m'],
     timing_response: 2000,
     timing_post_trial: 4000,
-    on_finish: function(data){
+    on_finish: function(data){z
       trial_index++;
       d = jsPsych.data.getLastTrialData()
       if(data.key_press == 67) {
@@ -248,6 +248,9 @@
       return "<p>End of task. Thank you for completing the task! Please do not continue until the symbol has turned green.</p> <div id='go'></div>";
     }
   };
+  
+  console.log(test_wordlist);
+  console.log(test_block2);
   
   var test_timeline = [];
   test_timeline.push(test_block1);
@@ -336,7 +339,7 @@
                       success: function( response ) {
                         console.log(response);
                         i++;
-                        if(i < numpartitions) { setTimeout(testt(),1100);}
+                        if(i < numpartitions) { setTimeout(testt(),1200);}
                         else { $("#go").css("background", "green"); }
                           //rid = response['data']['id']; // server response
                       }
