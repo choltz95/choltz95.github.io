@@ -120,10 +120,16 @@
             word_type: w_type
       }
     }
+    /*
     test_stimuli1.push(stimb);
     test_stimuli1.push(stimr);
     test_stimuli2.push(stimb);
     test_stimuli2.push(stimr);
+    */
+    test_stimuli1.push(jQuery.extend(true, {}, stimb));
+    test_stimuli1.push(jQuery.extend(true, {}, stimr));
+    test_stimuli2.push(jQuery.extend(true, {}, stimb));
+    test_stimuli2.push(jQuery.extend(true, {}, stimr));
   }
   var test_trials1 = jsPsych.randomization.repeat(test_stimuli1, 1);
   var test_trials2 = jsPsych.randomization.repeat(test_stimuli2, 1);
@@ -131,6 +137,7 @@
     test_trials1[i]['data']['block_num'] = 1;
     test_trials2[i]['data']['block_num'] = 2;
   }
+
   for(var i=0;i<test_trials1.length; i+=2) {
     test_trials1.splice(i,0,fixation_block); // insert fixation block between each trial
     test_trials2.splice(i,0,fixation_block); // insert fixation block between each trial
@@ -192,7 +199,7 @@
     choices: ['c','m'],
     timing_response: 2000,
     timing_post_trial: 4000,
-    on_finish: function(data){z
+    on_finish: function(data){
       trial_index++;
       d = jsPsych.data.getLastTrialData()
       if(data.key_press == 67) {
@@ -248,9 +255,6 @@
       return "<p>End of task. Thank you for completing the task! Please do not continue until the symbol has turned green.</p> <div id='go'></div>";
     }
   };
-  
-  console.log(test_wordlist);
-  console.log(test_block2);
   
   var test_timeline = [];
   test_timeline.push(test_block1);
