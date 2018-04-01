@@ -1013,11 +1013,13 @@
   test_timeline.push(test_block2);
   test_timeline.push(test_block3);
   test_timeline.push(test_block4);
-  test_timeline.push(test_debrief_block);
+  test_timeline_rand = jsPsych.randomization.repeat(test_timeline, 1);
+  
+  test_timeline_rand.push(test_debrief_block);
 
   var test_node = {
     type: "single-stim",
-    timeline: test_timeline
+    timeline: test_timeline_rand
   }
   
   function findAndRemove(array, property, value) {
