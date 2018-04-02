@@ -153,7 +153,8 @@
 
   var responsel_block = {
     type: "single-stim",
-    choices: ['c','m'],
+    //choices: ['c','m'],
+    choices: [],
     display_element: $('.box1'),
     stimulus:"<div class='dot'><font size='+20'>&#9679;</font></div>",
     is_html: true,
@@ -169,7 +170,7 @@
         jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'left', correct_response: 'correct' });
       } else if (data.key_press == 77) {
         jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'right', correct_response: 'incorrect' });
-      } else { jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'}); }
+      } else { jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase(), correct_response: 'incorrect'}); }
     },
     data:{
       dot_position: 'left'
@@ -178,7 +179,8 @@
 
   var responser_block = {
     type: "single-stim",
-    choices: ['c','m'],
+    //choices: ['c','m'],
+    choices: [],
     display_element: $('.box2'),
     stimulus:"<div class='dot'><font size='+20'>&#9679;</font></div>",
     is_html: true,
@@ -194,7 +196,7 @@
         jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'right', correct_response: 'correct' });
       } else if (data.key_press == 67) {
         jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'left', correct_response: 'incorrect' });
-      } else { jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'}); }
+      } else { jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase(), correct_response: 'incorrect'}); }
     },
     data:{
       dot_position: 'right'

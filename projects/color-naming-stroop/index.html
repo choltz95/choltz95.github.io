@@ -79,7 +79,7 @@
             block: 'practice',
             block_num: 0,
             word_type: 'practice'
-      }
+          }
     }
     practice_stimuli.push(stim);
   }
@@ -108,7 +108,7 @@
             block: 'test',
             block_num: 0,
             word_type: w_type
-      }
+          }
     }
     var stimr = {
       is_html: true,
@@ -118,7 +118,7 @@
             block: 'test',
             block_num: 0,
             word_type: w_type
-      }
+          }
     }
     /*
     test_stimuli1.push(stimb);
@@ -145,7 +145,8 @@
 
   var practice_block = {
     type: "single-stim",
-    choices: ['c','m'],
+    //choices: ['c','m'],
+    choices: [],
     timing_response: 2000,
     timing_post_trial: 4000,
     on_finish: function(data){
@@ -165,7 +166,7 @@
         } else {
           jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
         }
-      } else { jsPsych.data.addDataToLastTrial({key_pressed: '' }); }
+      } else { jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase(), correct_response: 'incorrect'}); }
     },
     timeline: practice_trials
   };
@@ -196,7 +197,8 @@
   
   var test_block1 = {
     type: "single-stim",
-    choices: ['c','m'],
+    //choices: ['c','m'],
+    choices: [],
     timing_response: 2000,
     timing_post_trial: 4000,
     on_finish: function(data){
@@ -216,14 +218,15 @@
         } else {
           jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
         }
-      } else { jsPsych.data.addDataToLastTrial({key_pressed: ''}); }
+      } else { jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase(), correct_response: 'incorrect'}); }
     },
     timeline: test_trials1
   };
   
   var test_block2 = {
     type: "single-stim",
-    choices: ['c','m'],
+    //choices: ['c','m'],
+    choices: [],
     timing_response: 2000,
     timing_post_trial: 4000,
     on_finish: function(data){
@@ -243,7 +246,7 @@
         } else {
           jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
         }
-      } else { jsPsych.data.addDataToLastTrial({key_pressed: ''}); }
+      } else { jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase(), correct_response: 'incorrect'}); }
     },
     timeline: test_trials2
   };
