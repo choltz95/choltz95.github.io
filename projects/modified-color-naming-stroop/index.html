@@ -29,7 +29,7 @@
 
   var instructions_block = {
     type: "text",
-    text: "<p>You will shortly see a series of words on the screen. During each experimental trial, a word will appear printed in either red or blue. If the word is in <font color='red'>red</font>, press the '<font color='red'>C</font>' on the keyboard. If the word is in <font color='blue'>blue</font>, press the '<font color='blue'>M</font>' key. A &quot;+&quot; will appear on the screen before each word appears to show you where to look. Your task is to indicate the color of each word as quickly and as accurately as you can. Try not to make mistakes, but try to be fast. Your reactions will be timed.</p>" +
+    text: "<p>You will shortly see a series of words on the screen. During each experimental trial, a word will appear printed in either red or blue. If the word is in <font color='red'>red</font>, press the '<font color='red'>J</font>' on the keyboard. If the word is in <font color='blue'>blue</font>, press the '<font color='blue'>F</font>' key. A &quot;+&quot; will appear on the screen before each word appears to show you where to look. Your task is to indicate the color of each word as quickly and as accurately as you can. Try not to make mistakes, but try to be fast. Your reactions will be timed.</p>" +
     
       "<p>Press ANY KEY to start...</p>",
     timing_post_trial: 4000
@@ -39,8 +39,8 @@
     type: "single-stim",
     stimulus:"<h1>&#10010;<h1>",
     is_html: true,
-    timing_response: 1000,
-    timing_post_trial: 200,
+    timing_response: 500,
+    timing_post_trial: 0,
     response_ends_trial: false,
     data:{
       block: 'fixation'
@@ -57,18 +57,20 @@
 
   /* define test blocks */
   var colors = ["blue", "red"];
-  var practice_wordlist = ["cat","ball","desk","radio","basket","table","tape","bag"];
-  var practice_colors = ["red","red","red","red","blue","blue","blue","blue",]
-  var suicide_wordlist = ["suicide","dead","funeral"];
-  var negative_wordlist = ["alone","rejected","stupid"];
-  var positive_wordlist = ["happy","success","pleasure"];
-  var neutral_wordlist = ["museum","paper","engine"];
-  var test_wordlist =  suicide_wordlist.concat(negative_wordlist, positive_wordlist, neutral_wordlist)
+  var practice_wordlist = ["ZZZZZ","BBBBB","VVVVV","WWWWW","FFFFF","NNNNN","QQQQQ","UUUUU","HHHHH","SSSSS","JJJJJ","PPPPP"];
+  var suicide_wordlist = ["suicide","die","funeral","overdose","drowning","poisoning","dead","lifeless","disappear","jumping","fatal","hanging","cutting","escape","deadly","dying","crisis","leathal","death","suicidal"];
+  var negative_wordlist = ["alone","rejected","pathetic","worthless","lonely","worried","numb","gloomy","frightened","miserable","crying","failure","hurting","disappointing","pain","stupid","ugly","fear","disgust","anger"];
+  var neutral_wordlist = ["dresser","shelf","cupboard","closet","laundry","drawer","oven","stool","sofa","couch","cabinet","dishwasher","chair","bench","bed","towel","shower","window","carpet","curtains"];
+  //var test_wordlist =  suicide_wordlist.concat(negative_wordlist, positive_wordlist, neutral_wordlist)
+  var test_wordlist = {'suicide':suicide_wordlist, 'negative':negative_wordlist,'neutral':neutral_wordlist};
   var practice_stimuli = [];
-  var test_stimuli1 = []; // block 1
-  var test_stimuli2 = []; // block 2
+  //var test_stimuli1 = []; // block 1
+  //var test_stimuli2 = []; // block 2
+  //var test_stimuli3 = []; // block 3
+  var test_stimuli = []; // blocks
   var trial_index = 0;
   
+  var practice_colors = jsPsych.randomization.repeat(colors, 6);
   for(var i=0;i<practice_wordlist.length;i++) {
     var color = practice_colors[i];
     var stim = {
@@ -88,79 +90,79 @@
   for(var i=0;i<practice_trials.length; i+=2) {
     practice_trials.splice(i,0,fixation_block); // insert fixation block between each trial
   }
-  
-  for(var i=0;i<test_wordlist.length;i++) {
-    w_type = ''
-    if(suicide_wordlist.includes(test_wordlist[i])){
-      w_type = 'suicide'
-    } else if(negative_wordlist.includes(test_wordlist[i])) {
-      w_type = 'negative'
-    } else if(neutral_wordlist.includes(test_wordlist[i])) {
-      w_type = 'neutral'
-    } else {
-      w_type = 'positive'
+  var k = 0;
+  for (var w_type in test_wordlist) {
+    var wordlist = test_wordlist[w_type];
+    var shuffled_wordlist = jsPsych.randomization.repeat(wordlist, 1);
+    test_stimuli[k] = [];
+    for(var i=0;i<wordlist.length;i++) {
+      var stimb = {
+        is_html: true,
+        stimulus: "<h1 style='color:blue;'>" + shuffled_wordlist[i] + "</h1>",
+        data:{word: shuffled_wordlist[i],
+              color: 'blue',
+              block: 'test',
+              block_num: 0,
+              word_type: w_type
+            }
+      }
+      var stimr = {
+        is_html: true,
+        stimulus: "<h1 style='color:red;'>" + shuffled_wordlist[i] + "</h1>",
+        data:{word: shuffled_wordlist[i],
+              color: 'red',
+              block: 'test',
+              block_num: 0,
+              word_type: w_type
+            }
+      }
+      test_stimuli[k].push(jQuery.extend(true, {}, stimb));
+      test_stimuli[k].push(jQuery.extend(true, {}, stimr));
+      /*if(i < 20) {
+        test_stimuli1.push(jQuery.extend(true, {}, stimb));
+        test_stimuli1.push(jQuery.extend(true, {}, stimr));
+      } else if(i < 40) {
+        test_stimuli2.push(jQuery.extend(true, {}, stimb));
+        test_stimuli2.push(jQuery.extend(true, {}, stimr));
+      } else if(i < 60){
+        test_stimuli3.push(jQuery.extend(true, {}, stimb));
+        test_stimuli3.push(jQuery.extend(true, {}, stimr));
+      }*/
     }
-    var stimb = {
-      is_html: true,
-      stimulus: "<h1 style='color:blue;'>" + test_wordlist[i] + "</h1>",
-      data:{word: test_wordlist[i],
-            color: 'blue',
-            block: 'test',
-            block_num: 0,
-            word_type: w_type
-          }
-    }
-    var stimr = {
-      is_html: true,
-      stimulus: "<h1 style='color:red;'>" + test_wordlist[i] + "</h1>",
-      data:{word: test_wordlist[i],
-            color: 'red',
-            block: 'test',
-            block_num: 0,
-            word_type: w_type
-          }
-    }
-    /*
-    test_stimuli1.push(stimb);
-    test_stimuli1.push(stimr);
-    test_stimuli2.push(stimb);
-    test_stimuli2.push(stimr);
-    */
-    test_stimuli1.push(jQuery.extend(true, {}, stimb));
-    test_stimuli1.push(jQuery.extend(true, {}, stimr));
-    test_stimuli2.push(jQuery.extend(true, {}, stimb));
-    test_stimuli2.push(jQuery.extend(true, {}, stimr));
+    k+=1;
   }
-  var test_trials1 = jsPsych.randomization.repeat(test_stimuli1, 1);
-  var test_trials2 = jsPsych.randomization.repeat(test_stimuli2, 1);
+  var test_trials1 = jsPsych.randomization.repeat(test_stimuli[0], 1);
+  var test_trials2 = jsPsych.randomization.repeat(test_stimuli[1], 1);
+  var test_trials3 = jsPsych.randomization.repeat(test_stimuli[2], 1);
   for (var i = 0; i < test_trials1.length; i++) {
     test_trials1[i]['data']['block_num'] = 1;
     test_trials2[i]['data']['block_num'] = 2;
+    test_trials3[i]['data']['block_num'] = 3;
   }
 
   for(var i=0;i<test_trials1.length; i+=2) {
     test_trials1.splice(i,0,fixation_block); // insert fixation block between each trial
-    test_trials2.splice(i,0,fixation_block); // insert fixation block between each trial
+    test_trials2.splice(i,0,fixation_block);
+    test_trials3.splice(i,0,fixation_block);
   }
 
   var practice_block = {
     type: "single-stim",
-    //choices: ['c','m'],
     choices: [],
     timing_response: 2000,
-    timing_post_trial: 4000,
+    timing_post_trial: 1500,
     on_finish: function(data){
       trial_index++;
       d = jsPsych.data.getLastTrialData()
-      if(data.key_press == 67) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'red'});
+      if(data.key_press == 70) {
+        jsPsych.data.addDataToLastTrial({key_pressed: 'f', participant_response:'red'});
         if(d['color'] == 'red') {
           jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
         } else {
           jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
         }
-      } else if (data.key_press == 77) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'blue'});
+      } else if (data.key_press == 74) {
+        jsPsych.data.addDataToLastTrial({key_pressed: 'j', participant_response:'blue'});
         if(d['color'] == 'blue') {
           jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
         } else {
@@ -197,22 +199,21 @@
   
   var test_block1 = {
     type: "single-stim",
-    //choices: ['c','m'],
     choices: [],
     timing_response: 2000,
-    timing_post_trial: 4000,
+    timing_post_trial: 1500,
     on_finish: function(data){
       trial_index++;
       d = jsPsych.data.getLastTrialData()
-      if(data.key_press == 67) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'red'});
+      if(data.key_press == 70) {
+        jsPsych.data.addDataToLastTrial({key_pressed: 'f', participant_response:'red'});
         if(d['color'] == 'red') {
           jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
         } else {
           jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
         }
-      } else if (data.key_press == 77) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'blue'});
+      } else if (data.key_press == 74) {
+        jsPsych.data.addDataToLastTrial({key_pressed: 'j', participant_response:'blue'});
         if(d['color'] == 'blue') {
           jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
         } else {
@@ -225,22 +226,21 @@
   
   var test_block2 = {
     type: "single-stim",
-    //choices: ['c','m'],
     choices: [],
     timing_response: 2000,
-    timing_post_trial: 4000,
+    timing_post_trial: 1500,
     on_finish: function(data){
       trial_index++;
       d = jsPsych.data.getLastTrialData()
-      if(data.key_press == 67) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'red'});
+      if(data.key_press == 70) {
+        jsPsych.data.addDataToLastTrial({key_pressed: 'f', participant_response:'red'});
         if(d['color'] == 'red') {
           jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
         } else {
           jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
         }
-      } else if (data.key_press == 77) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'blue'});
+      } else if (data.key_press == 74) {
+        jsPsych.data.addDataToLastTrial({key_pressed: 'j', participant_response:'blue'});
         if(d['color'] == 'blue') {
           jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
         } else {
@@ -251,22 +251,62 @@
     timeline: test_trials2
   };
   
+  var test_block3 = {
+    type: "single-stim",
+    choices: [],
+    timing_response: 2000,
+    timing_post_trial: 1500,
+    on_finish: function(data){
+      trial_index++;
+      d = jsPsych.data.getLastTrialData()
+      if(data.key_press == 70) {
+        jsPsych.data.addDataToLastTrial({key_pressed: 'f', participant_response:'red'});
+        if(d['color'] == 'red') {
+          jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
+        } else {
+          jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
+        }
+      } else if (data.key_press == 74) {
+        jsPsych.data.addDataToLastTrial({key_pressed: 'j', participant_response:'blue'});
+        if(d['color'] == 'blue') {
+          jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
+        } else {
+          jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
+        }
+      } else { jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase(), correct_response: 'incorrect'}); }
+    },
+    timeline: test_trials3
+  };
+  
+  var test_break_block = {
+    type: "textTimed",
+    timeLeft: 30,
+    text: function() {
+      return "<p>End of block. Next block begins in 30 seconds...</p>"
+    }
+  };
+  
   var test_debrief_block = {
     type: "textTimed",
     timeLeft: 1,
     text: function() {
-      return "<p>End of task. Thank you for completing the task! Please do not continue until the symbol has turned green.</p><p><b>Please be patient, it may take 1-2 minutes to process your results. Do NOT hit next until the symbol is green.<b></p><div id='go'></div>";
+      //return "<p>End of task. Thank you for completing the task! Please do not continue until the symbol has turned green.</p> <div id='go'></div>";
+      return "<p>End of color naming task.</p>"
     }
   };
   
   var test_timeline = [];
   test_timeline.push(test_block1);
   test_timeline.push(test_block2);
-  test_timeline.push(test_debrief_block);
+  test_timeline.push(test_block3);
+  test_timeline_rand = jsPsych.randomization.repeat(test_timeline, 1);
+  test_timeline.splice(1,0,test_break_block);
+  test_timeline.splice(3,0,test_break_block);
+  test_timeline_rand.push(test_debrief_block);
   
   var test_node = {
     type: "single-stim",
-    timeline: test_timeline
+    timeline: test_timeline_rand
   }
   
   function findAndRemove(array, property, value) {
@@ -297,10 +337,12 @@
   jsPsych.init({
     timeline: [practice_node,test_node],
     //timeline: [practice_node],
-    
+
     on_finish: function() {
-      //jsPsych.data.localSave('data.csv', 'csv');
+      jsPsych.data.localSave('data.csv', 'csv');
+      
       console.log('done');
+      /*
       var json_data = JSON.parse(jsPsych.data.dataAsJSON());
       
       var chunksize = Math.ceil(json_data.length/numpartitions);
@@ -325,15 +367,14 @@
           jsonp: "callback",
           dataType: "jsonp",
           success: function( response ) {
+            
             console.log(response);
             responseid = response['data']['id']; // server response
             console.log(responseid);
             
-              //for(var i = 0; i<numpartitions; i++){
               var i = 0;
               (testt = function() {
                   d = encodeURIComponent(json_data_strs[i]);
-                  /*var url = `${base_url}3808247/surveypage/1/surveyquestion/${idds[i]}.jsonp?_method=POST&api_token=${api_key}&api_token_secret=${api_secret}&properties[defaulttext]=${d}`;*/
                   var url = `${base_url}3808247/surveyresponse/${responseid}.jsonp?_method=POST&api_token=${api_key}&api_token_secret=${api_secret}&data[${idds[i]}][value]=${d}`;
       
                   $.ajax({
@@ -352,10 +393,10 @@
                       }
                   });
                 })();
-            //}
+          
           }
       });
-      
+      */
     }
   });
 </script>
