@@ -58,7 +58,7 @@
   /* define test blocks */
   var colors = ["blue", "red"];
   var practice_wordlist = ["ZZZZZ","BBBBB","VVVVV","WWWWW","FFFFF","NNNNN","QQQQQ","UUUUU","HHHHH","SSSSS","JJJJJ","PPPPP"];
-  var suicide_wordlist = ["suicide","die","funeral","overdose","drowning","poisoning","dead","lifeless","disappear","jumping","fatal","hanging","cutting","escape","deadly","dying","crisis","leathal","death","suicidal"];
+  var suicide_wordlist = ["suicide","die","funeral","overdose","drowning","poisoning","dead","lifeless","disappear","jumping","fatal","hanging","cutting","escape","deadly","dying","crisis","lethal","death","suicidal"];
   var negative_wordlist = ["alone","rejected","pathetic","worthless","lonely","worried","numb","gloomy","frightened","miserable","crying","failure","hurting","disappointing","pain","stupid","ugly","fear","disgust","anger"];
   var neutral_wordlist = ["dresser","shelf","cupboard","closet","laundry","drawer","oven","stool","sofa","couch","cabinet","dishwasher","chair","bench","bed","towel","shower","window","carpet","curtains"];
   //var test_wordlist =  suicide_wordlist.concat(negative_wordlist, positive_wordlist, neutral_wordlist)
@@ -300,8 +300,8 @@
   test_timeline.push(test_block2);
   test_timeline.push(test_block3);
   test_timeline_rand = jsPsych.randomization.repeat(test_timeline, 1);
-  test_timeline.splice(1,0,test_break_block);
-  test_timeline.splice(3,0,test_break_block);
+  test_timeline_rand.splice(1,0,test_break_block);
+  test_timeline_rand.splice(3,0,test_break_block);
   test_timeline_rand.push(test_debrief_block);
   
   var test_node = {
@@ -312,7 +312,6 @@
   function findAndRemove(array, property, value) {
     array.forEach(function(result, index) {
       if(result[property] === value) {
-        //Remove from array
         array.splice(index, 1);
       }
     });
