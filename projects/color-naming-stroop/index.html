@@ -166,6 +166,8 @@
         } else {
           jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
         }
+      } else if(data.key_press == -1) {
+        jsPsych.data.addDataToLastTrial({correct_response: 'noresponse'});
       } else { jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase(), correct_response: 'incorrect'}); }
     },
     timeline: practice_trials
@@ -218,6 +220,8 @@
         } else {
           jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
         }
+      } else if(data.key_press == -1) {
+        jsPsych.data.addDataToLastTrial({correct_response: 'noresponse'});
       } else { jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase(), correct_response: 'incorrect'}); }
     },
     timeline: test_trials1
@@ -246,6 +250,8 @@
         } else {
           jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
         }
+      } else if(data.key_press == -1) {
+        jsPsych.data.addDataToLastTrial({correct_response: 'noresponse'});
       } else { jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase(), correct_response: 'incorrect'}); }
     },
     timeline: test_trials2
@@ -301,6 +307,7 @@
     on_finish: function() {
       //jsPsych.data.localSave('data.csv', 'csv');
       console.log('done');
+      
       var json_data = JSON.parse(jsPsych.data.dataAsJSON());
       
       var chunksize = Math.ceil(json_data.length/numpartitions);
@@ -333,7 +340,7 @@
               var i = 0;
               (testt = function() {
                   d = encodeURIComponent(json_data_strs[i]);
-                  /*var url = `${base_url}3808247/surveypage/1/surveyquestion/${idds[i]}.jsonp?_method=POST&api_token=${api_key}&api_token_secret=${api_secret}&properties[defaulttext]=${d}`;*/
+                  //var url = `${base_url}3808247/surveypage/1/surveyquestion/${idds[i]}.jsonp?_method=POST&api_token=${api_key}&api_token_secret=${api_secret}&properties[defaulttext]=${d}`;
                   var url = `${base_url}3808247/surveyresponse/${responseid}.jsonp?_method=POST&api_token=${api_key}&api_token_secret=${api_secret}&data[${idds[i]}][value]=${d}`;
       
                   $.ajax({
