@@ -168,6 +168,8 @@
         } else {
           jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
         }
+      } else if(data.key_press == -1) {
+        jsPsych.data.addDataToLastTrial({correct_response: 'noresponse'});
       } else { jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase(), correct_response: 'incorrect'}); }
     },
     timeline: practice_trials
@@ -219,6 +221,8 @@
         } else {
           jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
         }
+      } else if(data.key_press == -1) {
+        jsPsych.data.addDataToLastTrial({correct_response: 'noresponse'});
       } else { jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase(), correct_response: 'incorrect'}); }
     },
     timeline: test_trials1
@@ -246,6 +250,8 @@
         } else {
           jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
         }
+      } else if(data.key_press == -1) {
+        jsPsych.data.addDataToLastTrial({correct_response: 'noresponse'});
       } else { jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase(), correct_response: 'incorrect'}); }
     },
     timeline: test_trials2
@@ -273,6 +279,8 @@
         } else {
           jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
         }
+      } else if(data.key_press == -1) {
+        jsPsych.data.addDataToLastTrial({correct_response: 'noresponse'});
       } else { jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase(), correct_response: 'incorrect'}); }
     },
     timeline: test_trials3
