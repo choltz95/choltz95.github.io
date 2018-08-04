@@ -61,7 +61,7 @@
   var practice_stimuli = [];
   var test_stimuli = []; // blocks
   var trial_index = 0;
-  var block_index = 0;
+  var test_trial_index = 0;
   
   var practice_colors = jsPsych.randomization.repeat(colors, 6);
   for(var i=0;i<practice_wordlist.length;i++) {
@@ -202,6 +202,7 @@
     timing_post_trial: 1500,
     on_finish: function(data){
       trial_index++;
+      test_trial_index++;
       d = jsPsych.data.getLastTrialData()
       if(data.key_press == 70) {
         jsPsych.data.addDataToLastTrial({key_pressed: 'f', participant_response:'blue'});
@@ -231,6 +232,7 @@
     timing_post_trial: 1500,
     on_finish: function(data){
       trial_index++;
+      test_trial_index++;
       d = jsPsych.data.getLastTrialData()
       if(data.key_press == 70) {
         jsPsych.data.addDataToLastTrial({key_pressed: 'f', participant_response:'blue'});
@@ -260,6 +262,7 @@
     timing_post_trial: 1500,
     on_finish: function(data){
       trial_index++;
+      test_trial_index++;
       d = jsPsych.data.getLastTrialData()
       if(data.key_press == 70) {
         jsPsych.data.addDataToLastTrial({key_pressed: 'f', participant_response:'blue'});
@@ -287,7 +290,7 @@
     cont_key: null,
     timeLeft: 30,
     text: function() {
-      return "<div id='break_block'><div id='time' style='text-align:center; font-size: 150%;'></div><div style='text-align:center;'>Nice job! You've completed " + (Math.ceil((trial_index-12)/60)-1).toString() + " sets of trials. You have " + (4 - Math.ceil((trial_index-12)/60)).toString() + " sets of trials to go.</div></div><script>display = document.querySelector('#time');startTimer(30, display);</"+"script>"
+      return "<div id='break_block'><div id='time' style='text-align:center; font-size: 150%;'></div><div style='text-align:center;'>Nice job! You've completed " + (Math.round(test_trial_index/60)).toString() + " sets of trials. You have " + (3 - Math.round(test_trial_index/60)).toString() + " sets of trials to go.</div></div><script>display = document.querySelector('#time');startTimer(30, display);</"+"script>"
     }
   };
   
