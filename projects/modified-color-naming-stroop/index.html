@@ -23,13 +23,14 @@
   </head>
   <body>
     <div id="jspsych_target"></div>
+    <div>test</div>
   </body>
   <script>
   /* define instructions block */
 
   var instructions_block = {
     type: "text",
-    text: "<p>You will shortly see a series of words on the screen. During each experimental trial, a word will appear printed in either red or blue. If the word is in <font color='red'>red</font>, press the '<font color='red'>J</font>' on the keyboard. If the word is in <font color='blue'>blue</font>, press the '<font color='blue'>F</font>' key. A &quot;+&quot; will appear on the screen before each word appears to show you where to look. Your task is to indicate the color of each word as quickly and as accurately as you can. Try not to make mistakes, but try to be fast. Your reactions will be timed.</p>" +
+    text: "<p>You will shortly see a series of words on the screen. During each trial, a word will appear printed in either red or blue. If the word is in <font color='red'>red</font>, press the '<font color='red'>J</font>' on the keyboard. If the word is in <font color='blue'>blue</font>, press the '<font color='blue'>F</font>' key. A &quot;+&quot; will appear on the screen before each word appears to show you where to look. Your task is to indicate the color of each word as quickly and as accurately as you can. Try not to make mistakes, but try to be fast. Your responses will be timed. The task will take less than 10 minutes.</p>" +
     
       "<p>Press ANY KEY to start...</p>",
     timing_post_trial: 4000
@@ -47,14 +48,6 @@
     }
   };
 
-  /* switch to oauth */
-  /* survey id: 3808247 */
-  var api_key = "11082366813cdc167d41fea137939cb35142673bc71a98d823";
-  var api_secret = "A9UlsF6.fbaTE";
-  var base_url = "https://restapi.surveygizmo.com/v5/survey/";
-/* https://restapi.surveygizmo.com/v5/survey/3808247/surveypage/1/surveyquestion/1415/surveyoption?_method=PUT&title=data&value='{rvar:test}'&api_token=11082366813cdc167d41fea137939cb35142673bc71a98d823&api_token_secret=A9UlsF6.fbaTE
- */
-
   /* define test blocks */
   var colors = ["blue", "red"];
   var practice_wordlist = ["ZZZZZ","BBBBB","VVVVV","WWWWW","FFFFF","NNNNN","QQQQQ","UUUUU","HHHHH","SSSSS","JJJJJ","PPPPP"];
@@ -64,11 +57,9 @@
   //var test_wordlist =  suicide_wordlist.concat(negative_wordlist, positive_wordlist, neutral_wordlist)
   var test_wordlist = {'suicide':suicide_wordlist, 'negative':negative_wordlist,'neutral':neutral_wordlist};
   var practice_stimuli = [];
-  //var test_stimuli1 = []; // block 1
-  //var test_stimuli2 = []; // block 2
-  //var test_stimuli3 = []; // block 3
   var test_stimuli = []; // blocks
   var trial_index = 0;
+  var block_index = 0;
   
   var practice_colors = jsPsych.randomization.repeat(colors, 6);
   for(var i=0;i<practice_wordlist.length;i++) {
@@ -118,16 +109,6 @@
       }
       test_stimuli[k].push(jQuery.extend(true, {}, stimb));
       test_stimuli[k].push(jQuery.extend(true, {}, stimr));
-      /*if(i < 20) {
-        test_stimuli1.push(jQuery.extend(true, {}, stimb));
-        test_stimuli1.push(jQuery.extend(true, {}, stimr));
-      } else if(i < 40) {
-        test_stimuli2.push(jQuery.extend(true, {}, stimb));
-        test_stimuli2.push(jQuery.extend(true, {}, stimr));
-      } else if(i < 60){
-        test_stimuli3.push(jQuery.extend(true, {}, stimb));
-        test_stimuli3.push(jQuery.extend(true, {}, stimr));
-      }*/
     }
     k+=1;
   }
@@ -148,7 +129,7 @@
 
   var practice_block = {
     type: "single-stim",
-    choices: [],
+    choices: ['f','j'],
     timing_response: 2000,
     timing_post_trial: 1500,
     on_finish: function(data){
@@ -201,7 +182,7 @@
   
   var test_block1 = {
     type: "single-stim",
-    choices: [],
+    choices: ['f','j'],
     timing_response: 2000,
     timing_post_trial: 1500,
     on_finish: function(data){
@@ -230,7 +211,7 @@
   
   var test_block2 = {
     type: "single-stim",
-    choices: [],
+    choices: ['f','j'],
     timing_response: 2000,
     timing_post_trial: 1500,
     on_finish: function(data){
@@ -259,7 +240,7 @@
   
   var test_block3 = {
     type: "single-stim",
-    choices: [],
+    choices: ['f','j'],
     timing_response: 2000,
     timing_post_trial: 1500,
     on_finish: function(data){
@@ -288,9 +269,10 @@
   
   var test_break_block = {
     type: "textTimed",
+    cont_key: null,
     timeLeft: 30,
     text: function() {
-      return "<p>End of block. Next block begins in 30 seconds...</p>"
+      return "<div id='break_block'><div id='time' style='text-align:center; font-size: 150%;'></div><div style='text-align:center;'>Nice job! You've completed " + (Math.ceil((trial_index-12)/60)-1).toString() + " sets of trials. You have " + (4 - Math.ceil((trial_index-12)/60)).toString() + " sets of trials to go.</div></div><script>display = document.querySelector('#time');startTimer(30, display);</"+"script>"
     }
   };
   
@@ -298,8 +280,7 @@
     type: "textTimed",
     timeLeft: 1,
     text: function() {
-      //return "<p>End of task. Thank you for completing the task! Please do not continue until the symbol has turned green.</p> <div id='go'></div>";
-      return "<p>End of color naming task.</p>"
+      return "<p>End of color naming task. Thank you for completing the task!</p>"
     }
   };
   
@@ -316,32 +297,11 @@
     type: "single-stim",
     timeline: test_timeline_rand
   }
-  
-  function findAndRemove(array, property, value) {
-    array.forEach(function(result, index) {
-      if(result[property] === value) {
-        array.splice(index, 1);
-      }
-    });
-  }
-  
-  function getParameterByName(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
-  }
-  var rid = getParameterByName('rid');
-  console.log(rid);
 
   /* start the experiment */
-  // Surveygizmo data ids
-  idds = [1540, 1543, 1544, 1545, 1546,1805,1806]
-  numpartitions = 7
+  //$(document).ready(function(){
   jsPsych.init({
+    display_element: 'jspsych_target',
     timeline: [practice_node,test_node],
     //timeline: [practice_node],
 
@@ -349,62 +309,42 @@
       jsPsych.data.localSave('data.csv', 'csv');
       
       console.log('done');
-      /*
-      var json_data = JSON.parse(jsPsych.data.dataAsJSON());
-      
-      var chunksize = Math.ceil(json_data.length/numpartitions);
-      var json_datas = [];
-      while (json_data.length > 0){
-        json_datas.push(json_data.splice(0, chunksize));
-      }
-      
-      json_data_strs = []
-      for(var i = 0; i < json_datas.length; i++) {
-        findAndRemove(json_datas[i],'block','fixation');
-        json_data_strs.push(JSON.stringify(json_datas[i]))
-      }
-      
-      var responseid = -1
-      var ridqid = 1913
-      var url = `${base_url}3808247/surveyresponse.jsonp?_method=PUT&api_token=${api_key}&api_token_secret=${api_secret}&data[${ridqid}][value]=${rid}`;
-
-      $.ajax({
-          url: url,
-          type: 'PUT',
-          jsonp: "callback",
-          dataType: "jsonp",
-          success: function( response ) {
-            
-            console.log(response);
-            responseid = response['data']['id']; // server response
-            console.log(responseid);
-            
-              var i = 0;
-              (testt = function() {
-                  d = encodeURIComponent(json_data_strs[i]);
-                  var url = `${base_url}3808247/surveyresponse/${responseid}.jsonp?_method=POST&api_token=${api_key}&api_token_secret=${api_secret}&data[${idds[i]}][value]=${d}`;
-      
-                  $.ajax({
-                      async: true,
-                      url: url,
-                      type: 'POST',
-                      jsonp: "callback",
-                      dataType: "jsonp",
-                      //data: {value: encodeURIComponent(json_data_strs[i])},
-                      success: function( response ) {
-                        console.log(response);
-                        i++;
-                        if(i < numpartitions) { setTimeout(testt(),1200);}
-                        else { $("#go").css("background", "green"); }
-                          //rid = response['data']['id']; // server response
-                      }
-                  });
-                })();
-          
-          }
-      });
-      */
     }
   });
+  //})
+  
+  function addInst() {
+    //$('body').append("<div style='text-align:center; font-size: 80%;'>KEYS FOR THIS MODIFIED STROOP TASK: <font color='0000FF'>J=BLUE</font>; <font color='FF0000'>F=RED</font></div>" );
+  }
+  
+  function startTimer(duration, display) {
+    var start = Date.now(),
+        diff,
+        minutes,
+        seconds;
+    function timer() {
+        // get the number of seconds that have elapsed since
+        // startTimer() was called
+        diff = duration - (((Date.now() - start) / 1000) | 0);
+
+        // does the same job as parseInt truncates the float
+        minutes = (diff / 60) | 0;
+        seconds = (diff % 60) | 0;
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (diff <= 0) {
+            // add one second so that the count down starts at the full duration
+            // example 05:00 not 04:59
+            start = Date.now() + 1000;
+        }
+    };
+    // we don't want to wait a full second before the timer starts
+    timer();
+    setInterval(timer, 1000);
+}
 </script>
 </html>
