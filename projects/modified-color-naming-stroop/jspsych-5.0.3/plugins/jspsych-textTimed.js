@@ -13,7 +13,7 @@ jsPsych.plugins.textTimed = (function() {
 
   plugin.trial = function(display_element, trial) {
 
-    trial.cont_key = trial.cont_key || [];
+    trial.cont_key = trial.cont_key;
     trial.timeLeft = trial.timeLeft || null;
 
     // if any trial variables are functions
