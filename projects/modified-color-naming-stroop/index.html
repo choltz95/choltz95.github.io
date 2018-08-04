@@ -3,9 +3,11 @@
   <head>
     <title>Color-Naming-Stroop</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="https://choltz95.github.io/projects/jspsych-5.0.3/jspsych.js"></script>
+   <!-- <script src="https://choltz95.github.io/projects/jspsych-5.0.3/jspsych.js"></script>-->
+    <script src="jspsych-5.0.3/jspsych.js"></script>
     <script src="https://choltz95.github.io/projects/jspsych-5.0.3/plugins/jspsych-text.js"></script>
-    <script src="https://choltz95.github.io/projects/jspsych-5.0.3/plugins/jspsych-textTimed.js"></script>
+    <!--<script src="https://choltz95.github.io/projects/jspsych-5.0.3/plugins/jspsych-textTimed.js"></script>-->
+    <script src="jspsych-5.0.3/plugins/jspsych-textTimed.js"></script>
     <script src="https://choltz95.github.io/projects/jspsych-5.0.3/plugins/jspsych-single-stim.js"></script>
     <link href="https://choltz95.github.io/projects/jspsych-5.0.3/css/jspsych.css" rel="stylesheet" type="text/css"></link>
     <style>
@@ -22,8 +24,8 @@
     </style>
   </head>
   <body>
+     <div style='text-align:center; font-size: 80%; position=fixed; bottom=0; width=100%;'>KEYS FOR THIS MODIFIED STROOP TASK: <font color='0000FF'>J=BLUE</font>; <font color='FF0000'>F=RED</font></div>
     <div id="jspsych_target"></div>
-    <div>test</div>
   </body>
   <script>
   /* define instructions block */
@@ -162,23 +164,36 @@
       return "<p>You have completed the PRACTICE phase. If you would like to repeat the PRACTICE phase, press 1. If you would like to continue onto the TEST phase, press the spacebar.</p>";
     }
   };
+  
+  var practice_break_block = {
+    type: "textTimed",
+    cont_key: null,
+    timeLeft: 30,
+    
+    text: function() {
+      return "<div id='break_block'><div id='time' style='text-align:center; font-size: 150%;'></div><div style='text-align:center;'>Take a brief 30 second break. Get ready to start again when the countdown reaches zero.</div></div><script>display = document.querySelector('#time');startTimer(30, display);</"+"script>"
+    }
+  };
 
   /* create experiment timeline array */
   var practice_timeline = [];
   practice_timeline.push(instructions_block);
   practice_timeline.push(practice_block);
   practice_timeline.push(practice_debrief_block);
+  practice_timeline.push(practice_break_block);
   
   var practice_node = {
     timeline: practice_timeline,
     loop_function: function(data){
-      if(49 == data[data.length-1].key_press) {
+      if(49 == data[data.length-2].key_press) {
         return true;
       } else {
         return false;
       }
     }
   };
+  
+  
   
   var test_block1 = {
     type: "single-stim",
@@ -301,9 +316,7 @@
   /* start the experiment */
   //$(document).ready(function(){
   jsPsych.init({
-    display_element: 'jspsych_target',
     timeline: [practice_node,test_node],
-    //timeline: [practice_node],
 
     on_finish: function() {
       jsPsych.data.localSave('data.csv', 'csv');
@@ -312,10 +325,6 @@
     }
   });
   //})
-  
-  function addInst() {
-    //$('body').append("<div style='text-align:center; font-size: 80%;'>KEYS FOR THIS MODIFIED STROOP TASK: <font color='0000FF'>J=BLUE</font>; <font color='FF0000'>F=RED</font></div>" );
-  }
   
   function startTimer(duration, display) {
     var start = Date.now(),
