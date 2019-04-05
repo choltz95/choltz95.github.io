@@ -29,7 +29,7 @@
 
   var instructions_block = {
     type: "text",
-    text: "<p>You will shortly see a series of words on the screen. During each experimental trial, a word will appear printed in either red or blue. If the word is in <font color='red'>red</font>, press the '<font color='red'>C</font>' on the keyboard. If the word is in <font color='blue'>blue</font>, press the '<font color='blue'>M</font>' key. A &quot;+&quot; will appear on the screen before each word appears to show you where to look. Your task is to indicate the color of each word as quickly and as accurately as you can. Try not to make mistakes, but try to be fast. Your reactions will be timed.</p>" +
+    text: "<p>You will shortly see a series of words on the screen. During each experimental trial, a word will appear printed in either red or blue. If the word is in <font color='red'>red</font>, press the '<font color='red'>F</font>' on the keyboard. If the word is in <font color='blue'>blue</font>, press the '<font color='blue'>J</font>' key. A &quot;+&quot; will appear on the screen before each word appears to show you where to look. Your task is to indicate the color of each word as quickly and as accurately as you can. Try not to make mistakes, but try to be fast. Your reactions will be timed.</p>" +
     
       "<p>Press ANY KEY to start...</p>",
     timing_post_trial: 4000
@@ -153,14 +153,14 @@
       trial_index++;
       d = jsPsych.data.getLastTrialData()
       if(data.key_press == 67) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'red'});
+        jsPsych.data.addDataToLastTrial({key_pressed: 'f', participant_response:'red'});
         if(d['color'] == 'red') {
           jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
         } else {
           jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
         }
       } else if (data.key_press == 77) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'blue'});
+        jsPsych.data.addDataToLastTrial({key_pressed: 'j', participant_response:'blue'});
         if(d['color'] == 'blue') {
           jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
         } else {
@@ -207,14 +207,14 @@
       trial_index++;
       d = jsPsych.data.getLastTrialData()
       if(data.key_press == 67) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'red'});
+        jsPsych.data.addDataToLastTrial({key_pressed: 'f', participant_response:'red'});
         if(d['color'] == 'red') {
           jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
         } else {
           jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
         }
       } else if (data.key_press == 77) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'blue'});
+        jsPsych.data.addDataToLastTrial({key_pressed: 'j', participant_response:'blue'});
         if(d['color'] == 'blue') {
           jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
         } else {
@@ -237,14 +237,14 @@
       trial_index++;
       d = jsPsych.data.getLastTrialData()
       if(data.key_press == 67) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'red'});
+        jsPsych.data.addDataToLastTrial({key_pressed: 'f', participant_response:'red'});
         if(d['color'] == 'red') {
           jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
         } else {
           jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
         }
       } else if (data.key_press == 77) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'blue'});
+        jsPsych.data.addDataToLastTrial({key_pressed: 'j', participant_response:'blue'});
         if(d['color'] == 'blue') {
           jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
         } else {

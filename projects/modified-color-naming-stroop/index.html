@@ -21,18 +21,21 @@
         border-radius: 25px;
         background: red;
       }
+      .jspsych-display-element h1 {
+        width: 50%;
+      }
     </style>
   </head>
   <body>
-     <div style='text-align:center; font-size: 80%; position=fixed; bottom=0; width=100%;'>KEYS FOR THIS MODIFIED STROOP TASK: <font color='FF0000'>F=RED</font>, <font color='0000FF'>J=BLUE</font></div>
-    <div id="jspsych_target"></div>
+     <div style='text-align:center; font-size: 80%; position=fixed; bottom=0; width=100%;'>KEYS FOR THIS TASK: <font color='FF0000'>F=RED</font>, <font color='0000FF'>J=BLUE</font></div>
+    <div id="jspsych_target" style="text-align:left;"></div>
   </body>
   <script>
   /* define instructions block */
 
   var instructions_block = {
     type: "text",
-    text: "<p>You will shortly see a series of words on the screen. During each trial, a word will appear printed in either red or blue. If the word is in <font color='red'>red</font>, press the '<font color='red'>F</font>' on the keyboard. If the word is in <font color='blue'>blue</font>, press the '<font color='blue'>J</font>' key. A &quot;+&quot; will appear on the screen before each word appears to show you where to look. <br> Your task is to indicate the color of each word as quickly and as accurately as you can. Try not to make mistakes, but try to be fast. Your responses will be timed. The task will take less than 10 minutes.</p>" +
+    text: "<p>You will shortly see a series of words on the screen. During each trial, a word will appear printed in either red or blue. If the word is in <font color='red'>red</font>, press the '<font color='red'>F</font>' on the keyboard. If the word is in <font color='blue'>blue</font>, press the '<font color='blue'>J</font>' key. A &quot;+&quot; will appear on the screen before each word appears to show you where to look. <br><br> Your task is to indicate the color of each word as quickly and as accurately as you can. Try not to make mistakes, but try to be fast. Your responses will be timed. The task will take less than 10 minutes.</p>" +
     
       "<p>Press ANY KEY to start...</p>",
     timing_post_trial: 4000
@@ -70,7 +73,7 @@
     var color = practice_colors[i];
     var stim = {
       is_html: true,
-      stimulus: "<h1 style='color:" + color + ";'>" + practice_wordlist[i] + "</h1>",
+      stimulus: "<h1 style='color:" + color + "; text-align:center;'>" + practice_wordlist[i] + "</h1>",
       data:{word: practice_wordlist[i],
             color: color,
             block: 'practice',
@@ -91,7 +94,7 @@
     var color = practice2_colors[i];
     var stim2 = {
       is_html: true,
-      stimulus: "<h1 style='color:" + color + ";'>" + practice2_wordlist[i] + "</h1>",
+      stimulus: "<h1 style='color:" + color + "; text-align:center;'>" + practice2_wordlist[i] + "</h1>",
       data:{word: practice2_wordlist[i],
             color: color,
             block: 'practice2',
@@ -115,7 +118,7 @@
     for(var i=0;i<wordlist.length;i++) {
       var stimb = {
         is_html: true,
-        stimulus: "<h1 style='color:blue;'>" + shuffled_wordlist[i] + "</h1>",
+        stimulus: "<h1 style='color:blue; text-align:center;'>" + shuffled_wordlist[i] + "</h1>",
         data:{word: shuffled_wordlist[i],
               color: 'blue',
               block: 'test',
@@ -125,7 +128,7 @@
       }
       var stimr = {
         is_html: true,
-        stimulus: "<h1 style='color:red;'>" + shuffled_wordlist[i] + "</h1>",
+        stimulus: "<h1 style='color:red; text-align:center;'>" + shuffled_wordlist[i] + "</h1>",
         data:{word: shuffled_wordlist[i],
               color: 'red',
               block: 'test',
