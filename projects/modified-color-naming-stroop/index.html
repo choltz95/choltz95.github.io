@@ -67,6 +67,7 @@
   var test_stimuli = []; // blocks
   var trial_index = 0;
   var test_trial_index = 0;
+  var tti = 0;
     
   var practice_colors = jsPsych.randomization.repeat(colors, 6);
   for(var i=0;i<practice_wordlist.length;i++) {
@@ -489,14 +490,19 @@
     cont_key: null,
     timeLeft: 30,
     text: function() {
-      return "<div id='break_block'><div id='time' style='text-align:center; font-size: 150%;'></div><div style='text-align:center;'>Nice job! You've completed " + (Math.round(test_trial_index/60)).toString() + " sets of trials. You have " + (3 - Math.round(test_trial_index/60)).toString() + " sets of trials to go.</div></div><script>display = document.querySelector('#time');startTimer(30, display);</"+"script>"
+      tti++;
+      //return "<div id='break_block'><div id='time' style='text-align:center; font-size: 150%;'></div><div style='text-align:center;'>Nice job! You've completed " + (Math.round(test_trial_index/60)).toString() + " sets of trials. You have " + (3 - Math.round(test_trial_index/60)).toString() + " sets of trials to go.</div></div><script>display = document.querySelector('#time');startTimer(30, display);</"+"script>"
+      return "<div id='break_block'><div id='time' style='text-align:center; font-size: 150%;'></div><div style='text-align:center;'>Nice job! You've completed " + (tti).toString() + " sets of trials. You have " + (3 - tti).toString() + " sets of trials to go.</div></div><script>display = document.querySelector('#time');startTimer(30, display);</"+"script>"
     }
   };
   
   var test_debrief_block = {
     type: "textTimed",
-    timeLeft: 1,
+    timeLeft: 0,
     text: function() {
+      jsPsych.data.localSave('data.csv', 'csv');
+      
+      console.log('done');
       return "<p>End of color naming task. Thank you for completing the task!</p>"
     }
   };
@@ -521,7 +527,7 @@
     timeline: [practice_node,practice_errcheck_node,practice_debrief_node,practice2_node,test_node],
 
     on_finish: function() {
-      jsPsych.data.localSave('data.csv', 'csv');
+      //jsPsych.data.localSave('data.csv', 'csv');
       
       console.log('done');
     }
