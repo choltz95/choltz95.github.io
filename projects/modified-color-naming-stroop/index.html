@@ -27,7 +27,7 @@
     </style>
   </head>
   <body>
-     <div style='text-align:center; font-size: 80%; position=fixed; bottom=0; width=100%;'>KEYS FOR THIS TASK: <font color='FF0000'>F=RED</font>, <font color='0000FF'>J=BLUE</font></div>
+    <div style='text-align:center; font-size: 80%; position=fixed; bottom=0; width=100%;'><br>KEYS FOR THIS TASK: <font color='FF0000'>F=RED</font>, <font color='0000FF'>J=BLUE</font></div>
     <div id="jspsych_target" style="text-align:left;"></div>
   </body>
   <script>
@@ -36,11 +36,11 @@
   var instructions_block = {
     type: "text",
     text: "<p>You will shortly see a series of words on the screen. During each trial, a word will appear printed in either red or blue. If the word is in <font color='red'>red</font>, press the '<font color='red'>F</font>' on the keyboard. If the word is in <font color='blue'>blue</font>, press the '<font color='blue'>J</font>' key. A &quot;+&quot; will appear on the screen before each word appears to show you where to look. <br><br> Your task is to indicate the color of each word as quickly and as accurately as you can. Try not to make mistakes, but try to be fast. Your responses will be timed. The task will take less than 10 minutes.</p>" +
-    
+
       "<p>Press ANY KEY to start...</p>",
     timing_post_trial: 4000
   };
-  
+
   var fixation_block = {
     type: "single-stim",
     stimulus:"<h1>&#10010;<h1>",
@@ -68,7 +68,7 @@
   var trial_index = 0;
   var test_trial_index = 0;
   var tti = 0;
-    
+
   var practice_colors = jsPsych.randomization.repeat(colors, 6);
   for(var i=0;i<practice_wordlist.length;i++) {
     var color = practice_colors[i];
@@ -84,12 +84,12 @@
     }
     practice_stimuli.push(stim);
   }
-  
+
   var practice_trials = jsPsych.randomization.repeat(practice_stimuli, 1);
   for(var i=0;i<practice_trials.length; i+=2) {
     practice_trials.splice(i,0,fixation_block); // insert fixation block between each trial
   }
-  
+
   var practice2_colors = jsPsych.randomization.repeat(colors, 6);
   for(var i=0;i<practice2_wordlist.length;i++) {
     var color = practice2_colors[i];
@@ -105,12 +105,12 @@
     }
     practice2_stimuli.push(stim2);
   }
-  
+
   var practice2_trials = jsPsych.randomization.repeat(practice2_stimuli, 1);
   for(var i=0;i<practice2_trials.length; i+=2) {
     practice2_trials.splice(i,0,fixation_block); // insert fixation block between each trial
   }
-  
+
   var k = 0;
   for (var w_type in test_wordlist) {
     var wordlist = test_wordlist[w_type];
@@ -159,7 +159,8 @@
 
   var practice_block = {
     type: "single-stim",
-    choices: ['f','j'],
+    //choices: ['f','j'],
+    choices: [],
     timing_response: 2000,
     timing_post_trial: 1500,
     on_finish: function(data){
@@ -185,10 +186,11 @@
     },
     timeline: practice_trials
   };
-  
+
   var practice2_block = {
     type: "single-stim",
-    choices: ['f','j'],
+    //choices: ['f','j'],
+    choices: [],
     timing_response: 2000,
     timing_post_trial: 1500,
     on_finish: function(data){
@@ -221,45 +223,52 @@
       return "<p>You have completed the PRACTICE phase. If you would like to repeat the PRACTICE phase, press 1. If you would like to continue onto the TEST phase, press the spacebar.</p>";
     }
   };
-  
+
   var practice_debrief_block_error = {
     type: "text",
     cont_key: [32],
     text: function() {
-      return "<p>It looks like you're having trouble with the task. Please hit the spacebar to repeat the practice trials.</p>";
+      return "<div style='text-align:center;'><p align='left'>It looks like you're having trouble with the task. Please press the spacebar to continue on to the next PRACTICE phase.</p></div>";
     }
   };
-  
+
+  var practice_debrief_block_error2 = {
+    type: "text",
+    cont_key: [32],
+    text: function() {
+      return "<p>It looks like you might be having trouble with the task and it may be helpful to check what keys you’re pressing. Remember, if the word is in <font color='red'>red</font>, press the ''<font color='red'>F</font>'' key on the keyboard.  If the word is in <font color='blue'>blue</font>, press the ''<font color='blue'>J</font>'' key. <br> You have completed the PRACTICE phrase. Please press the spacebar to continue on to the TEST phase.</p>";
+    }
+  };
+
   var practice_debrief_block_end = {
     type: "text",
     cont_key: [32],
     text: function() {
-      return "<p>You have completed the PRACTICE phase. If you would like to continue onto the TEST phase, press the spacebar.</p>";
+      return "<div style='text-align:center;'><p>You have completed the PRACTICE phase. If you would like to continue onto the TEST phase, press the spacebar.</p></div><div style='text-align:center;'>";
     }
   };
-  
+
   var practice_break_block = {
     type: "textTimed",
     cont_key: null,
     timeLeft: 30,
-    
+
     text: function() {
       return "<div id='break_block'><div id='time' style='text-align:center; font-size: 150%;'></div><div style='text-align:center;'>Take a brief 30 second break. Get ready to start again when the countdown reaches zero.</div></div><script>display = document.querySelector('#time');startTimer(30, display);</"+"script>"
     }
   };
 
-  /* create experiment timeline array */
   var practice_timeline = [];
   practice_timeline.push(instructions_block);
   practice_timeline.push(practice_block);
   //practice_timeline.push(practice_debrief_node);
   //practice_timeline.push(practice_break_block);
-  
+
   var practice_node = {
     type: "single-stim",
     timeline: practice_timeline,
     on_finish: function(data){
-      
+
       /*
       if(49 == data[data.length-2].key_press) {
         return true;
@@ -268,7 +277,7 @@
       }*/
     }
   };
-  
+
   var practice_debrief_timeline = [];
   practice_debrief_timeline.push(practice_debrief_block);
   var practice_debrief_node = {
@@ -296,10 +305,10 @@
             }
          }
          perror_rate = (noresponse+incorrect)/(correct + noresponse+incorrect);
-        
+
         console.log('debrief');
         console.log(perror_rate);
-      
+
         if(perror_rate < 0.75){
             console.log('accept');
             return true;
@@ -309,16 +318,57 @@
         }
     }
   }
-  
-  var practice_errcheck_timeline = [];
-  practice_errcheck_timeline.push(practice_debrief_block_error);
-  practice_errcheck_timeline.push(practice2_block);
-  practice_errcheck_timeline.push(practice_debrief_block_end);
-  var practice_errcheck_node = {
+
+    var practice_errcheck_timeline = [];
+    practice_errcheck_timeline.push(practice_debrief_block_error);
+    practice_errcheck_timeline.push(practice2_block);
+    //practice_errcheck_timeline.push(practice_debrief_block_end);
+    var practice_errcheck_node = {
+      type: "textTimed",
+      cont_key: null,
+      timeLeft: 30,
+      timeline: practice_errcheck_timeline,
+      conditional_function: function(){
+           var data = jsPsych.data.getData();
+           var correct = 0;
+           var incorrect = 0;
+           var noresponse = 0;
+           var arrayLength = data.length;
+           for (var i = 0; i < arrayLength; i++) {
+              if(data[i]['block'] == 'practice'){
+                if(data[i]['correct_response']=='correct') {
+                  correct += 1;
+                }
+                if(data[i]['correct_response']=='incorrect') {
+                  incorrect += 1;
+                }
+                if(data[i]['correct_response']=='noresponse') {
+                  noresponse += 1;
+                }
+              }
+           }
+           perror_rate = (noresponse+incorrect)/(correct+noresponse+incorrect);
+
+          console.log('errcheck');
+          console.log(perror_rate);
+
+          if(perror_rate >= 0.75){
+              console.log('accept');
+              return true;
+          } else {
+              console.log('reject');
+              return false;
+          }
+      }
+    }
+
+  var practice_debrief2_timeline = [];
+  practice_debrief2_timeline.push(practice_debrief_block_end);
+  var practice_debrief2_node = {
     type: "textTimed",
     cont_key: null,
     timeLeft: 30,
-    timeline: practice_errcheck_timeline,
+    timeline: practice_debrief2_timeline,
     conditional_function: function(){
          var data = jsPsych.data.getData();
          var correct = 0;
@@ -326,7 +376,7 @@
          var noresponse = 0;
          var arrayLength = data.length;
          for (var i = 0; i < arrayLength; i++) {
-            if(data[i]['block'] == 'practice'){
+            if(data[i]['block'] == 'practice2'){
               if(data[i]['correct_response']=='correct') {
                 correct += 1;
               }
@@ -338,12 +388,12 @@
               }
             }
          }
-         perror_rate = (noresponse+incorrect)/(correct+noresponse+incorrect);
-        
-        console.log('errcheck');
+         perror_rate = (noresponse+incorrect)/(correct + noresponse+incorrect);
+
+        console.log('debrief');
         console.log(perror_rate);
-        
-        if(perror_rate > 0.75){
+
+        if(perror_rate < 0.75){
             console.log('accept');
             return true;
         } else {
@@ -352,10 +402,52 @@
         }
     }
   }
-  
+
+
+    var practice_errcheck2_timeline = [];
+    practice_errcheck2_timeline.push(practice_debrief_block_error2);
+    var practice_errcheck2_node = {
+      type: "textTimed",
+      cont_key: null,
+      timeLeft: 30,
+      timeline: practice_errcheck2_timeline,
+      conditional_function: function(){
+           var data = jsPsych.data.getData();
+           var correct = 0;
+           var incorrect = 0;
+           var noresponse = 0;
+           var arrayLength = data.length;
+           for (var i = 0; i < arrayLength; i++) {
+              if(data[i]['block'] == 'practice2'){ // practice 2
+                if(data[i]['correct_response']=='correct') {
+                  correct += 1;
+                }
+                if(data[i]['correct_response']=='incorrect') {
+                  incorrect += 1;
+                }
+                if(data[i]['correct_response']=='noresponse') {
+                  noresponse += 1;
+                }
+              }
+           }
+           perror_rate = (noresponse+incorrect)/(correct+noresponse+incorrect);
+
+          console.log('errcheck');
+          console.log(perror_rate);
+
+          if(perror_rate >= 0.75){
+              console.log('accept');
+              return true;
+          } else {
+              console.log('reject');
+              return false;
+          }
+      }
+    }
+
   var practice2_timeline = [];
   practice2_timeline.push(practice2_block);
-  practice2_timeline.push(practice_debrief_block_end);
+  //practice2_timeline.push(practice_debrief_block_end);
   var practice2_node = {
     type: "textTimed",
     cont_key: null,
@@ -383,7 +475,7 @@
          perror_rate = (noresponse+incorrect)/(correct + noresponse + incorrect);
         console.log('practice2');
         console.log(perror_rate);
-      
+
         var d = jsPsych.data.getLastTrialData(); //most recent trial is bad keys
         if(d.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode('1') && perror_rate < 0.75){
             console.log('accept');
@@ -394,10 +486,11 @@
         }
     }
   }
-  
+
   var test_block1 = {
     type: "single-stim",
-    choices: ['f','j'],
+    //choices: ['f','j'],
+    choices: [],
     timing_response: 2000,
     timing_post_trial: 1500,
     on_finish: function(data){
@@ -424,10 +517,11 @@
     },
     timeline: test_trials1
   };
-  
+
   var test_block2 = {
     type: "single-stim",
-    choices: ['f','j'],
+    //choices: ['f','j'],
+    choices: [],
     timing_response: 2000,
     timing_post_trial: 1500,
     on_finish: function(data){
@@ -454,10 +548,11 @@
     },
     timeline: test_trials2
   };
-  
+
   var test_block3 = {
     type: "single-stim",
-    choices: ['f','j'],
+    //choices: ['f','j'],
+    choices: [],
     timing_response: 2000,
     timing_post_trial: 1500,
     on_finish: function(data){
@@ -484,7 +579,7 @@
     },
     timeline: test_trials3
   };
-  
+
   var test_break_block = {
     type: "textTimed",
     cont_key: null,
@@ -495,18 +590,18 @@
       return "<div id='break_block'><div id='time' style='text-align:center; font-size: 150%;'></div><div style='text-align:center;'>Nice job! You've completed " + (tti).toString() + " sets of trials. You have " + (3 - tti).toString() + " sets of trials to go.</div></div><script>display = document.querySelector('#time');startTimer(30, display);</"+"script>"
     }
   };
-  
+
   var test_debrief_block = {
     type: "textTimed",
     timeLeft: 0,
     text: function() {
       jsPsych.data.localSave('data.csv', 'csv');
-      
+
       console.log('done');
-      return "<p>End of color naming task. Thank you for completing the task!</p>"
+      return "<div style='text-align:center;'><p>End of color naming task. Thank you for completing the task!</p></div>"
     }
   };
-  
+
   var test_timeline = [];
   test_timeline.push(test_block1);
   test_timeline.push(test_block2);
@@ -515,25 +610,23 @@
   test_timeline_rand.splice(1,0,test_break_block);
   test_timeline_rand.splice(3,0,test_break_block);
   test_timeline_rand.push(test_debrief_block);
-  
+
   var test_node = {
     type: "single-stim",
     timeline: test_timeline_rand
   }
 
   /* start the experiment */
-  //$(document).ready(function(){
-  jsPsych.init({
-    timeline: [practice_node,practice_errcheck_node,practice_debrief_node,practice2_node,test_node],
+  jsPsych.init({ // after practice2_node do practice2_errcheck_node
+    timeline: [practice_node,practice_errcheck_node,practice_debrief_node,practice2_node, practice_errcheck2_node, practice_debrief2_node, test_node],
 
     on_finish: function() {
       //jsPsych.data.localSave('data.csv', 'csv');
-      
-      console.log('done');
+
+      console.log('done done');
     }
   });
-  //})
-  
+
   function startTimer(duration, display) {
     var start = Date.now(),
         diff,
