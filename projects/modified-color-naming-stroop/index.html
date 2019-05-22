@@ -27,7 +27,7 @@
     </style>
   </head>
   <body>
-    <div style='text-align:center; font-size: 80%; position=fixed; bottom=0; width=100%;'><br>KEYS FOR THIS TASK: <font color='FF0000'>F=RED</font>, <font color='0000FF'>J=BLUE</font></div>
+    <div style='text-align:center; font-size: 80%; position=fixed; bottom=0; width=100%;'><br>KEYS FOR THIS TASK: <br> <font color='FF0000'>F=RED</font>, <font color='0000FF'>J=BLUE</font></div>
     <div id="jspsych_target" style="text-align:left;"></div>
   </body>
   <script>
@@ -35,9 +35,11 @@
 
   var instructions_block = {
     type: "text",
-    text: "<p>You will shortly see a series of words on the screen. During each trial, a word will appear printed in either red or blue. If the word is in <font color='red'>red</font>, press the '<font color='red'>F</font>' on the keyboard. If the word is in <font color='blue'>blue</font>, press the '<font color='blue'>J</font>' key. A &quot;+&quot; will appear on the screen before each word appears to show you where to look. <br><br> Your task is to indicate the color of each word as quickly and as accurately as you can. Try not to make mistakes, but try to be fast. Your responses will be timed. The task will take less than 10 minutes.</p>" +
-
-      "<p>Press ANY KEY to start...</p>",
+    cont_key: [70,74],
+    text: "<p>In this task, you will see a series of words appear on the screen. During each trial, a word will appear in either <font color='red'>red</font> or <font color='blue'>blue</font>. If the word is in <font color='blue'>blue</font>, press the ‘<font color='blue'>J</font>’ key on the keyboard. If the word is in <font color='red'>red</font>, press the ‘<font color='red'>F</font>’ key on the keyboard. A ‘+’ will appear on the screen before each word to show you were to look.</p>" +
+           "<p>Your task is to indicate the color of each word (by pressing the ‘<font color='red'>F</font>’ or ‘<font color='blue'>J</font>’ keys on the keyboard) as quickly and as accurately as you can. Try to not to make mistakes, but try to be fast. Your responses will be timed.</p>" +
+           "<p>First, you will be presented with a set of practice trials that can be repeated, if needed. Next, you will be presented with the test trials that cannot be repeated. The task will take less than 10 minutes.</p>" +
+           "<p>Press the ‘<font color='red'>F</font>’ or ‘<font color='blue'>J</font>’ key to start…</p>",
     timing_post_trial: 4000
   };
 
@@ -55,7 +57,7 @@
 
   /* define test blocks */
   var colors = ["blue", "red"];
-  var practice_wordlist = ["ZZZZZ","BBBBB","VVVVV","WWWWW","FFFFF","NNNNN","QQQQQ","UUUUU","HHHHH","SSSSS","JJJJJ","PPPPP"];
+  var practice_wordlist = ["ZZZZZ","BBBBB","VVVVV","WWWWW","SSSSS","NNNNN","QQQQQ","UUUUU","HHHHH","SSSSS","DDDDD","PPPPP"];
   var practice2_wordlist = ["CCCCC","EEEEE","XXXXX","MMMMM","AAAAA","LLLLL","RRRRR","TTTTT","KKKKK","GGGGG","OOOOO","YYYYY"];
   var suicide_wordlist = ["suicide","die","funeral","overdose","drowning","poisoning","dead","lifeless","disappear","jumping","fatal","hanging","cutting","escape","deadly","dying","crisis","lethal","death","suicidal"];
   var negative_wordlist = ["alone","rejected","pathetic","worthless","lonely","worried","numb","gloomy","frightened","miserable","crying","failure","hurting","disappointing","pain","stupid","ugly","fear","disgust","anger"];
@@ -219,8 +221,10 @@
 
   var practice_debrief_block = {
     type: "text",
+    cont_key: [49,70,74],
     text: function() {
-      return "<p>You have completed the PRACTICE phase. If you would like to repeat the PRACTICE phase, press 1. If you would like to continue onto the TEST phase, press the spacebar.</p>";
+      return "<p>Great job, you’ve just complete the practice trials! If you would like to repeat the practice trials, please press <b>1</b>. If you would like to continue on to the task, please press the ‘<font color='red'>F</font>’ or ‘<font color='blue'>J</font>’ keys to start.</p>" +
+             "<p><b>Remember</b>: make sure your fingers are on the ‘<font color='red'>F</font>’ and ‘<font color='blue'>J</font>’ keys on the keyboard.</p>";
     }
   };
 
@@ -587,7 +591,11 @@
     text: function() {
       tti++;
       //return "<div id='break_block'><div id='time' style='text-align:center; font-size: 150%;'></div><div style='text-align:center;'>Nice job! You've completed " + (Math.round(test_trial_index/60)).toString() + " sets of trials. You have " + (3 - Math.round(test_trial_index/60)).toString() + " sets of trials to go.</div></div><script>display = document.querySelector('#time');startTimer(30, display);</"+"script>"
-      return "<div id='break_block'><div id='time' style='text-align:center; font-size: 150%;'></div><div style='text-align:center;'>Nice job! You've completed " + (tti).toString() + " sets of trials. You have " + (3 - tti).toString() + " sets of trials to go.</div></div><script>display = document.querySelector('#time');startTimer(30, display);</"+"script>"
+      if (tti == 2) {
+        return "<div id='break_block'><div id='time' style='text-align:center; font-size: 150%;'></div><div style='text-align:center;'>Nice job! You have " + (3 - tti).toString() + " more set of trials to go. <br> <b>Remember</b>: make sure your fingers are on the ‘<font color='red'>F</font>’ and ‘<font color='blue'>J</font>’ keys on the keyboard.</div></div><script>display = document.querySelector('#time');startTimer(30, display);</"+"script>"
+      } else {
+          return "<div id='break_block'><div id='time' style='text-align:center; font-size: 150%;'></div><div style='text-align:center;'>Nice job! You've completed " + (tti).toString() + " sets of trials. You have " + (3 - tti).toString() + " sets of trials to go. <br> <b>Remember</b>: make sure your fingers are on the ‘<font color='red'>F</font>’ and ‘<font color='blue'>J</font>’ keys on the keyboard. </div></div><script>display = document.querySelector('#time');startTimer(30, display);</"+"script>"
+      }
     }
   };
 
@@ -598,7 +606,7 @@
       jsPsych.data.localSave('data.csv', 'csv');
 
       console.log('done');
-      return "<div style='text-align:center;'><p>End of color naming task. Thank you for completing the task!</p></div>"
+      return "<div style='text-align:center;'><p>Thank you for completing the task!</p></div>"
     }
   };
 
