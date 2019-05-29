@@ -36,7 +36,7 @@
   var instructions_block = {
     type: "text",
     cont_key: [70,74],
-    text: "<p>In this task, you will see a series of words appear on the screen. During each trial, a word will appear in either <font color='red'>red</font> or <font color='blue'>blue</font>. If the word is in <font color='blue'>blue</font>, press the ‘<font color='blue'>J</font>’ key on the keyboard. If the word is in <font color='red'>red</font>, press the ‘<font color='red'>F</font>’ key on the keyboard. A ‘+’ will appear on the screen before each word to show you were to look.</p>" +
+    text: "<p>In this task, you will see a series of words appear on the screen. During each trial, a word will appear in either <font color='red'>red</font> or <font color='blue'>blue</font>. If the word is in <font color='blue'>blue</font>, press the ‘<font color='blue'>J</font>’ key on the keyboard. If the word is in <font color='red'>red</font>, press the ‘<font color='red'>F</font>’ key on the keyboard. A ‘+’ will appear on the screen before each word to show you where to look.</p>" +
            "<p>Your task is to indicate the color of each word (by pressing the ‘<font color='red'>F</font>’ or ‘<font color='blue'>J</font>’ keys on the keyboard) as quickly and as accurately as you can. Try to not to make mistakes, but try to be fast. Your responses will be timed.</p>" +
            "<p>First, you will be presented with a set of practice trials that can be repeated, if needed. Next, you will be presented with the test trials that cannot be repeated. The task will take less than 10 minutes.</p>" +
            "<p>Press the ‘<font color='red'>F</font>’ or ‘<font color='blue'>J</font>’ key to start…</p>",
@@ -51,7 +51,8 @@
     timing_post_trial: 0,
     response_ends_trial: false,
     data:{
-      block: 'fixation'
+      block: 'fixation',
+      correct_response: ''
     }
   };
 
@@ -167,24 +168,29 @@
     timing_post_trial: 1500,
     on_finish: function(data){
       trial_index++;
-      d = jsPsych.data.getLastTrialData()
-      if(data.key_press == 70) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'f', participant_response:'red'});
-        if(d['color'] == 'blue') {
-          jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
-        } else {
-          jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
-        }
-      } else if (data.key_press == 74) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'j', participant_response:'blue'});
-        if(d['color'] == 'red') {
-          jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
-        } else {
-          jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
-        }
-      } else if(data.key_press == -1) {
-        jsPsych.data.addDataToLastTrial({correct_response: 'noresponse'});
-      } else { jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase(), correct_response: 'incorrect'}); }
+      d = jsPsych.data.getLastTrialData();
+      if(data.key_press != -1) {
+        jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase()});
+      }
+      if(data.block == "practice" || data.block == "test") {
+        if(data.key_press == 70) {
+          jsPsych.data.addDataToLastTrial({key_pressed: 'f', participant_response:'red'});
+          if(d['color'] == 'blue') {
+            jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
+          } else {
+            jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
+          }
+        } else if (data.key_press == 74) {
+          jsPsych.data.addDataToLastTrial({key_pressed: 'j', participant_response:'blue'});
+          if(d['color'] == 'red') {
+            jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
+          } else {
+            jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
+          }
+        } else if(data.key_press == -1) {
+          jsPsych.data.addDataToLastTrial({correct_response: 'noresponse'});
+        } else { jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase(), correct_response: 'incorrect'}); }
+      }
     },
     timeline: practice_trials
   };
@@ -197,24 +203,29 @@
     timing_post_trial: 1500,
     on_finish: function(data){
       trial_index++;
-      d = jsPsych.data.getLastTrialData()
-      if(data.key_press == 70) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'f', participant_response:'red'});
-        if(d['color'] == 'blue') {
-          jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
-        } else {
-          jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
-        }
-      } else if (data.key_press == 74) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'j', participant_response:'blue'});
-        if(d['color'] == 'red') {
-          jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
-        } else {
-          jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
-        }
-      } else if(data.key_press == -1) {
-        jsPsych.data.addDataToLastTrial({correct_response: 'noresponse'});
-      } else { jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase(), correct_response: 'incorrect'}); }
+      d = jsPsych.data.getLastTrialData();
+      if(data.key_press != -1) {
+        jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase()});
+      }
+      if(data.block == "practice" || data.block == "test") {
+        if(data.key_press == 70) {
+          jsPsych.data.addDataToLastTrial({key_pressed: 'f', participant_response:'red'});
+          if(d['color'] == 'blue') {
+            jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
+          } else {
+            jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
+          }
+        } else if (data.key_press == 74) {
+          jsPsych.data.addDataToLastTrial({key_pressed: 'j', participant_response:'blue'});
+          if(d['color'] == 'red') {
+            jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
+          } else {
+            jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
+          }
+        } else if(data.key_press == -1) {
+          jsPsych.data.addDataToLastTrial({correct_response: 'noresponse'});
+        } else { jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase(), correct_response: 'incorrect'}); }
+      }
     },
     timeline: practice2_trials
   };
@@ -223,7 +234,7 @@
     type: "text",
     cont_key: [49,70,74],
     text: function() {
-      return "<p>Great job, you’ve just complete the practice trials! If you would like to repeat the practice trials, please press <b>1</b>. If you would like to continue on to the task, please press the ‘<font color='red'>F</font>’ or ‘<font color='blue'>J</font>’ keys to start.</p>" +
+      return "<p>Great job, you’ve just completed the practice trials! If you would like to repeat the practice trials, please press <b>1</b>. If you would like to continue on to the task, please press the ‘<font color='red'>F</font>’ or ‘<font color='blue'>J</font>’ keys to start.</p>" +
              "<p><b>Remember</b>: make sure your fingers are on the ‘<font color='red'>F</font>’ and ‘<font color='blue'>J</font>’ keys on the keyboard.</p>";
     }
   };
@@ -500,24 +511,29 @@
     on_finish: function(data){
       trial_index++;
       test_trial_index++;
-      d = jsPsych.data.getLastTrialData()
-      if(data.key_press == 70) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'f', participant_response:'red'});
-        if(d['color'] == 'blue') {
-          jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
-        } else {
-          jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
-        }
-      } else if (data.key_press == 74) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'j', participant_response:'blue'});
-        if(d['color'] == 'red') {
-          jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
-        } else {
-          jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
-        }
-      } else if(data.key_press == -1) {
-        jsPsych.data.addDataToLastTrial({correct_response: 'noresponse'});
-      } else { jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase(), correct_response: 'incorrect'}); }
+      d = jsPsych.data.getLastTrialData();
+      if(data.key_press != -1) {
+        jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase()});
+      }
+      if(data.block == "practice" || data.block == "test") {
+        if(data.key_press == 70) {
+          jsPsych.data.addDataToLastTrial({key_pressed: 'f', participant_response:'red'});
+          if(d['color'] == 'blue') {
+            jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
+          } else {
+            jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
+          }
+        } else if (data.key_press == 74) {
+          jsPsych.data.addDataToLastTrial({key_pressed: 'j', participant_response:'blue'});
+          if(d['color'] == 'red') {
+            jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
+          } else {
+            jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
+          }
+        } else if(data.key_press == -1) {
+          jsPsych.data.addDataToLastTrial({correct_response: 'noresponse'});
+        } else { jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase(), correct_response: 'incorrect'}); }
+      }
     },
     timeline: test_trials1
   };
@@ -531,24 +547,29 @@
     on_finish: function(data){
       trial_index++;
       test_trial_index++;
-      d = jsPsych.data.getLastTrialData()
-      if(data.key_press == 70) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'f', participant_response:'red'});
-        if(d['color'] == 'blue') {
-          jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
-        } else {
-          jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
-        }
-      } else if (data.key_press == 74) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'j', participant_response:'blue'});
-        if(d['color'] == 'red') {
-          jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
-        } else {
-          jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
-        }
-      } else if(data.key_press == -1) {
-        jsPsych.data.addDataToLastTrial({correct_response: 'noresponse'});
-      } else { jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase(), correct_response: 'incorrect'}); }
+      d = jsPsych.data.getLastTrialData();
+      if(data.key_press != -1) {
+        jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase()});
+      }
+      if(data.block == "practice" || data.block == "test") {
+        if(data.key_press == 70) {
+          jsPsych.data.addDataToLastTrial({key_pressed: 'f', participant_response:'red'});
+          if(d['color'] == 'blue') {
+            jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
+          } else {
+            jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
+          }
+        } else if (data.key_press == 74) {
+          jsPsych.data.addDataToLastTrial({key_pressed: 'j', participant_response:'blue'});
+          if(d['color'] == 'red') {
+            jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
+          } else {
+            jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
+          }
+        } else if(data.key_press == -1) {
+          jsPsych.data.addDataToLastTrial({correct_response: 'noresponse'});
+        } else { jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase(), correct_response: 'incorrect'}); }
+      }
     },
     timeline: test_trials2
   };
@@ -562,24 +583,29 @@
     on_finish: function(data){
       trial_index++;
       test_trial_index++;
-      d = jsPsych.data.getLastTrialData()
-      if(data.key_press == 70) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'f', participant_response:'red'});
-        if(d['color'] == 'blue') {
-          jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
-        } else {
-          jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
-        }
-      } else if (data.key_press == 74) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'j', participant_response:'blue'});
-        if(d['color'] == 'red') {
-          jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
-        } else {
-          jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
-        }
-      } else if(data.key_press == -1) {
-        jsPsych.data.addDataToLastTrial({correct_response: 'noresponse'});
-      } else { jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase(), correct_response: 'incorrect'}); }
+      d = jsPsych.data.getLastTrialData();
+      if(data.key_press != -1) {
+        jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase()});
+      }
+      if(data.block == "practice" || data.block == "test") {
+        if(data.key_press == 70) {
+          jsPsych.data.addDataToLastTrial({key_pressed: 'f', participant_response:'red'});
+          if(d['color'] == 'blue') {
+            jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
+          } else {
+            jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
+          }
+        } else if (data.key_press == 74) {
+          jsPsych.data.addDataToLastTrial({key_pressed: 'j', participant_response:'blue'});
+          if(d['color'] == 'red') {
+            jsPsych.data.addDataToLastTrial({correct_response: 'incorrect'});
+          } else {
+            jsPsych.data.addDataToLastTrial({correct_response: 'correct'});
+          }
+        } else if(data.key_press == -1) {
+          jsPsych.data.addDataToLastTrial({correct_response: 'noresponse'});
+        } else { jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase(), correct_response: 'incorrect'}); }
+      }
     },
     timeline: test_trials3
   };
@@ -592,9 +618,9 @@
       tti++;
       //return "<div id='break_block'><div id='time' style='text-align:center; font-size: 150%;'></div><div style='text-align:center;'>Nice job! You've completed " + (Math.round(test_trial_index/60)).toString() + " sets of trials. You have " + (3 - Math.round(test_trial_index/60)).toString() + " sets of trials to go.</div></div><script>display = document.querySelector('#time');startTimer(30, display);</"+"script>"
       if (tti == 2) {
-        return "<div id='break_block'><div id='time' style='text-align:center; font-size: 150%;'></div><div style='text-align:center;'>Nice job! You have " + (3 - tti).toString() + " more set of trials to go. <br> <b>Remember</b>: make sure your fingers are on the ‘<font color='red'>F</font>’ and ‘<font color='blue'>J</font>’ keys on the keyboard.</div></div><script>display = document.querySelector('#time');startTimer(30, display);</"+"script>"
+        return "<div id='break_block'><div id='time' style='text-align:center; font-size: 150%;'></div><div style='text-align:center;'>Nice job! You have " + (3 - tti).toString() + " more set of trials to go. <br> <br> <b>Remember</b>: make sure your fingers are on the ‘<font color='red'>F</font>’ and ‘<font color='blue'>J</font>’ keys on the keyboard.</div></div><script>display = document.querySelector('#time');startTimer(30, display);</"+"script>"
       } else {
-          return "<div id='break_block'><div id='time' style='text-align:center; font-size: 150%;'></div><div style='text-align:center;'>Nice job! You've completed " + (tti).toString() + " sets of trials. You have " + (3 - tti).toString() + " sets of trials to go. <br> <b>Remember</b>: make sure your fingers are on the ‘<font color='red'>F</font>’ and ‘<font color='blue'>J</font>’ keys on the keyboard. </div></div><script>display = document.querySelector('#time');startTimer(30, display);</"+"script>"
+          return "<div id='break_block'><div id='time' style='text-align:center; font-size: 150%;'></div><div style='text-align:center;'>Nice job! You've completed " + (tti).toString() + " sets of trials. You have " + (3 - tti).toString() + " sets of trials to go. <br> <br> <b>Remember</b>: make sure your fingers are on the ‘<font color='red'>F</font>’ and ‘<font color='blue'>J</font>’ keys on the keyboard. </div></div><script>display = document.querySelector('#time');startTimer(30, display);</"+"script>"
       }
     }
   };
