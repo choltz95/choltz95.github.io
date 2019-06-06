@@ -37,8 +37,8 @@
     type: "text",
     cont_key: [70,74],
     text: "<p>In this task, you will see a series of words appear on the screen. During each trial, a word will appear in either <font color='red'>red</font> or <font color='blue'>blue</font>. If the word is in <font color='blue'>blue</font>, press the ‘<font color='blue'>J</font>’ key on the keyboard. If the word is in <font color='red'>red</font>, press the ‘<font color='red'>F</font>’ key on the keyboard. A ‘+’ will appear on the screen before each word to show you where to look.</p>" +
-           "<p>Your task is to indicate the color of each word (by pressing the ‘<font color='red'>F</font>’ or ‘<font color='blue'>J</font>’ keys on the keyboard) as quickly and as accurately as you can. Try to not to make mistakes, but try to be fast. Your responses will be timed.</p>" +
-           "<p>First, you will be presented with a set of practice trials that can be repeated, if needed. Next, you will be presented with the test trials that cannot be repeated. The task will take less than 10 minutes.</p>" +
+           "<p>Your task is to indicate the color of each word (by pressing the ‘<font color='red'>F</font>’ or ‘<font color='blue'>J</font>’ keys on the keyboard) as quickly and as accurately as you can. Try to not make mistakes, but try to be fast. Your responses will be timed.</p>" +
+           "<p>First, you will be presented with a set of practice trials that can be repeated, if needed. Next, you will be presented with the test trials that cannot be repeated. The task will take less than 10 minutes to complete.”.</p>" +
            "<p>Press the ‘<font color='red'>F</font>’ or ‘<font color='blue'>J</font>’ key to start…</p>",
     timing_post_trial: 4000
   };
@@ -162,8 +162,8 @@
 
   var practice_block = {
     type: "single-stim",
-    //choices: ['f','j'],
-    choices: [],
+    choices: ['f','j'],
+    //choices: [],
     timing_response: -1,
     timing_post_trial: 1500,
     on_finish: function(data){
@@ -197,8 +197,8 @@
 
   var practice2_block = {
     type: "single-stim",
-    //choices: ['f','j'],
-    choices: [],
+    choices: ['f','j'],
+    //choices: [],
     timing_response: -1,
     timing_post_trial: 1500,
     on_finish: function(data){
@@ -506,8 +506,8 @@
 
   var test_block1 = {
     type: "single-stim",
-    //choices: ['f','j'],
-    choices: [],
+    choices: ['f','j'],
+    //choices: [],
     timing_response: -1,
     timing_post_trial: 1500,
     on_finish: function(data){
@@ -542,8 +542,8 @@
 
   var test_block2 = {
     type: "single-stim",
-    //choices: ['f','j'],
-    choices: [],
+    choices: ['f','j'],
+    //choices: [],
     timing_response: -1,
     timing_post_trial: 1500,
     on_finish: function(data){
@@ -578,8 +578,8 @@
 
   var test_block3 = {
     type: "single-stim",
-    //choices: ['f','j'],
-    choices: [],
+    choices: ['f','j'],
+    //choices: [],
     timing_response: -1,
     timing_post_trial: 1500,
     on_finish: function(data){
