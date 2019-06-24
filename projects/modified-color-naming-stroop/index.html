@@ -38,7 +38,7 @@
     cont_key: [70,74],
     text: "<p>In this task, you will see a series of words appear on the screen. During each trial, a word will appear in either <font color='red'>red</font> or <font color='blue'>blue</font>. If the word is in <font color='blue'>blue</font>, press the ‘<font color='blue'>J</font>’ key on the keyboard. If the word is in <font color='red'>red</font>, press the ‘<font color='red'>F</font>’ key on the keyboard. A ‘+’ will appear on the screen before each word to show you where to look.</p>" +
            "<p>Your task is to indicate the color of each word (by pressing the ‘<font color='red'>F</font>’ or ‘<font color='blue'>J</font>’ keys on the keyboard) as quickly and as accurately as you can. Try to not make mistakes, but try to be fast. Your responses will be timed.</p>" +
-           "<p>First, you will be presented with a set of practice trials that can be repeated, if needed. Next, you will be presented with the test trials that cannot be repeated. The task will take less than 10 minutes to complete.”.</p>" +
+           "<p>First, you will be presented with a set of practice trials that can be repeated, if needed. Next, you will be presented with the test trials that cannot be repeated. The task will take less than 10 minutes to complete.</p>" +
            "<p>Press the ‘<font color='red'>F</font>’ or ‘<font color='blue'>J</font>’ key to start…</p>",
     timing_post_trial: 4000
   };
@@ -326,7 +326,7 @@
         console.log('debrief');
         console.log(perror_rate);
 
-        if(perror_rate < 0.75){
+        if(perror_rate < 0.25){
             console.log('accept');
             return true;
         } else {
@@ -369,7 +369,7 @@
           console.log('errcheck');
           console.log(perror_rate);
 
-          if(perror_rate >= 0.75){
+          if(perror_rate >= 0.25){
               console.log('accept');
               return true;
           } else {
@@ -410,7 +410,7 @@
         console.log('debrief');
         console.log(perror_rate);
 
-        if(perror_rate < 0.75){
+        if(perror_rate < 0.25){
             console.log('accept');
             return true;
         } else {
@@ -452,7 +452,7 @@
           console.log('errcheck');
           console.log(perror_rate);
 
-          if(perror_rate >= 0.75){
+          if(perror_rate >= 0.25){
               console.log('accept');
               return true;
           } else {
