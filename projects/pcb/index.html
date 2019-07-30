@@ -50,6 +50,9 @@ Contact: chholtz AT eng DOT ucsd DOT edu
 <a href="https://choltz95.github.io/projects/pcb/#overview">[Overview]</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://choltz95.github.io/projects/pcb/#feat">[Features]</a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="https://choltz95.github.io/projects/pcb/#exp">[Results]</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -95,19 +98,33 @@ Wirelength-driven placement via annealing <br>
 </h3>
 
 
-<h3><a id="overview">Placement Overview</a></h3>
+<h3><a id="overview">P&R Flow</a></h3>
 
 <center>
 <div id="images">
 <figure>
-<img src="flow.PNG">
+<img src="flow.PNG"  style="width:80%;">
 <figcaption>
 Flow of our automated PCB P&R tool.
 </figcaption>
 </figure>
 </center>
 
+<h3>
+<hr width="100%">
+</h3>
 
+
+<h3><a id="feat">Features</a></h3>
+<h4>Placement:</h4>
+<li>Analytical overlap for arbitrary polygons using boost geometries</li>
+<li>Support 90 deg., 45 deg., and free rotation of modules</li>
+<li>Congestion-aware cost-driven optimization via simulated annealing</li>
+<li>BEN-AMEUR et al. (<a href="https://dl.acm.org/citation.cfm?id=1027082">link</a>) cost-normalization & initial temperature computation</li>
+<br>
+<h4>Routing:</h4> 
+<li>Cost-driven rip-up & reroute autorouter </li>
+<li>60-degree route angles</li>
 
 <h3>
 <hr width="100%">
@@ -262,7 +279,7 @@ NEWBLUE7 </td><td> 161  </td><td>0.8</td><td>1481.45</td><td>1113.07</td><td>107
 <hr width="100%">
 </h3>
 
-<h3><a id="exp">Code</a></h3>
+<h3><a id="app">Code</a></h3>
 
 We implement SA-PCB using the C++ programming language. <br>
 For your convenience please find the open-source software and instructions on <a href="https://github.com/choltz95/SA-PCB">github</a>
