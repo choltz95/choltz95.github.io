@@ -3,9 +3,9 @@
 <head>
    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
    <meta name="GENERATOR" content="Mozilla/4.73 [en] (WinNT; U) [Netscape]">
-   <meta name="AUTHOR" content="Jingwei Lu">
-   <meta name="Author" content="Jingwei Lu">
-   <title>ePlace-MS: Electrostatics based Placement for Mixed-Size circuits</title>
+   <meta name="AUTHOR" content="Chester Holtz">
+   <meta name="Author" content="Chester Holtz">
+   <title>SA-PCB: Simulated Annealing-based Placement For PCB Layout</title>
 </head>
 <body 
 text="#000000" 
@@ -20,24 +20,24 @@ rightmargin=200
 >
 
 <h1><center>
-<font face="arial">ePlace-MS: Electrostatics based Placement for Mixed-Size circuits</font> 
+<font face="arial">SA-PCB: Simulated Annealing-based Placement For PCB Layout</font> 
 </h1></center>
 
 <font color="#000000">
 Authors: 
-<a href="http://cseweb.ucsd.edu/~jlu/"> Jingwei Lu</a>, 
-<a href="http://cseweb.ucsd.edu/~hazhuang/"> Hao Zhuang</a>
+<a href="https://cseweb.ucsd.edu/~chholtz/">Chester Holtz</a>, 
+<a href="https://www.devonmerrill.com/">Devon Merrill</a>, 
 and 
 <a href="http://cseweb.ucsd.edu/~kuan/">Chung-Kuan Cheng</a> 
 <br>
 Affiliation: Department of Computer Science and Engineering, University of California, San Diego, USA
 <br>
-Contact: jlu AT cs DOT ucsd DOT edu, ckcheng AT ucsd DOT edu
+Contact: chholtz AT eng DOT ucsd DOT edu
 <br>
 
 <br>
 <center>
-<a href="http://vlsi-cuda.ucsd.edu/~ljw/Placement/index.html#ani">[Animation]</a>
+<a href="http://vlsi-cuda.ucsd.edu/~ljw/Placement/index.html#ani">[Examples]</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
 <a href="http://vlsi-cuda.ucsd.edu/~ljw/Placement/index.html#pub">[Publication]</a>
@@ -55,159 +55,49 @@ Contact: jlu AT cs DOT ucsd DOT edu, ckcheng AT ucsd DOT edu
 <a href="http://vlsi-cuda.ucsd.edu/~ljw/Placement/index.html#lic">[License]</a>
 </center>
 
-<!--<?php include 'count.php'; ?>-->
-<!--
-<?php $fn = "num_visitors.txt";
-$fp = fopen($fn,'r');
-$num00 = fscanf($fp, "%d\n");
-$list ($num) = $num00;
-fclose($fp);
-echo "# visitors: $num\n";
-$fp = fopen($fn,'w');
-fprintf($fp, "%d\n",$num+1);
-fclose($fp);
-?>
--->
 
 <h3>
 <hr width="100%">
 </h3>
 
-<h3><a id="ani">Animation</a></h3>
+<h3><a id="ani">Examples</a></h3>
 
 <style>
 figure{display:inline-block;}
 </style>
+
 <center>
 <div id="images">
 <figure>
-<img SRC="figures/mixcell/field_240x180.gif" height=240 width=320 scale="tofit">
+<img src="manual.PNG">
 <figcaption>
-Electrostatic field animation of density-only placement <br> 
-progression on MMS ADAPTEC1 with 221K nets, 63 <br>
-movable macros and 210K movable standard cells.
+Manual placement and autorouted testcase <br> 
 </figcaption>
 </figure>
-<figure class+"a">
-<img SRC="figures/mixcell/mixcell_240x180.gif" height=240 width=320 scale="tofit">
+<figure>
+<img src="sa.PNG">
 <figcaption>
-Cell layout animation of wirelength & density-driven <br> 
-placement progression on MMS ADAPTEC1 with 221K <br> 
-nets, 63 movable macros and 210K movable standard cells.
+Wirelength-driven placement via annealing <br>
 </figcaption>
 </figure>
 </div>
 </center>
 
-
-
-<!--
-
 <h3>
 <hr width="100%">
 </h3>
 
-<h3><a id="intro">Introduction</a></h3>
-
-We develop a flat, analytic and nonlinear placement 
-algorithm for large-scale mixed-size circuit design. 
-Based on the analogy between placement instance and electrostatic system, 
-the density function is modeled as the system potential energy. 
-The electric potential and field are coupled with density using a well-defined 
-Poisson's equation, which is numerically solved by 
-fast Fourier transform. 
-Rather than conjugate gradient (CG) method, 
-Nesterov's method is used as the nonlinear solver with 
-higher efficiency and faster convergence achieved. 
-Line search is replaced by using a closed-form equation of Lipschitz constant
-to predict the steplength dynamically. 
-A steplength backtracking method is developed to improve the prediction accuracy.
-We apply an approximated preconditioner to the nonlinear gradient to resolve 
-the topological and physical difference between large macros and standard cells.
-An annealing engine is devised to handle macro legalization 
-followed by a standard cell-only placement.
-
--->
-
-<h3>
-<hr width="100%">
-</h3>
-
-<h3><a id="pub">Related Publications</a></h3>
-
-<li> 
-<b>J. Lu</b>, H. Zhuang, P. Chen, H. Chang, C.-C. Chang, Y.-C. Wong, L. Sha, D. J.-H. Huang, Y. Luo, C.-C. Teng and C.-K. Cheng,
-"ePlace-MS: Electrostatics based Placement for Mixed-Size Circuits",
-<i>IEEE TCAD</i> 34(5) (2015), pp. 685-698.
-(<a href="http://cseweb.ucsd.edu/~jlu/papers/eplace-ms-tcad14/paper.pdf">pdf</a>).
-</li>
-
-<li> 
-<b>J. Lu</b>, P. Chen, C.-C. Chang, L. Sha, D. J.-H. Huang, C.-C. Teng and C.-K. Cheng,
-"ePlace: Electrostatics based Placement using Fast Fourier Transform and Nesterov's Method",
-<i>ACM TODAES</i> 20(2) (2015), article 17.
-(<a href="http://cseweb.ucsd.edu/~jlu/papers/eplace-todaes14/paper.pdf">pdf</a>).
-</li>
-
-<li> 
-<b>J. Lu</b>, P. Chen, C.-C. Chang, L. Sha, D. J.-H. Huang, C.-C. Teng and C.-K. Cheng,
-"ePlace: Electrostatics Based Placement Using Nesterov's Method",
-<i>DAC</i> 2014, pages 1-6.
-(<a href="http://cseweb.ucsd.edu/~jlu/papers/eplace-dac14/paper.pdf">pdf</a>).
-</li>
-
-<li> 
-<b>J. Lu</b>, P. Chen, C.-C. Chang, L. Sha, D. J.-H. Huang, C.-C. Teng and C.-K. Cheng,
-"FFTPL: An Analytic Placement Algorithm Using Fast Fourier Transform for Density Equalization", 
-<i>ASICON</i> 2013, pages 1-4.
-(<a href="http://cseweb.ucsd.edu/~jlu/papers/fftpl-asicon13/paper.pdf">pdf</a>).
-</li>
-
-<br>
-
-
-<h3>
-<hr width="100%">
-</h3>
 
 <h3><a id="overview">Placement Overview</a></h3>
-
-<li> develop a novel density function <b>eDensity</b> based on the analogy between placement and electrostatic system </li>
-<li> propose a modified Poisson's equation with Neumann boundary condition to enforce placement legality </li>
-<li> propose a fast numerical solution to the Poisson's equation using spectral methods, which well satisfies the boundary condition </li>
-<li> use Nesterov's method to solve the nonlinear placement problem with runtime step length prediction to resolve runtime bottleneck </li>
-
-<center>
-</center>
-
-<!--
-<style>
-figure{display:inline-block;}
-</style>
--->
 
 <center>
 <div id="images">
 <figure>
-<img SRC="figures/flow.jpg" height=300 width=500 scale="tofit">
+<img src="flow.PNG">
 <figcaption>
-The entire flow of ePlace-MS.
+Flow of our automated PCB P&R tool.
 </figcaption>
 </figure>
-<figure class+"a">
-<figure>
-<img SRC="figures/ovlp.jpg" height=200 width=400 scale="tofit">
-<figcaption>Total HPWL and object overlap (OVLP) at different stages <br> 
-and iterations of placement on MMS ADAPTEC1.
-</figcaption>
-</figure>
-<!-- <figure class+"a"> -->
-<!-- <figure> -->
-<!-- <img SRC="figures/cpu_breakdown.jpg" height=200 width=300 scale="tofit"> -->
-<!-- <figcaption>The runtime breakdown of ePlace in average of <br> MMS benchmarks. -->
-<!-- </figcaption> -->
-<!-- </figure> -->
-<!-- </div> -->
 </center>
 
 
@@ -218,53 +108,10 @@ and iterations of placement on MMS ADAPTEC1.
 
 <h3><a id="exp">Experiments and Results</a></h3>
 
-We implement ePlace-MS
-using C programming language. 
-Our program together with other placers are all 
-executed in single-thread mode 
-on a Linux machine with Intel i7 920 2.67GHz CPU
-and 12GB memory. 
-Experiments are conducted on 
-<a href="http://www.public.iastate.edu/~zijunyan/">MMS</a>
-benchmarks for modern mixed-size placement. 
-Solution quality is evaluated by respective official scripts.
-<br><br>
-In ePlace-MS, we DO NOT allow flipping or rotation of macros or 
-standard cells.
-<br><br>
-
-For your convenience please find all the three benchmark suites 
-(<a href="circ/mms_circ.tar.gz">MMS</a>) and 
-respective official evaluation scripts 
-(<a href="eval/mms_eval.tar.gz">MMS</a>).
-
-<br><br>
-We include seven previous mixed-size 
-placement algorithms for experiments 
-and performance comparison, namely, 
-<a href="http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=1634627">Capo10.5</a>,
-<a href="http://dl.acm.org/citation.cfm?id=1323502">FastPlace3.0</a>, 
-<!-- <li>RQL: <a href="http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=4261227">RQL@DAC-2007</a></li> -->
-<!-- <li>MPE: <a href="http://dl.acm.org/citation.cfm?id=2160958">MAPLE@ISPD-2012</a></li> -->
-<a href="http://dl.acm.org/citation.cfm?id=2228496">ComPLx</a>,
-<!-- <li>BPL: <a href="http://dl.acm.org/citation.cfm?id=2485727">BonnPlace@DATE-2013</a></li> -->
-<a href="http://dl.acm.org/citation.cfm?id=2561900">POLAR</a>,
-<!-- <li>AP3: <a href="http://dl.acm.org/citation.cfm?id=1123057">APlace3@ISPD-2006</a></li> -->
-<a href="http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=6269969">NTUplace3</a>, 
-<a href="http://dl.acm.org/citation.cfm?id=1123055">mPL6</a>, 
-<!-- <li>FFTPL: <a href="http://arxiv.org/abs/1312.4587">FFTPL@ASICON-2013</a></li> -->
-<a href="http://dl.acm.org/citation.cfm?id=1630028">FLOP</a>.
-
-<br><br>
-
-
-
+<br>
 
 <center> 
 
-HPWL and scaled HPWL (e6) results on MMS benchmark suite evaluated by official scripts.<br>
-Here NR="no rotation or flipping of standard cells or macros".
-<br>
 
 <table border="1">
 
@@ -404,201 +251,66 @@ NEWBLUE7 </td><td> 161  </td><td>0.8</td><td>1481.45</td><td>1113.07</td><td>107
 </table>
 </center>
 
-<!--
+<h3>
+<hr width="100%">
+</h3>
 
-<tr>
-<td>48.33</td>
-<td>2.92 </td>
-<td>5.19 </td>
-<td>18.46</td>
-<td>2.97 </td>
-<td>48.88</td>
-<td>7.17 </td>
-<td>23.27</td>
-<td>9.17 </td>
-<td>4.28 </td>
-</tr>
+<h3><a id="exp">Code</a></h3>
 
--->
-
-<!--
-
-<h1>
-<table border="1">
-
-<tr>
-<td colspan="2">Categories</td>
-<td>Min-Cut</td>
-<td colspan="4">Quadratic</td>
-<td colspan="5">Nonlinear</td>
-</tr>
-
-<tr>
-<td colspan="2">Placers</td>
-<td colspan="2">CP10.5 </td>
-<td colspan="2">FP3.0  </td>
-<td colspan="2">RQL</td>
-<td colspan="2">MPE</td>
-<td colspan="2">CPx</td>
-<td colspan="2">AP3</td>
-<td colspan="2">NP3U</td>
-<td colspan="2">mPL6</td>
-<td colspan="2">FFTPL</td>
-<td colspan="4">ePlace</td>
-</tr>
-
-<tr>
-<td>Benchmarks</td>
-<td># Cells</td>
-<td>HPWL</td>
-<td>CPU </td>
-<td>HPWL</td>
-<td>CPU </td>
-<td>HPWL</td>
-<td>CPU </td>
-<td>HPWL</td>
-<td>CPU </td>
-<td>HPWL</td>
-<td>CPU </td>
-<td>HPWL</td>
-<td>CPU </td>
-<td>HPWL</td>
-<td>CPU </td>
-<td>HPWL</td>
-<td>CPU </td>
-<td>HPWL</td>
-<td>CPU </td>
-<td>HPWL</td>
-<td>CPU </td>
-<td>SOL </td>
-<td>GIF </td>
-</tr>
-
-<tr>
-<td>ADAPTEC1</td>
-<td>211K</td>
-<td>88.70</td><td>48.33</td>
-<td>78.34</td><td>2.92 </td>
-<td>77.82</td><td>5.19 </td>
-<td>76.36</td><td>18.46</td>
-<td>77.73</td><td>2.97 </td>
-<td>78.35</td><td>48.88</td>
-<td>80.29</td><td>7.17 </td>
-<td>77.93</td><td>23.27</td>
-<td>76.46</td><td>9.17 </td>
-<td>75.03</td><td>4.28 </td>
-</tr>
-
-</table>
-
-</h1>
-
--->
+<br>
 
 
+We implement SA-PCB using the C++ programming language. <br>
+For your convenience please find the open-source software and instructions on <a href="https://github.com/choltz95/SA-PCB">github</a>
+We appreciate pull requests and issue reports.
 
 <h3>
 <hr width="100%">
 </h3>
 
-<h3><a id="app">Application for software</a></h3> 
+<h3><a id="lic">License</a></h3>
 
-Please fill out the following agreement form. We will email you the 
-placement software upon receiving your submission of agreement.
+BSD 3-Clause License <br>
 
-<br><br>
+Copyright (c) 2015-2018, The Regents of the University of California <br>
+All rights reserved. <br>
 
-<form action="proc.php" method="get">
-First name: <br>
-<input type="text" name="firstname"><br>
-Last name: <br>
-<input type="text" name="lastname"><br>
-Email: <br>
-<input type="text" name="email"><br>
-Affiliation: <br>
-<input type="text" name="affiliation"><br>
-Purpose of usage: <br>
-<textarea name="txtarea" rows="10" cols="75">
-</textarea>
+<p>
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+</p>
+
 <br>
-<input type="checkbox" name="license">I agree with the following 
-<a href="http://vlsi-cuda.ucsd.edu/~ljw/Placement/index.html#lic">license terms</a>.<br>
 <br>
-<input type="submit" value="submit">
-</form>
 
-<h3>
-<hr width="100%">
-</h3>
+<li> Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer. </li>
 
-<h3><a id="lic">License terms</a></h3>
+<li> Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution. </li>
 
-READ THIS LICENSE AGREEMENT CAREFULLY BEFORE USING THIS PRODUCT. BY USING THIS PRODUCT YOU INDICATE YOUR ACCEPTANCE OF THE TERMS OF THE FOLLOWING AGREEMENT. THESE TERMS APPLY TO YOU AND ANY SUBSEQUENT LICENSEE OF THIS PRODUCT.
+<li> Neither the name of the copyright holder nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission. </li>
 
-<br><br>
+<br>
 
-License Agreement for ePlace-MS
+<p>
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+</p>
 
-<br><br>
+<h3><a id="pub">Related Publications</a></h3>
 
-Copyright (c) 2014 by Jingwei Lu and Chung-Kuan Cheng ("Authors")<br>
-http://vlsi-cuda.ucsd.edu/~ljw/ePlace-MS/ ("URL")<br>
-All rights reserved
+<li> None </li>
 
-<br><br>
-
-Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-<br><br>
-
-<li>
-Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-</li>
-
-<li>
-Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-</li>
-
-<li>
-Neither the names nor any trademark of the Authors may be used to endorse or promote products derived from this software without specific prior written permission.
-</li>
-
-<li>
-Use is limited to academic research groups only. Users who are interested in industry or commercial purposes must notify Authors and request separate license agreement.
-
-<li>
-Redistributions of the Code in executable form, or a program dependent upon the Code, must show at launch a prominent display (e.g., splash screen or banner text) of the copyright information, including Authors' attribution, shown above.
-</li>
-
-<br><br>
-
-THIS FREE SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR ANY CONTRIBUTOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, EFFECTS OF UNAUTHORIZED OR MALICIOUS NETWORK ACCESS; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-
-<br>&nbsp;
-<p>&nbsp;
-<br>&nbsp;
-<br>&nbsp;
-<br>&nbsp;
-<br>&nbsp;
-<br>&nbsp;
-<br>&nbsp;
-<br>&nbsp;
-<br>&nbsp;
-
-<!--
-<p><a href="http://home.netscape.com/comprod/mirror/index.html"><img SRC="now8.gif" BORDER=0 height=31 width=88 align=CENTER></a>&nbsp;&nbsp;
-This page was created with Netscape Navigator Gold
-<p><i><font color="#008000">March 31, 2004</font></i>
--->
-</body>
-</html>
-
-
-
-
-<!-- 
-Welcome <?php echo $_GET["firstname"]; ?><br>
-Your email address is: <?php echo $_GET["email"]; ?><br>
-Your checked license is: <?php echo $_GET["license"]; ?><br>
-Your purpose is: <?php echo $_GET["txtarea"]; ?>
---> 
+<br>
