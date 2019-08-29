@@ -13,7 +13,7 @@ jsPsych.plugins.textTimed = (function() {
 
   plugin.trial = function(display_element, trial) {
 
-    trial.cont_key = trial.cont_key || [];
+    trial.cont_key = trial.cont_key;
     trial.timeLeft = trial.timeLeft || null;
 
     // if any trial variables are functions
@@ -59,7 +59,7 @@ jsPsych.plugins.textTimed = (function() {
     if (trial.cont_key == 'mouse') {
       display_element.click(mouse_listener);
       var startTime = performance.now();
-    } else {
+    }/* else {
       jsPsych.pluginAPI.getKeyboardResponse({
         callback_function: after_response,
         valid_responses: trial.cont_key,
@@ -67,7 +67,7 @@ jsPsych.plugins.textTimed = (function() {
         persist: false,
         allow_held_key: false
       });
-    };
+    };*/
 
     function afterTimeOut(){
       clearTimeout(count);

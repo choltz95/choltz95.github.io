@@ -3,9 +3,9 @@
   <head>
     <title>Attention-Cueing-Stroop</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="https://choltz95.github.io/projects/jspsych-5.0.3/jspsych.js"></script>
+    <script src="jspsych-5.0.3/jspsych.js"></script>
     <script src="https://choltz95.github.io/projects/jspsych-5.0.3/plugins/jspsych-text.js"></script>
-    <script src="https://choltz95.github.io/projects/jspsych-5.0.3/plugins/jspsych-textTimed.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-textTimed.js"></script>
     <script src="https://choltz95.github.io/projects/jspsych-5.0.3/plugins/jspsych-single-stim.js"></script>
     <link href="https://choltz95.github.io/projects/jspsych-5.0.3/css/jspsych.css" rel="stylesheet" type="text/css"></link>
     <style> /* Ben King helped with this. */
@@ -118,7 +118,7 @@
   var instructions_block = {
     type: "text",
     display_element: $('.instructions'),
-    text: "<p>You will shortly see a series of words on the screen. During each experimental trial, a vertically-aligned pair of words will appear printed in either the right box, or the left box. A &quot;&#9679;&quot; will appear on the screen in either the right box, or the left box after each set of words appears. Your task is to indicate what side of the screen the &quot;&#9679;&quot; appeared on, using the C and M keys. If the &quot;&#9679;&quot; appears on the left side of the screen, press C. If the &quot;&#9679;&quot; appears on the right side of the screen, press M. Try not to make mistakes, but try to be fast. Your reactions will be timed.</p>" +
+    text: "<p>You will shortly see a series of words on the screen. During each experimental trial, a vertically-aligned pair of words will appear printed in either the right box, or the left box. A &quot;&#9679;&quot; will appear on the screen in either the right box, or the left box after each set of words appears. Your task is to indicate what side of the screen the &quot;&#9679;&quot; appeared on, using the F and J keys. If the &quot;&#9679;&quot; appears on the left side of the screen, press F. If the &quot;&#9679;&quot; appears on the right side of the screen, press J. Try not to make mistakes, but try to be fast. Your reactions will be timed.</p>" +
 
       "<p>Press ANY KEY to start...</p>",
     on_trial_start: function() { $(".fixation_gap").css('visibility','hidden'); $(".box1").css('visibility','hidden'); $(".box2").css('visibility','hidden'); },
@@ -157,11 +157,11 @@
   var responsel_block = {
     type: "single-stim",
     //choices: ['c','m'],
-    choices: [],
+    choices: ['f','j'],
     display_element: $('.box1'),
     stimulus:"<div class='dot'><font size='+20'>&#9679;</font></div>",
     is_html: true,
-    timing_response: 2000,
+    timing_response: -1,
     timing_post_trial: 10,
     response_ends_trial: true,
     data:{key_pressed:-1},
@@ -169,10 +169,10 @@
       trial_index++;
       //tldat = jsPsych.data.getLastTimelineData();
       //wpos = tldat[tldat.length - 2]['word_position'];
-      if(data.key_press == 67) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'left', correct_response: 'correct' });
-      } else if (data.key_press == 77) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'right', correct_response: 'incorrect' });
+      if(data.key_press == 70) {
+        jsPsych.data.addDataToLastTrial({key_pressed: 'f', participant_response:'left', correct_response: 'correct' });
+      } else if (data.key_press == 74) {
+        jsPsych.data.addDataToLastTrial({key_pressed: 'j', participant_response:'right', correct_response: 'incorrect' });
       } else if(data.key_press == -1) {
         jsPsych.data.addDataToLastTrial({correct_response: 'noresponse'});
       } else { jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase(), correct_response: 'incorrect'}); }
@@ -185,11 +185,11 @@
   var responser_block = {
     type: "single-stim",
     //choices: ['c','m'],
-    choices: [],
+    choices: ['f','j'],
     display_element: $('.box2'),
     stimulus:"<div class='dot'><font size='+20'>&#9679;</font></div>",
     is_html: true,
-    timing_response: 2000,
+    timing_response: -1,
     timing_post_trial: 10,
     response_ends_trial: true,
     data:{key_pressed:-1},
@@ -197,10 +197,10 @@
       trial_index++;
       //tldat = jsPsych.data.getLastTimelineData();
       //wpos = tldat[tldat.length - 2]['word_position'];
-      if(data.key_press == 77) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'm', participant_response:'right', correct_response: 'correct' });
-      } else if (data.key_press == 67) {
-        jsPsych.data.addDataToLastTrial({key_pressed: 'c', participant_response:'left', correct_response: 'incorrect' });
+      if(data.key_press == 74) {
+        jsPsych.data.addDataToLastTrial({key_pressed: 'j', participant_response:'right', correct_response: 'correct' });
+      } else if (data.key_press == 70) {
+        jsPsych.data.addDataToLastTrial({key_pressed: 'f', participant_response:'left', correct_response: 'incorrect' });
       } else if(data.key_press == -1) {
         jsPsych.data.addDataToLastTrial({correct_response: 'noresponse'});
       } else { jsPsych.data.addDataToLastTrial({key_pressed: String.fromCharCode(data.key_press).toLowerCase(), correct_response: 'incorrect'}); }
@@ -211,7 +211,10 @@
   };
 
   /* define test blocks */
-  var practice_wordlist = ["follow", "walk", "spin", "pile", "wide", "rusty", "parking", "known", "zoom", "decide", "run", "writing"];
+  //var practice_wordlist = ["follow", "walk", "spin", "pile", "wide", "rusty", "parking", "known", "zoom", "decide", "run", "writing"];
+  var practice_wordlist = ["ZZZZZ","BBBBB","VVVVV","WWWWW","SSSSS","NNNNN","QQQQQ","UUUUU","HHHHH","IIIII","DDDDD","PPPPP"];
+  var practice_wordlist2 = ["CCCCC","EEEEE","XXXXX","MMMMM","AAAAA","LLLLL","RRRRR","TTTTT","KKKKK","GGGGG","OOOOO","YYYYY"];
+
   var suicide_wordlist = ["suffocation", "gunshot", "funeral", "blood", "overdose", "noose", "corpse", "death", "dead", "die", "cutting", "dying", "suicide", "hanging", "killing", "deceased"];
   var negative_wordlist = ["hate", "vomit", "pathetic", "crying", "filthy","abuse", "cruel", "failure", "assault", "rejected", "bomb", "torture", "ashamed", "alone", "stupid", "worthless"];
   var positive_wordlist = ["healthy", "attraction", "great", "paradise", "love", "bravery", "pleasure", "enthusiasm", "kiss", "strong", "smile", "happy", "passionate", "ecstatic", "laugh", "success"];
@@ -219,6 +222,8 @@
   var test_wordlist =  suicide_wordlist.concat(negative_wordlist, positive_wordlist, neutral_wordlist)
   var practice_stimuli = [];
   var stim_practice_set = []; // temporary object array for randomization of stim order
+  var practice_stimuli2 = [];
+  var stim_practice_set2 = []; // temporary object array for randomization of stim order
   var stim_test_set = []; // temporary object array for randomization of stim order
   var test_stimuli1 = []; // block 1
   var test_stimuli2 = []; // block 2
@@ -261,13 +266,54 @@
   var practice_trials = jsPsych.randomization.repeat(practice_stimuli, 1);
   practice_trials = [].concat.apply([], practice_trials); // flatten
 
+  for(var i=0;i<practice_wordlist2.length;i++) {
+    var rand1 = Math.floor(Math.random() * 2) + 1;
+    var rand2 = Math.floor(Math.random() * 2) + 1;
+    var wp = "";
+    if(rand1 == 1) {
+      wp = "left";
+    } else { wp = "right";}
+    var stim = {
+      is_html: true,
+      timing_response: 1000,
+      timing_post_trial: 50,
+      response_ends_trial: false,
+      display_element: $('.box' + rand1),
+      stimulus: "<div class='text'><span><h3>" + practice_wordlist2[i] + "</h3></span>" + "<span><h3>" + practice_wordlist2[i] + "</h3></span></div>",
+      data:{word: practice_wordlist2[i],
+            word_position: wp,
+            validity: 'practice',
+            block: 'practice',
+            block_num: 0
+      }
+    }
+    stim_practice_set2 = [];
+    stim_practice_set2.push(fixation_block);
+    stim_practice_set2.push(stim);
+    if(rand2 == 1) {
+      stim_practice_set2.push(responser_block);
+    } else {
+      stim_practice_set2.push(responsel_block);
+    }
+    stim_practice_set2.push(trial_end_block); // trick to preserve order of stimuli set
+    practice_stimuli2.push(stim_practice_set2);
+  }
+  var practice_trials2 = jsPsych.randomization.repeat(practice_stimuli2, 1);
+  practice_trials2 = [].concat.apply([], practice_trials2); // flatten
+
   var practice_block = {
     type: "single-stim",
     timeline: practice_trials
   };
 
+    var practice2_block = {
+    type: "single-stim",
+    timeline: practice_trials2
+  };
+
   var practice_debrief_block = {
     type: "text",
+    cont_key: [49,70,74],
     display_element: $('.instructions'),
     on_trial_start: function() { $(".fixation_gap").css('visibility','hidden'); $(".box1").css('visibility','hidden'); $(".box2").css('visibility','hidden'); },
     on_finish: function() { $(".fixation_gap").css('visibility','visible'); $(".box1").css('visibility','visible'); $(".box2").css('visibility','visible');  },
@@ -276,22 +322,273 @@
     }
   };
 
+  var practice_debrief_block_error = {
+    type: "text",
+    cont_key: [70,74],
+    display_element: $('.instructions'),
+    on_trial_start: function() { $(".fixation_gap").css('visibility','hidden'); $(".box1").css('visibility','hidden'); $(".box2").css('visibility','hidden'); },
+    on_finish: function() { $(".fixation_gap").css('visibility','visible'); $(".box1").css('visibility','visible'); $(".box2").css('visibility','visible');  },
+    text: function() {
+      return "<p>It looks like you're having trouble with the task.</p>" +
+              "<br><p>Please press the 'F' or 'J' key to try the practice again.</p>" +
+              "<br><p><b>Remember</b>: make sure your fingers are on the 'F' and 'J' keys on the keyboard.</p>";
+    }
+  };
+
+  var practice_debrief_block_error2 = {
+    type: "text",
+    cont_key: [70,74],
+    display_element: $('.instructions'),
+    on_trial_start: function() { $(".fixation_gap").css('visibility','hidden'); $(".box1").css('visibility','hidden'); $(".box2").css('visibility','hidden'); },
+    on_finish: function() { $(".fixation_gap").css('visibility','visible'); $(".box1").css('visibility','visible'); $(".box2").css('visibility','visible');  },
+    text: function() {
+      return "<p>It looks like you might be having trouble with the task and it may be helpful to check what keys you're pressing.</p>" +
+        "<br><p>Please press the 'F' or 'J' key to move onto the TEST phase.</p>" +
+        "<br><p><b>Remember</b>: make sure your fingers are on the 'F' and 'J' keys on the keyboard.</p>";
+    }
+  };
+
+  var practice_debrief_block_end = {
+    type: "text",
+    cont_key: [70,74],
+    display_element: $('.instructions'),
+    on_trial_start: function() { $(".fixation_gap").css('visibility','hidden'); $(".box1").css('visibility','hidden'); $(".box2").css('visibility','hidden'); },
+    on_finish: function() { $(".fixation_gap").css('visibility','visible'); $(".box1").css('visibility','visible'); $(".box2").css('visibility','visible');  },
+    text: function() {
+      return "<p>You have completed the PRACTICE phase. If you would like to continue onto the TEST phase, press the 'F' or 'J' key on the keyboard.</p>" + 
+        "<br><p><b>Remember</b>: make sure your fingers are on the 'F' and 'J' keys on the keyboard.</p>";
+    }
+  };
+
   /* create practice timeline */
   var practice_timeline = [];
   practice_timeline.push(instructions_block);
   practice_timeline.push(practice_block);
-  practice_timeline.push(practice_debrief_block);
+  //practice_timeline.push(practice_debrief_block);
 
   var practice_node = {
+    type: "single-stim",
     timeline: practice_timeline,
+    on_finish: function(data){ } 
+    /*
     loop_function: function(data){
-      if(49 == data[data.length-1].key_press) {
+      if(70 == data[data.length-1].key_pres || 74 == data[data.length-1].key_presss) {
         return true;
       } else {
         return false;
       }
-    }
+    } */
   };
+
+  var practice_debrief_timeline = [];
+  practice_debrief_timeline.push(practice_debrief_block);
+  var practice_debrief_node = {
+    type: "textTimed",
+    cont_key: null,
+    timeLeft: 30,
+    timeline: practice_debrief_timeline,
+    conditional_function: function(){
+         var data = jsPsych.data.getData();
+         var correct = 0;
+         var incorrect = 0;
+         var noresponse = 0;
+         var arrayLength = data.length;
+         console.log(data);
+         for (var i = 0; i < arrayLength; i++) {
+            if(data[i]['block'] == 'practice'){
+              if(data[i+1]['correct_response']=='correct') {
+                correct += 1;
+              }
+              if(data[i+1]['correct_response']=='incorrect') {
+                incorrect += 1;
+              }
+              if(data[i+1]['correct_response']=='noresponse') {
+                noresponse += 1;
+              }
+            }
+         }
+         perror_rate = (noresponse+incorrect)/(correct + noresponse+incorrect);
+
+        console.log('debrief');
+        console.log(perror_rate);
+
+        if(perror_rate < 0.25){
+            console.log('accept');
+            return true;
+        } else {
+            console.log('reject');
+            return false;
+        }
+    }
+  }
+
+    var practice_errcheck_timeline = [];
+    practice_errcheck_timeline.push(practice_debrief_block_error);
+    practice_errcheck_timeline.push(practice2_block);
+    //practice_errcheck_timeline.push(practice_debrief_block_end);
+    var practice_errcheck_node = {
+      type: "textTimed",
+      cont_key: null,
+      timeLeft: 30,
+      timeline: practice_errcheck_timeline,
+      conditional_function: function(){
+           var data = jsPsych.data.getData();
+           var correct = 0;
+           var incorrect = 0;
+           var noresponse = 0;
+           var arrayLength = data.length;
+           for (var i = 0; i < arrayLength; i++) {
+              if(data[i]['block'] == 'practice'){
+                if(data[i+1]['correct_response']=='correct') {
+                  correct += 1;
+                }
+                if(data[i+1]['correct_response']=='incorrect') {
+                  incorrect += 1;
+                }
+                if(data[i+1]['correct_response']=='noresponse') {
+                  noresponse += 1;
+                }
+              }
+           }
+           perror_rate = (noresponse+incorrect)/(correct+noresponse+incorrect);
+
+          console.log('errcheck');
+          console.log(perror_rate);
+
+          if(perror_rate >= 0.25){
+              console.log('accept');
+              return true;
+          } else {
+              console.log('reject');
+              return false;
+          }
+      }
+    }
+
+  var practice_debrief2_timeline = [];
+  practice_debrief2_timeline.push(practice_debrief_block_end);
+  var practice_debrief2_node = {
+    type: "textTimed",
+    cont_key: null,
+    timeLeft: 30,
+    timeline: practice_debrief2_timeline,
+    conditional_function: function(){
+         var data = jsPsych.data.getData();
+         var correct = 0;
+         var incorrect = 0;
+         var noresponse = 0;
+         var arrayLength = data.length;
+         for (var i = 0; i < arrayLength; i++) {
+            if(data[i]['block'] == 'practice2'){
+              if(data[i+1]['correct_response']=='correct') {
+                correct += 1;
+              }
+              if(data[i+1]['correct_response']=='incorrect') {
+                incorrect += 1;
+              }
+              if(data[i+1]['correct_response']=='noresponse') {
+                noresponse += 1;
+              }
+            }
+         }
+         perror_rate = (noresponse+incorrect)/(correct + noresponse+incorrect);
+
+        console.log('debrief');
+        console.log(perror_rate);
+
+        if(perror_rate < 0.25){
+            console.log('accept');
+            return true;
+        } else {
+            console.log('reject');
+            return false;
+        }
+    }
+  }
+
+
+    var practice_errcheck2_timeline = [];
+    practice_errcheck2_timeline.push(practice_debrief_block_error2);
+    var practice_errcheck2_node = {
+      type: "textTimed",
+      cont_key: null,
+      timeLeft: 30,
+      timeline: practice_errcheck2_timeline,
+      conditional_function: function(){
+           var data = jsPsych.data.getData();
+           var correct = 0;
+           var incorrect = 0;
+           var noresponse = 0;
+           var arrayLength = data.length;
+           for (var i = 0; i < arrayLength; i++) {
+              if(data[i]['block'] == 'practice2'){ // practice 2
+                if(data[i+1]['correct_response']=='correct') {
+                  correct += 1;
+                }
+                if(data[i+1]['correct_response']=='incorrect') {
+                  incorrect += 1;
+                }
+                if(data[i+1]['correct_response']=='noresponse') {
+                  noresponse += 1;
+                }
+              }
+           }
+           perror_rate = (noresponse+incorrect)/(correct+noresponse+incorrect);
+
+          console.log('errcheck');
+          console.log(perror_rate);
+
+          if(perror_rate >= 0.25){
+              console.log('accept');
+              return true;
+          } else {
+              console.log('reject');
+              return false;
+          }
+      }
+    }
+
+  var practice2_timeline = [];
+  practice2_timeline.push(practice2_block);
+  //practice2_timeline.push(practice_debrief_block_end);
+  var practice2_node = {
+    type: "textTimed",
+    cont_key: null,
+    timeLeft: 10,
+    timeline: practice2_timeline,
+    conditional_function: function(){
+         var data = jsPsych.data.getData();
+         var correct = 0;
+         var incorrect = 0;
+         var noresponse = 0;
+         var arrayLength = data.length;
+         for (var i = 0; i < arrayLength; i++) {
+            if(data[i]['block'] == 'practice'){
+              if(data[i+1]['correct_response']=='correct') {
+                correct += 1;
+              }
+              if(data[i+1]['correct_response']=='incorrect') {
+                incorrect += 1;
+              }
+              if(data[i+1]['correct_response']=='noresponse') {
+                noresponse += 1;
+              }
+            }
+         }
+         perror_rate = (noresponse+incorrect)/(correct + noresponse + incorrect);
+        console.log('practice2');
+        console.log(perror_rate);
+
+        var d = jsPsych.data.getLastTrialData(); //most recent trial is bad keys
+        if(d.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode('1') && perror_rate < 0.75){
+            console.log('accept');
+            return true;
+        } else {
+            console.log('reject');
+            return false;
+        }
+    }
+  }
 
 /*********************************/
 
@@ -1024,11 +1321,25 @@
   test_timeline.push(test_block4);
   test_timeline_rand = jsPsych.randomization.repeat(test_timeline, 1);
   
-  test_timeline_rand.push(test_debrief_block);
+  //test_timeline_rand.push(test_debrief_block);
 
-  var test_node = {
+  var test_node1 = {
     type: "single-stim",
     timeline: test_timeline_rand
+  }
+
+  var test_timeline2 = [];
+  test_timeline2.push(test_block1);
+  test_timeline2.push(test_block2);
+  test_timeline2.push(test_block3);
+  test_timeline2.push(test_block4);
+  test_timeline_rand2 = jsPsych.randomization.repeat(test_timeline2, 1);
+  
+  test_timeline_rand2.push(test_debrief_block);
+
+  var test_node2 = {
+    type: "single-stim",
+    timeline: test_timeline_rand2
   }
   
   function findAndRemove(array, property, value) {
@@ -1059,11 +1370,13 @@
   numpartitions = 15
 
   jsPsych.init({
-    timeline: [practice_node,test_node],
+    //timeline: [practice_node,test_node1,test_node2],
+    timeline: [practice_node, practice_errcheck_node,practice_debrief_node,practice2_node, practice_errcheck2_node, practice_debrief2_node,test_node1,test_node2],
     //timeline: [practice_node],
     
     on_finish: function() {
-     //jsPsych.data.localSave('data.csv', 'csv');
+     jsPsych.data.localSave('data.csv', 'csv');
+     /*
       console.log('done');
       var json_data = JSON.parse(jsPsych.data.dataAsJSON());
       
@@ -1097,7 +1410,7 @@
               var i = 0;
               (testt = function() {
                   d = encodeURIComponent(json_data_strs[i]);
-                  /*var url = `${base_url}3808247/surveypage/1/surveyquestion/${idds[i]}.jsonp?_method=POST&api_token=${api_key}&api_token_secret=${api_secret}&properties[defaulttext]=${d}`;*/
+                  //var url = `${base_url}3808247/surveypage/1/surveyquestion/${idds[i]}.jsonp?_method=POST&api_token=${api_key}&api_token_secret=${api_secret}&properties[defaulttext]=${d}`;
                   var url = `${base_url}3808247/surveyresponse/${responseid}.jsonp?_method=POST&api_token=${api_key}&api_token_secret=${api_secret}&data[${idds[i]}][value]=${d}`;
       
                   $.ajax({
@@ -1118,7 +1431,7 @@
                 })();
             //}
           }
-      });
+      }); */
     }
   });
 </script>
