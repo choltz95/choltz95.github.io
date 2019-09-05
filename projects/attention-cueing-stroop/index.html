@@ -12,8 +12,14 @@
         html, body {
         height: 100%;
         margin: 0;
+        margin-left: calc(100vw - 100%);
         }
-      body { font-size: 125%; } /* global font size */
+      body { 
+        font-size: 125%; 
+        position: fixed; 
+        overflow-y: scroll;
+        width: 100%;
+      } /* global font size */
       .box1 {
         display: inline-block;
         vertical-align: middle;
@@ -75,7 +81,6 @@
         width:100%; !important;
         overflow: hidden;
       }
-
       .box1 #jspsych-single-stim-stimulus, .box2 #jspsych-single-stim-stimulus {
         width: 100%;
         height: 100%;
@@ -94,6 +99,13 @@
       }
       .jspsych-display-element h1 {
         width: 50%;
+      }
+      .instructions {
+        vertical-align: middle;
+        width: 50%;
+        height: 50px;
+        margin: auto;
+        Text-align:left;
       }
     </style>
   </head>
@@ -117,10 +129,13 @@
   /* define instructions block */
   var instructions_block = {
     type: "text",
+    cont_key: ['f','j'],
     display_element: $('.instructions'),
-    text: "<p>You will shortly see a series of words on the screen. During each experimental trial, a vertically-aligned pair of words will appear printed in either the right box, or the left box. A &quot;&#9679;&quot; will appear on the screen in either the right box, or the left box after each set of words appears. Your task is to indicate what side of the screen the &quot;&#9679;&quot; appeared on, using the F and J keys. If the &quot;&#9679;&quot; appears on the left side of the screen, press F. If the &quot;&#9679;&quot; appears on the right side of the screen, press J. Try not to make mistakes, but try to be fast. Your reactions will be timed.</p>" +
+    text: "<p>You will shortly see a series of words on the screen. At the beginning of each trial, a '&#10010;' will appear on the screen to show you where to look. Next, you will see a pair of words appear in either the left or right box. Then, a ''&#9679;'' will appear on the screen in either the left or right box after each pair of words disappears. Your task is to indicate which side the ''&#9679;'' appeared on. If the ''&#9679;'' appears on the left side of the screen, press the '<b>F</b>' key on the keyboard. If the ''&#9679;'' appears on the right side of the screen, press the '<b>J</b>' key on the keyboard. </p>" +
 
-      "<p>Press ANY KEY to start...</p>",
+      "<p>Remember, your task is to indicate which side the ''&#9679;'' appeared on (by pressing the '<b>F</b>'or '<b>J</b>' keys on the keyboard) as quickly and as accurately as you can. Try to not make mistakes, but try to be fast. Your responses will be timed. </p>" +
+
+      "<p>First, you will be presented with a set of practice trials that can be repeated, if needed. Then, you will be presented with the test trials that cannot be repeated. The task will take approximately 10 minutes to complete.</p>" +"<p>Press the '<b>F</b>'or '<b>J</b>' key to start...</p>",
     on_trial_start: function() { $(".fixation_gap").css('visibility','hidden'); $(".box1").css('visibility','hidden'); $(".box2").css('visibility','hidden'); },
     on_finish: function() { $(".fixation_gap").css('visibility','visible'); $(".box1").css('visibility','visible'); $(".box2").css('visibility','visible');  },
     timing_post_trial: 4000
@@ -318,7 +333,8 @@
     on_trial_start: function() { $(".fixation_gap").css('visibility','hidden'); $(".box1").css('visibility','hidden'); $(".box2").css('visibility','hidden'); },
     on_finish: function() { $(".fixation_gap").css('visibility','visible'); $(".box1").css('visibility','visible'); $(".box2").css('visibility','visible');  },
     text: function() {
-      return "<p>You have completed the PRACTICE phase. If you would like to repeat the PRACTICE phase, press 1. If you would like to continue onto the TEST phase, press the 'F' or 'J' keys.</p>";
+      return "<p>You have completed the PRACTICE phase. If you would like to repeat the PRACTICE phase, press <b>1</b>. If you would like to continue onto the TEST phase, press the '<b>F</b>' or '<b>J</b>' keys on the keyboard.</p>" + 
+             "<br><p><b>Remember</b>: press the '<b>F</b>' key if the ''&#9679;'' is on the left. Press the '<b>J</b>' key if the ''&#9679;'' is on the right.</p>";
     }
   };
 
@@ -329,9 +345,9 @@
     on_trial_start: function() { $(".fixation_gap").css('visibility','hidden'); $(".box1").css('visibility','hidden'); $(".box2").css('visibility','hidden'); },
     on_finish: function() { $(".fixation_gap").css('visibility','visible'); $(".box1").css('visibility','visible'); $(".box2").css('visibility','visible');  },
     text: function() {
-      return "<p>It looks like you're having trouble with the task.</p>" +
-              "<br><p>Please press the 'F' or 'J' key to try the practice again.</p>" +
-              "<br><p><b>Remember</b>: make sure your fingers are on the 'F' and 'J' keys on the keyboard.</p>";
+      return "<p>It looks like you're having trouble with the task. Remember, if the ''&#9679;'' is on the left side of the screen, press the '<b>F</b>' key on the keyboard. If the ''&#9679;'' is on the right side of the screen, press the '<b>J</b>' key on the keyboard.</p>" +
+              "<br><p>Please press the '<b>F</b>' or '<b>J</b>' key to try the practice again.</p>" +
+              "<br><p><b>Remember</b>: make sure your fingers are on the '<b>F</b>' and '<b>J</b>' keys on the keyboard.</p>";
     }
   };
 
@@ -342,9 +358,9 @@
     on_trial_start: function() { $(".fixation_gap").css('visibility','hidden'); $(".box1").css('visibility','hidden'); $(".box2").css('visibility','hidden'); },
     on_finish: function() { $(".fixation_gap").css('visibility','visible'); $(".box1").css('visibility','visible'); $(".box2").css('visibility','visible');  },
     text: function() {
-      return "<p>It looks like you might be having trouble with the task and it may be helpful to check what keys you're pressing.</p>" +
-        "<br><p>Please press the 'F' or 'J' key to move onto the TEST phase.</p>" +
-        "<br><p><b>Remember</b>: make sure your fingers are on the 'F' and 'J' keys on the keyboard.</p>";
+      return "<p>It looks like you're having trouble with the task and it may be helpful to check what keys you're pressing. Remember, if the ''&#9679;'' is on the left side of the screen, press the '<b>F</b>' key on the keyboard. If the ''&#9679;'' is on the right side of the screen, press the '<b>J</b>' key on the keyboard.</p>" +
+        "<br><p>Please press the '<b>F</b>' or '<b>J</b>' key to move onto the TEST phase.</p>" +
+        "<br><p><b>Remember</b>: make sure your fingers are on the '<b>F</b>' and '<b>J</b>' keys on the keyboard.</p>";
     }
   };
 
@@ -355,8 +371,8 @@
     on_trial_start: function() { $(".fixation_gap").css('visibility','hidden'); $(".box1").css('visibility','hidden'); $(".box2").css('visibility','hidden'); },
     on_finish: function() { $(".fixation_gap").css('visibility','visible'); $(".box1").css('visibility','visible'); $(".box2").css('visibility','visible');  },
     text: function() {
-      return "<p>You have completed the PRACTICE phase. If you would like to continue onto the TEST phase, press the 'F' or 'J' key on the keyboard.</p>" + 
-        "<br><p><b>Remember</b>: make sure your fingers are on the 'F' and 'J' keys on the keyboard.</p>";
+      return "<p>You have completed the PRACTICE phase.  If you would like to continue onto the TEST phase, press the '<b>F</b>' or '<b>J</b>' keys on the keyboard.</p>" + 
+        "<br><p><b>Remember</b>: make sure your fingers are on the '<b>F</b>' and '<b>J</b>' keys on the keyboard.</p>";
     }
   };
 
@@ -393,7 +409,6 @@
          var incorrect = 0;
          var noresponse = 0;
          var arrayLength = data.length;
-         console.log(data);
          for (var i = 0; i < arrayLength; i++) {
             if(data[i]['block'] == 'practice'){
               if(data[i+1]['correct_response']=='correct') {
@@ -1371,7 +1386,7 @@
 
   jsPsych.init({
     //timeline: [practice_node,test_node1,test_node2],
-    timeline: [practice_node, practice_errcheck_node,practice_debrief_node,practice2_node, practice_errcheck2_node, practice_debrief2_node,test_node1,test_node2],
+    timeline: [practice_node, practice_errcheck_node,practice_debrief_node,practice2_node, practice_errcheck2_node, practice_debrief2_node,test_node1, test_node2],
     //timeline: [practice_node],
     
     on_finish: function() {
