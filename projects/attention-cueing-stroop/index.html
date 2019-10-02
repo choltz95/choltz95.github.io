@@ -12,7 +12,7 @@
         html, body {
         height: 100%;
         margin: 0;
-        margin-left: calc(100vw - 100%);
+        smargin-left: calc(100vw - 100%);
         }
       body { 
         font-size: 125%; 
@@ -85,8 +85,8 @@
         visibility: hidden;
       }
       .box1 #jspsych-single-stim-stimulus, .box2 #jspsych-single-stim-stimulus {
-        width: 100%;
-        height: 100%;
+        width: 85%;
+        height: 85%;
         display:flex;
         justify-content:center;
         align-items:center;
@@ -106,14 +106,14 @@
       .instructions {
         vertical-align: middle;
         width: 50%;
-        height: 50px;
+        /*height:80%;*/
         margin: auto;
         text-align:left;
       }
     </style>
   </head>
   <body>
-      <div style='text-align:center; font-size: 80%; position=fixed; bottom=0; width=100%;'><br>INDICATE WHICH SIDE ''&#9679;'' APPEARS: <br> <font>F=LEFT</font>, <font>J=RIGHT</font></div>
+      <div class="side-ind" style='text-align:center; font-size: 80%; position=fixed; bottom=0; width=100%; visibility: hidden'><br>INDICATE WHICH SIDE ''&#9679;'' APPEARS: <br> <font>F=LEFT</font>, <font>J=RIGHT</font></div>
       <div class="jspsych_target" style="Text-align:center;width:100%;height:100%" id="jspsych_target"><!--
       --><div class="instructions"></div><!--
       --><div class="box1"></div><!--
@@ -141,7 +141,7 @@
 
       "<p>First, you will be presented with a set of practice trials that can be repeated, if needed. Then, you will be presented with the test trials that cannot be repeated. The task will take approximately 10 minutes to complete.</p>" +"<p>Press the '<b>F</b>' or '<b>J</b>' key to start...</p>",
     on_trial_start: function() {$(".fixation_gap").css('visibility','hidden'); $(".box1").css('visibility','hidden'); $(".box2").css('visibility','hidden'); },
-    on_finish: function() { $(".box1").css('visibility','visible'); $(".box2").css('visibility','visible');  },
+    on_finish: function() { $(".side-ind").css('visibility','visible'); $(".box1").css('visibility','visible'); $(".box2").css('visibility','visible');  },
     timing_post_trial: 4000
   };
 
