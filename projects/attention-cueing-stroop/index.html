@@ -115,7 +115,7 @@
   <body>
       <div class="side-ind" style='text-align:center; font-size: 80%; position=fixed; bottom=0; width=100%; visibility: hidden'><br>INDICATE WHICH SIDE ''&#9679;'' APPEARS: <br> <font>F=LEFT</font>, <font>J=RIGHT</font></div>
       <div class="jspsych_target" style="Text-align:center;width:100%;height:100%" id="jspsych_target"><!--
-      --><div class="instructions"></div><!--
+      --><div class="instructions" id="instructions"></div><!--
       --><div class="box1"></div><!--
       --><div class="fixation_gap">
          <font size='+24'>&#10010;</font>
@@ -139,7 +139,9 @@
 
       "<p>Remember, your task is to indicate which side the ''&#9679;'' appeared on (by pressing the '<b>F</b>' or '<b>J</b>' keys on the keyboard) as quickly and as accurately as you can. Try to not make mistakes, but try to be fast. Your responses will be timed. </p>" +
 
-      "<p>First, you will be presented with a set of practice trials that can be repeated, if needed. Then, you will be presented with the test trials that cannot be repeated. The task will take approximately 10 minutes to complete.</p>" +"<p>Press the '<b>F</b>' or '<b>J</b>' key to start...</p>",
+      "<p>First, you will be presented with a set of practice trials that can be repeated, if needed. Then, you will be presented with the test trials that cannot be repeated. The task will take approximately 10 minutes to complete.</p>" +
+
+      "<p>Press the '<b>F</b>' or '<b>J</b>' key to start...</p>",
     on_trial_start: function() {$(".fixation_gap").css('visibility','hidden'); $(".box1").css('visibility','hidden'); $(".box2").css('visibility','hidden'); },
     on_finish: function() { $(".side-ind").css('visibility','visible'); $(".box1").css('visibility','visible'); $(".box2").css('visibility','visible');  },
     timing_post_trial: 4000
