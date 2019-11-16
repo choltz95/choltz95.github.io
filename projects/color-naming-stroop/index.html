@@ -640,8 +640,8 @@
   numpartitions = 7
   jsPsych.init({
     //timeline: [practice_node,test_node],
-    timeline: [practice_timeline_complete_node, test_node],
-    //timeline: [practice_node],
+    //timeline: [practice_timeline_complete_node, test_node],
+    timeline: [practice_node],
     
     on_finish: function() {
       jsPsych.data.localSave('data.csv', 'csv');
