@@ -113,7 +113,8 @@
 
   /* define test blocks */
   var colors = ["blue", "red"];
-  var practice_wordlist = ["cat","ball","desk","radio","basket","table","tape","bag"];
+  //var practice_wordlist = ["cat","ball","desk","radio","basket","table","tape","bag"];
+  var practice_wordlist = ["ZZZZZ","BBBBB","VVVVV","WWWWW","SSSSS","NNNNN","QQQQQ","UUUUU"];
   var practice_colors = ["red","red","red","red","blue","blue","blue","blue",]
   var suicide_wordlist = ["suicide","dead","funeral"];
   var negative_wordlist = ["alone","rejected","stupid"];
@@ -639,8 +640,8 @@
   numpartitions = 7
   jsPsych.init({
     //timeline: [practice_node,test_node],
-    timeline: [practice_timeline_complete_node, test_node],
-    //timeline: [practice_node],
+    //timeline: [practice_timeline_complete_node, test_node],
+    timeline: [practice_node],
     
     on_finish: function() {
       jsPsych.data.localSave('data.csv', 'csv');
