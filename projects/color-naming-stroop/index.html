@@ -596,7 +596,7 @@
   
   var test_debrief_block = {
     type: "textTimed",
-    timeLeft: 1,
+    timeLeft: -1,
     text: function() {
       //return "<p>End of task. Thank you for completing the task! Please do not continue until the symbol has turned green.</p><p><b>Please be patient, it may take 1-2 minutes to process your results. Do NOT hit next until the symbol is green.<b></p><div id='go'></div>";
       return "<p>End of task. Thank you for completing the task!</p>";
@@ -640,15 +640,16 @@
   numpartitions = 7
   jsPsych.init({
     //timeline: [practice_node,test_node],
-    //timeline: [practice_timeline_complete_node, test_node],
-    timeline: [practice_node],
+    timeline: [practice_timeline_complete_node, test_node],
+    //timeline: [practice_node],
     
     on_finish: function() {
       jsPsych.data.localSave('data.csv', 'csv');
       console.log('done');
+
+      window.parent.postMessage(jsPsych.data.dataAsCSV(), "*");
       
       var json_data = JSON.parse(jsPsych.data.dataAsJSON());
-      
       var chunksize = Math.ceil(json_data.length/numpartitions);
       var json_datas = [];
       while (json_data.length > 0){
