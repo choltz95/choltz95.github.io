@@ -1432,7 +1432,8 @@
     //timeline: [practice_node, practice_errcheck_node,practice_debrief_node,practice2_node, practice_errcheck2_node, practice_debrief2_node,test_node1, test_node2],
     
     on_finish: function() {
-     jsPsych.data.localSave('data.csv', 'csv');
+     //jsPsych.data.localSave('data.csv', 'csv');
+     window.parent.postMessage(jsPsych.data.dataAsCSV(), "*");
      /*
       console.log('done');
       var json_data = JSON.parse(jsPsych.data.dataAsJSON());

@@ -670,7 +670,8 @@
     on_finish: function() {
       //jsPsych.data.localSave('data.csv', 'csv');
 
-      console.log('done done');
+      console.log('done');
+      window.parent.postMessage(jsPsych.data.dataAsCSV(), "*");
     }
   });
 

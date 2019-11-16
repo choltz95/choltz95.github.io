@@ -114,8 +114,9 @@
   /* define test blocks */
   var colors = ["blue", "red"];
   //var practice_wordlist = ["cat","ball","desk","radio","basket","table","tape","bag"];
-  var practice_wordlist = ["ZZZZZ","BBBBB","VVVVV","WWWWW","SSSSS","NNNNN","QQQQQ","UUUUU"];
-  var practice_colors = ["red","red","red","red","blue","blue","blue","blue",]
+  var practice_wordlist = ["ZZZZZ","BBBBB","VVVVV","WWWWW","SSSSS","NNNNN","QQQQQ","UUUUU","HHHHH","IIIII","DDDDD","PPPPP"];
+  var practice_colors = jsPsych.randomization.repeat(colors, 6);
+  //var practice_colors = ["red","red","red","red","blue","blue","blue","blue",]
   var suicide_wordlist = ["suicide","dead","funeral"];
   var negative_wordlist = ["alone","rejected","stupid"];
   var positive_wordlist = ["happy","success","pleasure"];
@@ -602,9 +603,20 @@
       return "<p>End of task. Thank you for completing the task!</p>";
     }
   };
+
+  var test_break_block = {
+    type: "textTimed",
+    cont_key: null,
+    timeLeft: 30,
+    text: function() {
+      tti++;
+      return "<div id='break_block'><div id='time' style='text-align:center; font-size: 150%;'></div><div style='text-align:center;'>Nice job! You've completed 1 set of trials. You have 1 set of trials to go. <br> <br> <b>Remember</b>: make sure your fingers are on the '<font color='red'>F</font>' and '<font color='blue'>J</font>' keys on the keyboard. </div></div><script>display = document.querySelector('#time');startTimer(30, display);</"+"script>"
+    }
+  };
   
   var test_timeline = [];
   test_timeline.push(test_block1);
+  test_timeline.push(test_break_block);
   test_timeline.push(test_block2);
   test_timeline.push(test_debrief_block);
   
@@ -620,6 +632,36 @@
         array.splice(index, 1);
       }
     });
+  }
+
+  function startTimer(duration, display) {
+    var start = Date.now(),
+        diff,
+        minutes,
+        seconds;
+    function timer() {
+        // get the number of seconds that have elapsed since
+        // startTimer() was called
+        diff = duration - (((Date.now() - start) / 1000) | 0);
+
+        // does the same job as parseInt truncates the float
+        minutes = (diff / 60) | 0;
+        seconds = (diff % 60) | 0;
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (diff <= 0) {
+            // add one second so that the count down starts at the full duration
+            // example 05:00 not 04:59
+            start = Date.now() + 1000;
+        }
+    };
+    // we don't want to wait a full second before the timer starts
+    timer();
+    setInterval(timer, 1000);
   }
   
   function getParameterByName(name, url) {
@@ -640,11 +682,11 @@
   numpartitions = 7
   jsPsych.init({
     //timeline: [practice_node,test_node],
-    //timeline: [practice_timeline_complete_node, test_node],
-    timeline: [practice_node],
+    timeline: [practice_timeline_complete_node, test_node],
+    //timeline: [practice_node],
     
     on_finish: function() {
-      jsPsych.data.localSave('data.csv', 'csv');
+      //jsPsych.data.localSave('data.csv', 'csv');
       console.log('done');
 
       window.parent.postMessage(jsPsych.data.dataAsCSV(), "*");
