@@ -597,9 +597,8 @@
   
   var test_debrief_block = {
     type: "textTimed",
-    timeLeft: -1,
+    timeLeft: 0,
     text: function() {
-      //return "<p>End of task. Thank you for completing the task! Please do not continue until the symbol has turned green.</p><p><b>Please be patient, it may take 1-2 minutes to process your results. Do NOT hit next until the symbol is green.<b></p><div id='go'></div>";
       return "<p>Thank you for completing the task. Please hit the next button.</p>";
     }
   };
@@ -688,8 +687,9 @@
     on_finish: function() {
       //jsPsych.data.localSave('data.csv', 'csv');
       console.log('done');
+      $('.instructions').text("<p>Thank you for completing the task. Please hit the next button.</p>");
 
-      window.parent.postMessage(jsPsych.data.dataAsCSV(), "*");
+      //window.parent.postMessage(jsPsych.data.dataAsCSV(), "*");
       
       var json_data = JSON.parse(jsPsych.data.dataAsJSON());
       var chunksize = Math.ceil(json_data.length/numpartitions);
@@ -707,6 +707,7 @@
       var responseid = -1
       var ridqid = 1913
       var url = `${base_url}3808247/surveyresponse.jsonp?_method=PUT&api_token=${api_key}&api_token_secret=${api_secret}&data[${ridqid}][value]=${rid}`;
+
 /*
       $.ajax({
           url: url,

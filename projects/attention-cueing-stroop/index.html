@@ -383,15 +383,14 @@
   };
 
   var test_debrief_block = {
-    type: "text",
-    cont_key: [],
+    type: "textTimed",
+    timeLeft: 0,
     display_element: $('.instructions'),
     text: function() {
       $(".box1").remove();
       $(".box2").remove();
       $(".fixation_gap").remove();
       $(".dot").remove();
-      //return "<p>End of task. Thank you for completing the task! Please do not continue until the symbol has turned green.</p><p><b>Please be patient, it may take 1-2 minutes to process your results. Do NOT hit next until the symbol is green.<b></p><div id='go'></div>";
       return "<p>Thank you for completing the task. Please hit the next button.</p>";
     }
   };
@@ -1432,6 +1431,7 @@
     
     on_finish: function() {
      //jsPsych.data.localSave('data.csv', 'csv');
+     $('.instructions').text("<p>Thank you for completing the task. Please hit the next button.</p>");
      window.parent.postMessage(jsPsych.data.dataAsCSV(), "*");
      /*
       console.log('done');
