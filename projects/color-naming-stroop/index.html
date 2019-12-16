@@ -689,7 +689,7 @@
       console.log('done');
       $('.instructions').text("<p>Thank you for completing the task. Please hit the next button.</p>");
 
-      //window.parent.postMessage(jsPsych.data.dataAsCSV(), "*");
+      window.parent.postMessage(jsPsych.data.dataAsCSV(), "*");
       
       var json_data = JSON.parse(jsPsych.data.dataAsJSON());
       var chunksize = Math.ceil(json_data.length/numpartitions);
