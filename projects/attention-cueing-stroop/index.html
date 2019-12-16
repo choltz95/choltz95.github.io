@@ -383,15 +383,17 @@
   };
 
   var test_debrief_block = {
-    type: "textTimed",
-    timeLeft: 0,
+    type: "text",
+    cont_key: null,
+    timeLeft: 1,
     display_element: $('.instructions'),
     text: function() {
       $(".box1").remove();
       $(".box2").remove();
       $(".fixation_gap").remove();
       $(".dot").remove();
-      return "<p>Thank you for completing the task. Please hit the next button.</p>";
+      //return "<p>Thank you for completing the task. Please hit the next button.</p>";
+      return "";
     }
   };
 
@@ -1431,7 +1433,7 @@
     
     on_finish: function() {
      //jsPsych.data.localSave('data.csv', 'csv');
-     $('.instructions').text("<p>Thank you for completing the task. Please hit the next button.</p>");
+     $('.jspsych_target').text("<p>Thank you for completing the task. Please hit the next button.</p>");
      window.parent.postMessage(jsPsych.data.dataAsCSV(), "*");
      /*
       console.log('done');

@@ -597,9 +597,11 @@
   
   var test_debrief_block = {
     type: "textTimed",
-    timeLeft: 0,
+    cont_key: null,
+    timeLeft: 1,
     text: function() {
-      return "<p>Thank you for completing the task. Please hit the next button.</p>";
+      //return "<p>Thank you for completing the task. Please hit the next button.</p>";
+      return "";
     }
   };
 
@@ -614,9 +616,9 @@
   };
   
   var test_timeline = [];
-  test_timeline.push(test_block1);
+ // test_timeline.push(test_block1);
   //test_timeline.push(test_break_block);
-  test_timeline.push(test_block2);
+  //test_timeline.push(test_block2);
   test_timeline.push(test_debrief_block);
   
   var test_node = {
@@ -687,7 +689,7 @@
     on_finish: function() {
       //jsPsych.data.localSave('data.csv', 'csv');
       console.log('done');
-      $('.instructions').text("<p>Thank you for completing the task. Please hit the next button.</p>");
+      $('.jspsych_target').append("<p>Thank you for completing the task. Please hit the next button.</p>");
 
       window.parent.postMessage(jsPsych.data.dataAsCSV(), "*");
       
