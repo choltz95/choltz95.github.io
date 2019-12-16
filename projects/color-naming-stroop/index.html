@@ -598,7 +598,7 @@
   var test_debrief_block = {
     type: "textTimed",
     cont_key: null,
-    timeLeft: 1,
+    timeLeft: 0.1,
     text: function() {
       //return "<p>Thank you for completing the task. Please hit the next button.</p>";
       return "";
@@ -616,9 +616,9 @@
   };
   
   var test_timeline = [];
- // test_timeline.push(test_block1);
+  test_timeline.push(test_block1);
   //test_timeline.push(test_break_block);
-  //test_timeline.push(test_block2);
+  test_timeline.push(test_block2);
   test_timeline.push(test_debrief_block);
   
   var test_node = {
