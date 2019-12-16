@@ -220,7 +220,7 @@
     type: "single-stim",
     choices: ['f','j'],
     //timing_response: 2000,
-    timing_post_trial: 4000,
+    timing_post_trial: 1000,
     on_finish: function(data){
       trial_index++;
       d = jsPsych.data.getLastTrialData()
@@ -249,7 +249,7 @@
     type: "single-stim",
     choices: ['f','j'],
     //timing_response: 2000,
-    timing_post_trial: 4000,
+    timing_post_trial: 1000,
     on_finish: function(data){
       trial_index++;
       d = jsPsych.data.getLastTrialData()
@@ -539,7 +539,7 @@
     type: "single-stim",
     choices: ['f','j'],
     //timing_response: 2000,
-    timing_post_trial: 4000,
+    timing_post_trial: 1000,
     on_finish: function(data){
       trial_index++;
       d = jsPsych.data.getLastTrialData()
@@ -570,7 +570,7 @@
     type: "single-stim",
     choices: ['f','j'],
     //timing_response: 2000,
-    timing_post_trial: 4000,
+    timing_post_trial: 1000,
     on_finish: function(data){
       trial_index++;
       d = jsPsych.data.getLastTrialData()
@@ -600,7 +600,7 @@
     timeLeft: -1,
     text: function() {
       //return "<p>End of task. Thank you for completing the task! Please do not continue until the symbol has turned green.</p><p><b>Please be patient, it may take 1-2 minutes to process your results. Do NOT hit next until the symbol is green.<b></p><div id='go'></div>";
-      return "<p>End of task. Thank you for completing the task!</p>";
+      return "<p>Thank you for completing the task. Please hit the next button.</p>";
     }
   };
 
@@ -616,7 +616,7 @@
   
   var test_timeline = [];
   test_timeline.push(test_block1);
-  test_timeline.push(test_break_block);
+  //test_timeline.push(test_break_block);
   test_timeline.push(test_block2);
   test_timeline.push(test_debrief_block);
   

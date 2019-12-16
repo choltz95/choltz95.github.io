@@ -642,10 +642,8 @@
     type: "textTimed",
     timeLeft: 0,
     text: function() {
-      jsPsych.data.localSave('data.csv', 'csv');
-
       console.log('done');
-      return "<div style='text-align:center;'><p>Thank you for completing the task!</p></div>"
+      return "<div style='text-align:center;'><p>Thank you for completing the task. Please hit the next button.</p></div>"
     }
   };
 
