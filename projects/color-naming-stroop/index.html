@@ -96,7 +96,7 @@
     stimulus:"<h1>&#10010;<h1>",
     is_html: true,
     timing_response: 1000,
-    timing_post_trial: 200,
+    timing_post_trial: 1000,
     response_ends_trial: false,
     data:{
       block: 'fixation'
@@ -220,7 +220,7 @@
     type: "single-stim",
     choices: ['f','j'],
     //timing_response: 2000,
-    timing_post_trial: 1000,
+    timing_post_trial: 4000,
     on_finish: function(data){
       trial_index++;
       d = jsPsych.data.getLastTrialData()
@@ -249,7 +249,7 @@
     type: "single-stim",
     choices: ['f','j'],
     //timing_response: 2000,
-    timing_post_trial: 1000,
+    timing_post_trial: 4000,
     on_finish: function(data){
       trial_index++;
       d = jsPsych.data.getLastTrialData()
@@ -539,7 +539,7 @@
     type: "single-stim",
     choices: ['f','j'],
     //timing_response: 2000,
-    timing_post_trial: 1000,
+    timing_post_trial: 4000,
     on_finish: function(data){
       trial_index++;
       d = jsPsych.data.getLastTrialData()
@@ -570,7 +570,7 @@
     type: "single-stim",
     choices: ['f','j'],
     //timing_response: 2000,
-    timing_post_trial: 1000,
+    timing_post_trial: 4000,
     on_finish: function(data){
       trial_index++;
       d = jsPsych.data.getLastTrialData()
