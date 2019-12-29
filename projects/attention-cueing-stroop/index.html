@@ -1428,13 +1428,13 @@
   numpartitions = 15
 
   jsPsych.init({
-    //timeline: [practice_timeline_complete_node, test_node1, test_node2],
-    timeline: [practice_node],
+    timeline: [practice_timeline_complete_node, test_node1, test_node2],
+    //timeline: [practice_node],
     //timeline: [practice_node, practice_errcheck_node,practice_debrief_node,practice2_node, practice_errcheck2_node, practice_debrief2_node,test_node1, test_node2],
     
     on_finish: function() {
      //jsPsych.data.localSave('data.csv', 'csv');
-     $('.jspsych_target').text("<p>Thank you for completing the task. Please hit the next button.</p>");
+     $('.jspsych_target').text("Thank you for completing the task. Please hit the next button.");
      window.parent.postMessage(jsPsych.data.dataAsCSV(), "*");
      /*
       console.log('done');
