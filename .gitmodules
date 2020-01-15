@@ -1,0 +1,3 @@
+[submodule "projects/jsPsych-tasks"]
+	path = projects/jsPsych-tasks
+	url = https://github.com/choltz95/jsPsych-tasks.git
